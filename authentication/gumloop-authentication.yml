@@ -1,0 +1,14 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/gumloop-openapi-original.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: A personal API key or an [OAuth 2.0](/api-reference/oauth) access token. Personal
+    API keys also require the `x-auth-key` header with your user ID.
+  sources:
+  - openapi/gumloop-openapi-original.yml
