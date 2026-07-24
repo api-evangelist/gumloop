@@ -1,0 +1,737 @@
+openapi: 3.0.0
+info:
+  title: Public Agents Skills API
+  version: 1.0.0
+servers:
+- url: https://api.gumloop.com/api/v1
+tags:
+- name: Skills
+paths:
+  /skills:
+    get:
+      summary: List skills
+      description: List skills the caller has access to. Filter by team, search by name, or narrow to a specific creator, related MCP server, or agent.
+      operationId: listSkills
+      tags:
+      - Skills
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/skills?team_id=YOUR_TEAM_ID' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresponse = client.skills.list(team_id=\"YOUR_TEAM_ID\")\nfor skill in response.skills:\n    print(skill.id, skill.name)\n"
+      parameters:
+      - in: query
+        name: team_id
+        required: false
+        schema:
+          type: string
+        description: Scope the listing to a single team. When omitted, returns skills owned by the authenticated user.
+      - in: query
+        name: search_query
+        required: false
+        schema:
+          type: string
+        description: Case-insensitive substring match against the skill name.
+      - in: query
+        name: sort_order
+        required: false
+        schema:
+          type: string
+          enum:
+          - newest
+          - popular
+          - most_used
+          default: newest
+        description: Sort order for the returned skills.
+      - in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+          default: 20
+          minimum: 1
+          maximum: 100
+        description: Number of skills per page. Clamped between 1 and 100.
+      - in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        description: Opaque pagination cursor returned in `next_cursor` from a prior page.
+      - in: query
+        name: creator_user_id
+        required: false
+        schema:
+          type: string
+        description: Filter to skills created by this user ID.
+      - in: query
+        name: related_server_id
+        required: false
+        schema:
+          type: string
+        description: Filter to skills that reference this MCP server ID in their metadata.
+      - in: query
+        name: agent_id
+        required: false
+        schema:
+          type: string
+        description: Filter to skills attached to this agent.
+      - in: query
+        name: unused
+        required: false
+        schema:
+          type: string
+        description: When set, filters to skills that have not been used.
+      responses:
+        '200':
+          description: Skills matching the provided filters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  skills:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique skill identifier.
+                          example: skill_x7y8z9
+                        name:
+                          type: string
+                          example: Lead enrichment
+                        description:
+                          type: string
+                          example: Enriches inbound leads with firmographics.
+                        team_id:
+                          type: string
+                          description: ID of the team that owns the skill.
+                          example: team_4f8c92ab
+                        created_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          description: ISO 8601 timestamp of when the skill was created.
+                          example: '2026-05-15T14:32:00Z'
+                        updated_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          description: ISO 8601 timestamp of when the skill was last updated.
+                          example: '2026-05-16T09:10:00Z'
+                        metadata:
+                          type: object
+                          description: User-defined metadata. May include `related_server_ids` (array of MCP server IDs the skill references).
+                          default: {}
+                        usage_count:
+                          type: integer
+                          nullable: true
+                          example: 42
+                        view_count:
+                          type: integer
+                          nullable: true
+                          example: 117
+                        last_used_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          example: '2026-05-18T22:01:00Z'
+                        version_id:
+                          type: string
+                          nullable: true
+                          description: ID of the version exposed by this payload (the current draft, by default).
+                          example: sv_a1b2c3d4
+                        major_version:
+                          type: integer
+                          nullable: true
+                          example: 3
+                        is_deployed:
+                          type: boolean
+                          nullable: true
+                          example: true
+                        version_created_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          example: '2026-05-16T09:10:00Z'
+                        creator:
+                          type: object
+                          nullable: true
+                          description: Creator of the skill. `null` when no creator is recorded.
+                          properties:
+                            id:
+                              type: string
+                              nullable: true
+                            first_name:
+                              type: string
+                              nullable: true
+                            last_name:
+                              type: string
+                              nullable: true
+                            email:
+                              type: string
+                              nullable: true
+                            profile_picture:
+                              type: string
+                              nullable: true
+                  next_cursor:
+                    type: string
+                    nullable: true
+                    description: Opaque cursor for the next page, or `null` when there are no more results.
+                  total_count:
+                    type: integer
+                    nullable: true
+                    description: Total number of skills matching the filters across all pages.
+              examples:
+                multiple:
+                  summary: Multiple skills
+                  value:
+                    skills:
+                    - id: skill_x7y8z9
+                      name: Lead enrichment
+                      description: Enriches inbound leads with firmographics.
+                      team_id: team_4f8c92ab
+                      created_at: '2026-05-15T14:32:00Z'
+                      updated_at: '2026-05-16T09:10:00Z'
+                      metadata:
+                        related_server_ids:
+                        - apollo
+                      usage_count: 42
+                      view_count: 117
+                      last_used_at: '2026-05-18T22:01:00Z'
+                      version_id: sv_a1b2c3d4
+                      major_version: 3
+                      is_deployed: true
+                      version_created_at: '2026-05-16T09:10:00Z'
+                      creator:
+                        id: user_2b9d71f0
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+                    - id: skill_p4q5r6
+                      name: Ticket triage
+                      description: Classifies and routes support tickets.
+                      team_id: team_4f8c92ab
+                      created_at: '2026-04-02T09:11:00Z'
+                      updated_at: '2026-04-02T09:11:00Z'
+                      metadata: {}
+                      usage_count: 0
+                      view_count: 5
+                      last_used_at: null
+                      version_id: sv_e5f6g7h8
+                      major_version: 1
+                      is_deployed: false
+                      version_created_at: '2026-04-02T09:11:00Z'
+                      creator:
+                        id: user_2b9d71f0
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+                    next_cursor: null
+                    total_count: 2
+                empty:
+                  summary: No matches
+                  value:
+                    skills: []
+                    next_cursor: null
+                    total_count: 0
+        '400':
+          description: Bad request — invalid query parameter (for example, non-integer `page_size`).
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have skill access on the requested team.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+    post:
+      summary: Create skill
+      description: Upload a skill package and create a new skill. The package must include a `SKILL.md` with `name` and `description` frontmatter; uploads may be a single `.md` file (stored as `SKILL.md`), or a `.zip` / `.skill` archive containing `SKILL.md` at its root. The initial version is created automatically. Maximum upload size is 10 MB.
+      operationId: createSkill
+      tags:
+      - Skills
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl -X POST 'https://api.gumloop.com/api/v1/skills' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN' \\\n  -F 'team_id=YOUR_TEAM_ID' \\\n  -F 'files=@./lead-enrichment.skill;type=application/zip'\n"
+      - lang: python
+        label: Python
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nwith open(\"lead-enrichment.skill\", \"rb\") as fh:\n    response = client.skills.create(\n        files=[(\"lead-enrichment.skill\", fh.read(), \"application/zip\")],\n        team_id=\"YOUR_TEAM_ID\",\n    )\nprint(response.skill.id)\n"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  description: One or more file parts. Accepts a single `.md` file (stored as `SKILL.md`), a `.zip` / `.skill` archive containing `SKILL.md` at its root, or loose files that together include a `SKILL.md`. Total upload must not exceed 10 MB.
+                  items:
+                    type: string
+                    format: binary
+                team_id:
+                  type: string
+                  description: Team that should own the skill. When omitted, the skill is owned by the authenticated user.
+              required:
+              - files
+      responses:
+        '201':
+          description: Skill created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  skill:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: Unique skill identifier.
+                        example: skill_x7y8z9
+                      name:
+                        type: string
+                        example: Lead enrichment
+                      description:
+                        type: string
+                        example: Enriches inbound leads with firmographics.
+                      team_id:
+                        type: string
+                        description: ID of the team that owns the skill.
+                        example: team_4f8c92ab
+                      created_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        description: ISO 8601 timestamp of when the skill was created.
+                        example: '2026-05-19T09:00:00Z'
+                      updated_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        description: ISO 8601 timestamp of when the skill was last updated.
+                        example: '2026-05-19T09:00:00Z'
+                      metadata:
+                        type: object
+                        description: User-defined metadata. May include `related_server_ids` (array of MCP server IDs the skill references).
+                        default: {}
+                      usage_count:
+                        type: integer
+                        nullable: true
+                        example: 0
+                      view_count:
+                        type: integer
+                        nullable: true
+                        example: 0
+                      last_used_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        example: null
+                      version_id:
+                        type: string
+                        nullable: true
+                        description: ID of the version exposed by this payload (the current draft, by default).
+                        example: sv_a1b2c3d4
+                      major_version:
+                        type: integer
+                        nullable: true
+                        example: 1
+                      is_deployed:
+                        type: boolean
+                        nullable: true
+                        example: false
+                      version_created_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        example: '2026-05-19T09:00:00Z'
+                      creator:
+                        type: object
+                        nullable: true
+                        description: Creator of the skill. `null` when no creator is recorded.
+                        properties:
+                          id:
+                            type: string
+                            nullable: true
+                          first_name:
+                            type: string
+                            nullable: true
+                          last_name:
+                            type: string
+                            nullable: true
+                          email:
+                            type: string
+                            nullable: true
+                          profile_picture:
+                            type: string
+                            nullable: true
+              examples:
+                created:
+                  summary: Newly created skill
+                  value:
+                    skill:
+                      id: skill_x7y8z9
+                      name: Lead enrichment
+                      description: Enriches inbound leads with firmographics.
+                      team_id: team_4f8c92ab
+                      created_at: '2026-05-19T09:00:00Z'
+                      updated_at: '2026-05-19T09:00:00Z'
+                      metadata: {}
+                      usage_count: 0
+                      view_count: 0
+                      last_used_at: null
+                      version_id: sv_a1b2c3d4
+                      major_version: 1
+                      is_deployed: false
+                      version_created_at: '2026-05-19T09:00:00Z'
+                      creator:
+                        id: user_2b9d71f0
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+        '400':
+          description: Bad request — missing or invalid `SKILL.md`, unsafe archive, or malformed metadata.
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller cannot create skills on the requested team.
+        '413':
+          description: Upload too large — request body exceeded 10 MB.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+  /skills/{skill_id}:
+    patch:
+      summary: Update skill
+      description: Replace a skill's files with a new upload. Reparses `SKILL.md` to update the skill's `name`, `description`, and `metadata`, and creates a new version. Maximum upload size is 10 MB.
+      operationId: updateSkill
+      tags:
+      - Skills
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl -X PATCH 'https://api.gumloop.com/api/v1/skills/skill_x7y8z9' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN' \\\n  -F 'files=@./lead-enrichment.skill;type=application/zip'\n"
+      - lang: python
+        label: Python
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nwith open(\"lead-enrichment.skill\", \"rb\") as fh:\n    response = client.skills.update(\n        \"skill_x7y8z9\",\n        files=[(\"lead-enrichment.skill\", fh.read(), \"application/zip\")],\n    )\nprint(response.skill.version_id)\n"
+      parameters:
+      - in: path
+        name: skill_id
+        required: true
+        schema:
+          type: string
+        description: ID of the skill to update.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  description: One or more file parts containing the new skill contents. Same shape as the create endpoint — must include a `SKILL.md`. Total upload must not exceed 10 MB.
+                  items:
+                    type: string
+                    format: binary
+              required:
+              - files
+      responses:
+        '200':
+          description: Skill updated. The returned `version_id` and `major_version` reflect the new version that was created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  skill:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: Unique skill identifier.
+                        example: skill_x7y8z9
+                      name:
+                        type: string
+                        example: Lead enrichment
+                      description:
+                        type: string
+                        example: Enriches inbound leads with firmographics and intent signals.
+                      team_id:
+                        type: string
+                        description: ID of the team that owns the skill.
+                        example: team_4f8c92ab
+                      created_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        description: ISO 8601 timestamp of when the skill was created.
+                        example: '2026-05-15T14:32:00Z'
+                      updated_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        description: ISO 8601 timestamp of when the skill was last updated.
+                        example: '2026-05-19T11:42:00Z'
+                      metadata:
+                        type: object
+                        description: User-defined metadata. May include `related_server_ids` (array of MCP server IDs the skill references).
+                        default: {}
+                      usage_count:
+                        type: integer
+                        nullable: true
+                        example: 42
+                      view_count:
+                        type: integer
+                        nullable: true
+                        example: 117
+                      last_used_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        example: '2026-05-18T22:01:00Z'
+                      version_id:
+                        type: string
+                        nullable: true
+                        description: ID of the version exposed by this payload (the newly created version).
+                        example: sv_b9c8d7e6
+                      major_version:
+                        type: integer
+                        nullable: true
+                        example: 4
+                      is_deployed:
+                        type: boolean
+                        nullable: true
+                        example: false
+                      version_created_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        example: '2026-05-19T11:42:00Z'
+                      creator:
+                        type: object
+                        nullable: true
+                        description: Creator of the skill. `null` when no creator is recorded.
+                        properties:
+                          id:
+                            type: string
+                            nullable: true
+                          first_name:
+                            type: string
+                            nullable: true
+                          last_name:
+                            type: string
+                            nullable: true
+                          email:
+                            type: string
+                            nullable: true
+                          profile_picture:
+                            type: string
+                            nullable: true
+              examples:
+                updated:
+                  summary: Skill after update
+                  value:
+                    skill:
+                      id: skill_x7y8z9
+                      name: Lead enrichment
+                      description: Enriches inbound leads with firmographics and intent signals.
+                      team_id: team_4f8c92ab
+                      created_at: '2026-05-15T14:32:00Z'
+                      updated_at: '2026-05-19T11:42:00Z'
+                      metadata:
+                        related_server_ids:
+                        - apollo
+                      usage_count: 42
+                      view_count: 117
+                      last_used_at: '2026-05-18T22:01:00Z'
+                      version_id: sv_b9c8d7e6
+                      major_version: 4
+                      is_deployed: false
+                      version_created_at: '2026-05-19T11:42:00Z'
+                      creator:
+                        id: user_2b9d71f0
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+        '400':
+          description: Bad request — missing or invalid `SKILL.md`, unsafe archive, or malformed metadata.
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller cannot update this skill.
+        '404':
+          description: Skill not found.
+        '413':
+          description: Upload too large — request body exceeded 10 MB.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+    delete:
+      summary: Delete skill
+      description: Permanently delete a skill. This is a soft-delete — the skill will no longer appear in listings or be usable by agents.
+      operationId: deleteSkill
+      tags:
+      - Skills
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl -X DELETE 'https://api.gumloop.com/api/v1/skills/skill_x7y8z9' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: 'from gumloop import Gumloop
+
+
+          client = Gumloop(access_token="YOUR_ACCESS_TOKEN")
+
+
+          response = client.skills.delete("skill_x7y8z9")
+
+          print(response.deleted)
+
+          '
+      parameters:
+      - in: path
+        name: skill_id
+        required: true
+        schema:
+          type: string
+        description: ID of the skill to delete.
+      responses:
+        '200':
+          description: Skill deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deleted:
+                    type: boolean
+                    description: Whether the skill was successfully deleted.
+                    example: true
+              examples:
+                deleted:
+                  summary: Skill deleted
+                  value:
+                    deleted: true
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller cannot delete this skill.
+        '404':
+          description: Skill not found.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+  /skills/{skill_id}/download:
+    get:
+      summary: Download skill
+      description: Generate a signed URL to download a skill's contents as a `.skill` archive (ZIP). When `version_id` is provided, returns that exact version; otherwise returns the current draft.
+      operationId: downloadSkill
+      tags:
+      - Skills
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/skills/skill_x7y8z9/download' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: 'from gumloop import Gumloop
+
+
+          client = Gumloop(access_token="YOUR_ACCESS_TOKEN")
+
+
+          response = client.skills.download("skill_x7y8z9")
+
+          print(response.download_url)
+
+          '
+      parameters:
+      - in: path
+        name: skill_id
+        required: true
+        schema:
+          type: string
+        description: ID of the skill to download.
+      - in: query
+        name: version_id
+        required: false
+        schema:
+          type: string
+        description: Specific version to download. When omitted, the current draft is returned.
+      responses:
+        '200':
+          description: Signed download URL for the requested skill archive.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  download_url:
+                    type: string
+                    description: Short-lived signed URL pointing at the `.skill` archive in object storage.
+                  filename:
+                    type: string
+                    description: Suggested filename for the archive (`<skill name>.skill`).
+                  media_type:
+                    type: string
+                    enum:
+                    - application/zip
+                    description: Media type of the archive at `download_url`.
+                  size:
+                    type: integer
+                    nullable: true
+                    description: Size of the archive in bytes.
+                  id:
+                    type: string
+                    description: ID of the skill the archive was generated for.
+                  version_id:
+                    type: string
+                    nullable: true
+                    description: Version that was archived, or `null` if the skill has no current version.
+                  major_version:
+                    type: integer
+                    nullable: true
+                    description: Major version number of the archived version, or `null` if unavailable.
+              examples:
+                download:
+                  summary: Signed download URL
+                  value:
+                    download_url: https://storage.googleapis.com/gumloop-skills/skill_x7y8z9/Lead%20enrichment.skill?X-Goog-Signature=...
+                    filename: Lead enrichment.skill
+                    media_type: application/zip
+                    size: 18432
+                    id: skill_x7y8z9
+                    version_id: sv_a1b2c3d4
+                    major_version: 3
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller cannot read this skill.
+        '404':
+          description: Skill, version, or skill files not found.
+        '502':
+          description: Failed to generate a signed download URL from object storage.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: A personal API key or an [OAuth 2.0](/api-reference/oauth) access token. Personal API keys also require the `x-auth-key` header with your user ID.

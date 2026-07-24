@@ -1,0 +1,264 @@
+openapi: 3.0.0
+info:
+  title: Public Agents Chat completions API
+  version: 1.0.0
+servers:
+- url: https://api.gumloop.com/api/v1
+tags:
+- name: Chat completions
+paths:
+  /chat/completions:
+    post:
+      summary: Create chat completion
+      servers:
+      - url: https://ws.gumloop.com/api/v1
+      description: 'OpenAI-compatible chat completions endpoint, multiplexed across every model Gumloop supports
+
+        (Anthropic, OpenAI, Google Gemini, OpenRouter routes). Set `stream: true` for Server-Sent Events,
+
+        or omit it for a unary JSON response. Image-generation models (`gpt-image-*`, `gemini-*-image-preview`,
+
+        `dall-e-*`) are dispatched automatically when `modalities` includes `"image"` and yield image
+
+        attachments on `choices[0].message.images`.
+
+
+        ### Streaming host
+
+
+        Chat completions live on the streaming host. Send all requests — unary or streaming — to:
+
+
+        ```
+
+        POST https://ws.gumloop.com/api/v1/chat/completions
+
+        ```
+
+
+        `api.gumloop.com` does not serve this endpoint; the Python SDK routes there automatically.
+
+
+        ### Billing
+
+
+        Each completion charges the caller''s credit balance based on token usage (with cache-token semantics per provider) plus a flat 30-credit fee for image-gen calls. Users who configure their own provider API key get a 50% discount.
+
+        '
+      operationId: createChatCompletion
+      tags:
+      - Chat completions
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl -X POST 'https://ws.gumloop.com/api/v1/chat/completions' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"model\": \"claude-sonnet-4-5\",\n    \"messages\": [{\"role\": \"user\", \"content\": \"Capital of Canada?\"}]\n  }'\n"
+      - lang: python
+        label: Python (unary)
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresult = client.chat.completions.create(\n    model=\"claude-sonnet-4-5\",\n    messages=[{\"role\": \"user\", \"content\": \"Capital of Canada?\"}],\n)\nprint(result.choices[0].message.content)\n"
+      - lang: python
+        label: Python (streaming)
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nfor chunk in client.chat.completions.create(\n    model=\"claude-sonnet-4-5\",\n    messages=[{\"role\": \"user\", \"content\": \"Write a haiku about Toronto.\"}],\n    stream=True,\n):\n    delta = chunk.choices[0].delta\n    if delta.content:\n        print(delta.content, end=\"\", flush=True)\n"
+      - lang: python
+        label: Python (structured output)
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresult = client.chat.completions.create(\n    model=\"claude-sonnet-4-5\",\n    messages=[{\"role\": \"user\", \"content\": \"Return JSON with the capital of Canada.\"}],\n    response_format={\n        \"type\": \"json_schema\",\n        \"json_schema\": {\n            \"name\": \"answer\",\n            \"strict\": True,\n            \"schema\": {\n                \"type\": \"object\",\n                \"properties\": {\"capital\": {\"type\": \"string\"}},\n                \"required\": [\"capital\"],\n                \"additionalProperties\": False,\n            },\n        },\n    },\n)\nprint(result.choices[0].message.content)\n"
+      - lang: python
+        label: Python (image generation)
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresult = client.chat.completions.create(\n    model=\"gpt-image-1.5\",\n    messages=[{\"role\": \"user\", \"content\": \"A red maple leaf on white\"}],\n    modalities=[\"image\", \"text\"],\n    image_config={\"size\": \"1024x1024\"},\n)\nfor image in result.choices[0].message.images:\n    print(image.image_url.url[:64], \"...\")\n"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - model
+              - messages
+              properties:
+                model:
+                  type: string
+                  description: Model slug. Use the `id` from `GET /models` or one of Gumloop's preset routes.
+                  example: claude-sonnet-4-5
+                messages:
+                  type: array
+                  description: Conversation history. Roles `system`, `user`, `assistant`. Multipart `content` (text + image) is supported on the user role.
+                  items:
+                    type: object
+                  example:
+                  - role: user
+                    content: Capital of Canada?
+                stream:
+                  type: boolean
+                  default: false
+                  description: 'When `true`, the response is `text/event-stream` carrying one `chat.completion.chunk` per delta and terminating with `data: [DONE]`. Otherwise a unary JSON `chat.completion` is returned.'
+                temperature:
+                  type: number
+                  description: Sampling temperature.
+                max_completion_tokens:
+                  type: integer
+                  description: Cap on completion tokens. Replaces the deprecated `max_tokens` field.
+                modalities:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - text
+                    - image
+                  description: Output modalities. Include `"image"` to route to an image-generation model.
+                image_config:
+                  type: object
+                  description: 'Image-generation parameters (size, quality, aspect_ratio, background, output_format, partial_images). Optional. Image-generation models accept either `modalities: ["image"]` or `image_config` (or both); chat models ignore this field.'
+                response_format:
+                  type: object
+                  description: 'Constrain the response. `{type: "json_object"}` returns a JSON object; `{type: "json_schema", json_schema: {name, strict, schema}}` returns JSON matching the supplied schema.
+
+                    '
+                tools:
+                  type: array
+                  description: 'OpenAI-shape tool definitions (`{type: "function", function: {name, description, parameters}}`). Pass `tool_choice` to constrain selection.'
+                tool_choice:
+                  oneOf:
+                  - type: string
+                  - type: object
+                  description: Force a specific tool, leave unset for the model to choose, or pass `"none"` to disable tool calls.
+                provider:
+                  type: object
+                  description: OpenRouter provider routing config. Caller fields like `sort` and `order` are honored; ZDR/data_collection policy is server-enforced.
+            example:
+              model: claude-sonnet-4-5
+              messages:
+              - role: user
+                content: Capital of Canada?
+      responses:
+        '200':
+          description: 'Chat completion. When `stream` is `false` (or omitted), the response is the `chat.completion` envelope below. When `stream: true`, the response is `text/event-stream`; each event carries one `chat.completion.chunk` and the terminator is `data: [DONE]`.
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: chatcmpl-9a3f8c2b14d6e7
+                  object:
+                    type: string
+                    example: chat.completion
+                  created:
+                    type: integer
+                    example: 1747315920
+                  model:
+                    type: string
+                    example: claude-sonnet-4-5
+                  choices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: integer
+                          example: 0
+                        finish_reason:
+                          type: string
+                          enum:
+                          - stop
+                          - length
+                          - tool_calls
+                          - content_filter
+                          - error
+                          example: stop
+                        message:
+                          type: object
+                          properties:
+                            role:
+                              type: string
+                              example: assistant
+                            content:
+                              type: string
+                              example: Ottawa.
+                            tool_calls:
+                              type: array
+                              items:
+                                type: object
+                            reasoning:
+                              type: string
+                              description: Reasoning trace (Anthropic thinking blocks, Gemini thoughts, OpenAI o-series).
+                            images:
+                              type: array
+                              description: Image attachments (data URLs). Populated only when an image-gen model produced output.
+                              items:
+                                type: object
+                  usage:
+                    type: object
+                    properties:
+                      prompt_tokens:
+                        type: integer
+                        example: 12
+                      completion_tokens:
+                        type: integer
+                        example: 1
+                      total_tokens:
+                        type: integer
+                        example: 13
+                      cost:
+                        type: number
+                        description: OpenRouter-reported USD cost; absent for native providers.
+                      is_byok:
+                        type: boolean
+                        description: True if the caller's own provider key was used.
+              examples:
+                unary:
+                  summary: Unary completion
+                  value:
+                    id: chatcmpl-9a3f8c2b14d6e7
+                    object: chat.completion
+                    created: 1747315920
+                    model: claude-sonnet-4-5
+                    choices:
+                    - index: 0
+                      finish_reason: stop
+                      message:
+                        role: assistant
+                        content: Ottawa.
+                    usage:
+                      prompt_tokens: 12
+                      completion_tokens: 1
+                      total_tokens: 13
+            text/event-stream:
+              schema:
+                type: string
+                description: 'Stream of `chat.completion.chunk` events. Each event is `data: <json>\n\n`; the stream ends with `data: [DONE]\n\n`.
+
+                  '
+              example: 'data: {"id":"chatcmpl-1","object":"chat.completion.chunk","created":1747315920,"model":"claude-sonnet-4-5","choices":[{"index":0,"delta":{"role":"assistant","content":"Ott"},"finish_reason":null}]}
+
+
+                data: {"id":"chatcmpl-1","object":"chat.completion.chunk","created":1747315920,"model":"claude-sonnet-4-5","choices":[{"index":0,"delta":{"content":"awa."},"finish_reason":null}]}
+
+
+                data: {"id":"chatcmpl-1","object":"chat.completion.chunk","created":1747315920,"model":"claude-sonnet-4-5","choices":[{"index":0,"delta":{},"finish_reason":"stop"}],"usage":{"prompt_tokens":12,"completion_tokens":2,"total_tokens":14}}
+
+
+                data: [DONE]
+
+                '
+        '400':
+          description: Invalid request body, unsupported modality combination, or unregistered model slug.
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '402':
+          description: Insufficient credits.
+        '404':
+          description: User profile not found.
+        '501':
+          description: Requested capability not supported by the resolved provider.
+        '502':
+          description: Upstream provider error.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: A personal API key or an [OAuth 2.0](/api-reference/oauth) access token. Personal API keys also require the `x-auth-key` header with your user ID.

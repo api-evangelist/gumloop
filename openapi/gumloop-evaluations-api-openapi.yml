@@ -1,0 +1,656 @@
+openapi: 3.0.0
+info:
+  title: Public Agents Evaluations API
+  version: 1.0.0
+servers:
+- url: https://api.gumloop.com/api/v1
+tags:
+- name: Evaluations
+paths:
+  /agents/{agent_id}/evaluations:
+    get:
+      summary: List evaluations
+      description: 'Returns a cursor-paginated list of evaluation results for a specific agent, newest first.
+
+        Only completed and failed evaluations are returned (transient states like queued/in_progress are excluded).
+
+
+        Each evaluation includes the grade, criteria pass/fail results, extracted data points, applied tags, and sentiment analysis.
+
+        '
+      operationId: listEvaluations
+      tags:
+      - Evaluations
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/agents/AGENT_ID/evaluations?page_size=20' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: "import requests\n\nresponse = requests.get(\n    \"https://api.gumloop.com/api/v1/agents/AGENT_ID/evaluations\",\n    headers={\"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\"},\n    params={\"page_size\": 20}\n)\ndata = response.json()\nfor evaluation in data[\"evaluations\"]:\n    print(evaluation[\"grade\"], evaluation[\"data_results\"])\n"
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent whose evaluations to list.
+      - in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+          default: 20
+          minimum: 1
+          maximum: 100
+        description: Number of evaluations to return per page (1-100).
+      - in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        description: Pagination cursor from a previous response's `next_cursor` field.
+      - in: query
+        name: grade
+        required: false
+        schema:
+          type: string
+          enum:
+          - pass
+          - needs_review
+          - needs_attention
+        description: Filter evaluations by grade.
+      responses:
+        '200':
+          description: Paginated list of evaluation results.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  evaluations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EvaluationResult'
+                  next_cursor:
+                    type: string
+                    nullable: true
+                    description: Pass this value as the `cursor` query parameter to fetch the next page. Null when there are no more results.
+              example:
+                evaluations:
+                - evaluation_id: eval_abc123
+                  interaction_id: int_xyz789
+                  agent_id: agent_456
+                  created_ts: '2026-06-15T14:30:00+00:00'
+                  status: completed
+                  grade: pass
+                  call_successful: success
+                  sentiment: positive
+                  summary: User asked about pricing and the agent provided accurate tier information.
+                  criteria_results:
+                  - id: crit_1
+                    name: Accuracy
+                    type: other
+                    priority: needs_attention
+                    result: success
+                    rationale: All pricing information matched the current rate card.
+                  - id: crit_2
+                    name: Stayed on Topic
+                    type: voice_tone
+                    priority: needs_review
+                    result: success
+                    rationale: Agent focused exclusively on the pricing question.
+                  data_results:
+                  - id: dp_1
+                    name: Customer Intent
+                    data_type: string
+                    value: pricing inquiry
+                  - id: dp_2
+                    name: Confidence Score
+                    data_type: number
+                    value: 8.5
+                  applied_tags:
+                  - PRICING_INQUIRY
+                  - POSITIVE_FEEDBACK
+                next_cursor: eyJjcmVhdGVkX3RzIjoiMjAyNi0wNi0xNVQxNDozMDowMCswMDowMCJ9
+        '400':
+          description: Invalid grade parameter.
+        '401':
+          description: Unauthorized — missing or invalid credentials.
+        '403':
+          description: Forbidden — insufficient permissions on this agent.
+      security:
+      - bearerAuth: []
+  /agents/{agent_id}/evaluations/metrics:
+    get:
+      summary: Get evaluation metrics
+      description: 'Returns aggregated grade and tag counts for an agent''s evaluations over a time window.
+
+        Useful for dashboards and reporting on agent quality trends.
+
+        '
+      operationId: getEvaluationMetrics
+      tags:
+      - Evaluations
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/agents/AGENT_ID/evaluations/metrics?days=30' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: "import requests\n\nresponse = requests.get(\n    \"https://api.gumloop.com/api/v1/agents/AGENT_ID/evaluations/metrics\",\n    headers={\"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\"},\n    params={\"days\": 30}\n)\nmetrics = response.json()\nprint(f\"Pass rate: {metrics['grades'].get('pass', 0)}\")\nprint(f\"Tags: {metrics['tags']}\")\n"
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent.
+      - in: query
+        name: days
+        required: false
+        schema:
+          type: integer
+          default: 30
+          minimum: 1
+          maximum: 365
+        description: Number of days to look back (1-365). Defaults to 30.
+      responses:
+        '200':
+          description: Aggregated evaluation metrics.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  grades:
+                    type: object
+                    description: Count of evaluations per grade.
+                    properties:
+                      pass:
+                        type: integer
+                      needs_review:
+                        type: integer
+                      needs_attention:
+                        type: integer
+                  tags:
+                    type: object
+                    description: Count of evaluations per applied tag.
+                    additionalProperties:
+                      type: integer
+              example:
+                grades:
+                  pass: 118
+                  needs_review: 19
+                  needs_attention: 5
+                tags:
+                  PRICING_INQUIRY: 34
+                  SUPPORT_TICKET: 52
+                  ESCALATION_NEEDED: 8
+                  POSITIVE_FEEDBACK: 45
+        '401':
+          description: Unauthorized — missing or invalid credentials.
+        '403':
+          description: Forbidden — insufficient permissions on this agent.
+      security:
+      - bearerAuth: []
+  /agents/{agent_id}/evaluations/{evaluation_id}:
+    get:
+      summary: Retrieve evaluation
+      description: Retrieve a single evaluation result by ID. The evaluation must belong to the specified agent.
+      operationId: retrieveEvaluation
+      tags:
+      - Evaluations
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/agents/AGENT_ID/evaluations/EVALUATION_ID' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: "import requests\n\nresponse = requests.get(\n    \"https://api.gumloop.com/api/v1/agents/AGENT_ID/evaluations/EVALUATION_ID\",\n    headers={\"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\"}\n)\nevaluation = response.json()[\"evaluation\"]\nprint(evaluation[\"grade\"], evaluation[\"summary\"])\n"
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent the evaluation belongs to.
+      - in: path
+        name: evaluation_id
+        required: true
+        schema:
+          type: string
+        description: ID of the evaluation to retrieve.
+      responses:
+        '200':
+          description: The requested evaluation result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  evaluation:
+                    $ref: '#/components/schemas/EvaluationResult'
+              example:
+                evaluation:
+                  evaluation_id: eval_abc123
+                  interaction_id: int_xyz789
+                  agent_id: agent_456
+                  created_ts: '2026-06-15T14:30:00+00:00'
+                  status: completed
+                  grade: needs_review
+                  call_successful: success
+                  sentiment: negative
+                  summary: User was frustrated with response time. Agent eventually resolved the issue.
+                  criteria_results:
+                  - id: crit_1
+                    name: Accuracy
+                    type: other
+                    priority: needs_attention
+                    result: success
+                    rationale: Information provided was correct.
+                  - id: crit_2
+                    name: Professional Tone
+                    type: voice_tone
+                    priority: needs_review
+                    result: failure
+                    rationale: Agent used overly casual language in a formal support context.
+                  data_results:
+                  - id: dp_1
+                    name: Resolution Status
+                    data_type: string
+                    value: resolved
+                  - id: dp_2
+                    name: Handoff Requested
+                    data_type: boolean
+                    value: false
+                  applied_tags:
+                  - SUPPORT_TICKET
+                  - TONE_ISSUE
+        '401':
+          description: Unauthorized — missing or invalid credentials.
+        '404':
+          description: Evaluation not found or does not belong to this agent.
+      security:
+      - bearerAuth: []
+  /agents/{agent_id}/evaluation-config:
+    get:
+      summary: Get evaluation config
+      description: Retrieve the current evaluation configuration for an agent, including criteria, tags, data points, and sentiment settings.
+      operationId: getEvaluationConfig
+      tags:
+      - Evaluations
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/agents/AGENT_ID/evaluation-config' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: "import requests\n\nresponse = requests.get(\n    \"https://api.gumloop.com/api/v1/agents/AGENT_ID/evaluation-config\",\n    headers={\"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\"}\n)\nconfig = response.json()[\"config\"]\nprint(f\"Enabled: {config['enabled']}, Criteria: {len(config['criteria'])}\")\n"
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent.
+      responses:
+        '200':
+          description: The agent's evaluation configuration.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  config:
+                    $ref: '#/components/schemas/EvaluationConfig'
+              example:
+                config:
+                  agent_id: agent_456
+                  enabled: true
+                  is_active: true
+                  model_name: anthropic/claude-sonnet-4
+                  frequency: debounced
+                  language: auto
+                  include_auto_tags: true
+                  interaction_types: []
+                  criteria:
+                  - id: crit_1
+                    name: Accuracy
+                    prompt: The agent provided factually correct information.
+                    type: other
+                    priority: needs_attention
+                  - id: crit_2
+                    name: Professional Tone
+                    prompt: The agent maintained a professional tone throughout.
+                    type: voice_tone
+                    priority: needs_review
+                  tags:
+                  - name: PRICING_INQUIRY
+                    description: User asked about pricing or billing.
+                  - name: ESCALATION_NEEDED
+                    description: Issue requires human intervention.
+                  data_points:
+                  - id: dp_1
+                    name: Customer Intent
+                    data_type: string
+                    description: Summarize the customer's primary intent in 2-5 words.
+                  - id: dp_2
+                    name: Confidence Score
+                    data_type: number
+                    description: Rate 1-10 how confident the agent appeared.
+                  sentiment:
+                    enabled: true
+                    affects_grade: true
+                    description: Focus on the customer's final message tone.
+                  updated_ts: '2026-06-10T09:00:00+00:00'
+        '401':
+          description: Unauthorized — missing or invalid credentials.
+        '403':
+          description: Forbidden — insufficient permissions on this agent.
+      security:
+      - bearerAuth: []
+    patch:
+      summary: Update evaluation config
+      description: 'Partially update the evaluation configuration for an agent.
+
+        Omitted fields keep their current value. Provided list fields (criteria, tags, data_points) replace that list entirely.
+
+
+        Requires Pro tier or above.
+
+        '
+      operationId: updateEvaluationConfig
+      tags:
+      - Evaluations
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl -X PATCH 'https://api.gumloop.com/api/v1/agents/AGENT_ID/evaluation-config' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"enabled\": true,\n    \"criteria\": [\n      {\n        \"name\": \"Accuracy\",\n        \"prompt\": \"The agent provided factually correct information.\",\n        \"type\": \"other\",\n        \"priority\": \"needs_attention\"\n      }\n    ],\n    \"data_points\": [\n      {\n        \"name\": \"Customer Intent\",\n        \"data_type\": \"string\",\n        \"description\": \"Summarize the customer primary intent in 2-5 words.\"\n      }\n    ]\n  }'\n"
+      - lang: python
+        label: Python
+        source: "import requests\n\nresponse = requests.patch(\n    \"https://api.gumloop.com/api/v1/agents/AGENT_ID/evaluation-config\",\n    headers={\n        \"Authorization\": \"Bearer YOUR_ACCESS_TOKEN\",\n        \"Content-Type\": \"application/json\"\n    },\n    json={\n        \"enabled\": True,\n        \"criteria\": [\n            {\n                \"name\": \"Accuracy\",\n                \"prompt\": \"The agent provided factually correct information.\",\n                \"type\": \"other\",\n                \"priority\": \"needs_attention\"\n            }\n        ]\n    }\n)\nconfig = response.json()[\"config\"]\n"
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  description: Whether evaluations are enabled for this agent.
+                model_name:
+                  type: string
+                  description: LLM model to use for evaluation.
+                include_auto_tags:
+                  type: boolean
+                  description: Allow the evaluator to suggest tags beyond your predefined vocabulary.
+                criteria:
+                  type: array
+                  description: Quality criteria to check (replaces existing list). Max 30.
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      prompt:
+                        type: string
+                        description: True/false statement to evaluate.
+                      type:
+                        type: string
+                        enum:
+                        - prohibited_action
+                        - prohibited_words
+                        - voice_tone
+                        - other
+                      priority:
+                        type: string
+                        enum:
+                        - needs_review
+                        - needs_attention
+                tags:
+                  type: array
+                  description: Tag vocabulary (replaces existing list). Max 50.
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      description:
+                        type: string
+                data_points:
+                  type: array
+                  description: Data points to extract (replaces existing list). Max 40.
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      data_type:
+                        type: string
+                        enum:
+                        - string
+                        - boolean
+                        - integer
+                        - number
+                      description:
+                        type: string
+                sentiment:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                    affects_grade:
+                      type: boolean
+                    description:
+                      type: string
+      responses:
+        '200':
+          description: Updated evaluation configuration.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  config:
+                    $ref: '#/components/schemas/EvaluationConfig'
+        '400':
+          description: Invalid request (e.g. exceeds limits).
+        '401':
+          description: Unauthorized — missing or invalid credentials.
+        '403':
+          description: Forbidden — requires Pro tier or insufficient permissions.
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    EvaluationResult:
+      type: object
+      properties:
+        evaluation_id:
+          type: string
+          description: Unique ID of this evaluation.
+        interaction_id:
+          type: string
+          description: ID of the interaction that was evaluated.
+        agent_id:
+          type: string
+          description: ID of the agent.
+        created_ts:
+          type: string
+          format: date-time
+          description: When the evaluation was created.
+        status:
+          type: string
+          enum:
+          - completed
+          - failed
+          description: Terminal status of the evaluation.
+        grade:
+          type: string
+          enum:
+          - pass
+          - needs_review
+          - needs_attention
+          description: Overall grade computed from criteria, sentiment, and call outcome.
+        call_successful:
+          type: string
+          enum:
+          - success
+          - failure
+          - unknown
+          description: Whether the agent's call/task was successful.
+        sentiment:
+          type: string
+          nullable: true
+          enum:
+          - positive
+          - neutral
+          - negative
+          description: Detected sentiment of the interaction (null if sentiment analysis is disabled).
+        summary:
+          type: string
+          nullable: true
+          description: One or two sentence narrative of what happened in the interaction.
+        criteria_results:
+          type: array
+          description: Per-criterion pass/fail results with rationales.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                - prohibited_action
+                - prohibited_words
+                - voice_tone
+                - other
+              priority:
+                type: string
+                enum:
+                - needs_review
+                - needs_attention
+              result:
+                type: string
+                enum:
+                - success
+                - failure
+                - unknown
+              rationale:
+                type: string
+        data_results:
+          type: array
+          description: Extracted data point values from the conversation.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              data_type:
+                type: string
+                enum:
+                - string
+                - boolean
+                - integer
+                - number
+              value:
+                description: The extracted value. Type depends on data_type. Null if the evaluator couldn't find the information.
+                nullable: true
+        applied_tags:
+          type: array
+          description: Tags applied to this evaluation.
+          items:
+            type: string
+    EvaluationConfig:
+      type: object
+      properties:
+        agent_id:
+          type: string
+        enabled:
+          type: boolean
+        is_active:
+          type: boolean
+        model_name:
+          type: string
+          nullable: true
+        frequency:
+          type: string
+          nullable: true
+        language:
+          type: string
+          nullable: true
+        include_auto_tags:
+          type: boolean
+        interaction_types:
+          type: array
+          items:
+            type: string
+        criteria:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              prompt:
+                type: string
+              type:
+                type: string
+              priority:
+                type: string
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+        data_points:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              data_type:
+                type: string
+              description:
+                type: string
+        sentiment:
+          type: object
+          nullable: true
+          properties:
+            enabled:
+              type: boolean
+            affects_grade:
+              type: boolean
+            description:
+              type: string
+        updated_ts:
+          type: string
+          nullable: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: A personal API key or an [OAuth 2.0](/api-reference/oauth) access token. Personal API keys also require the `x-auth-key` header with your user ID.

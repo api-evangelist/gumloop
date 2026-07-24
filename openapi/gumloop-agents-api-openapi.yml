@@ -1,0 +1,1064 @@
+openapi: 3.0.0
+info:
+  title: Public Agents API
+  version: 1.0.0
+servers:
+- url: https://api.gumloop.com/api/v1
+tags:
+- name: Agents
+paths:
+  /agents:
+    get:
+      summary: List agents
+      description: List agents the caller has access to. Filter by team, search by name, or narrow to agents that use a specific tool or trigger.
+      operationId: listAgents
+      tags:
+      - Agents
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/agents?team_id=YOUR_TEAM_ID&search=research' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresponse = client.agents.list(team_id=\"YOUR_TEAM_ID\", search=\"research\")\nfor agent in response.agents:\n    print(agent.id, agent.name)\n"
+      parameters:
+      - in: query
+        name: team_id
+        required: false
+        schema:
+          type: string
+        description: Scope the listing to a single team. When omitted, returns agents owned by the authenticated user.
+      - in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        description: Case-insensitive substring match against the agent name.
+      - in: query
+        name: creator
+        required: false
+        schema:
+          type: string
+        description: Filter to agents created by this user ID.
+      - in: query
+        name: has_triggers
+        required: false
+        schema:
+          type: boolean
+        description: When `true`, only returns agents that have at least one active trigger configured.
+      - in: query
+        name: tool
+        required: false
+        schema:
+          type: string
+        description: Filter to agents that use the specified MCP server as a tool.
+      - in: query
+        name: flow
+        required: false
+        schema:
+          type: string
+        description: Filter to agents that use the specified saved flow as a tool.
+      responses:
+        '200':
+          description: Agents matching the provided filters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agents:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique agent identifier.
+                          example: abc123DEFghiJKL
+                        name:
+                          type: string
+                          example: Sales research agent
+                        description:
+                          type: string
+                          example: Researches accounts and drafts outreach
+                        team_id:
+                          type: string
+                          description: ID of the team that owns the agent.
+                          example: team_4f8c92ab
+                        is_active:
+                          type: boolean
+                          example: true
+                        model_name:
+                          type: string
+                          description: ID of the LLM the agent runs on.
+                          example: anthropic/claude-sonnet-4
+                        system_prompt:
+                          type: string
+                          example: You are a B2B sales research assistant.
+                        tools:
+                          type: array
+                          description: Tools the agent can call. Secret references are stripped before being returned.
+                          items:
+                            type: object
+                        resources:
+                          type: array
+                          items:
+                            type: object
+                        metadata:
+                          type: object
+                        folder_id:
+                          type: string
+                          example: folder_91ab
+                        created_at:
+                          type: string
+                          format: date-time
+                          description: ISO 8601 timestamp of when the agent was created.
+                          example: '2026-05-15T14:32:00Z'
+                        active_trigger_count:
+                          type: integer
+                          description: Number of active triggers on this agent.
+                          example: 2
+                  next_cursor:
+                    type: string
+                    description: Reserved for future cursor-based pagination. Currently always `null`.
+                    example: null
+              examples:
+                multiple:
+                  summary: Multiple agents
+                  value:
+                    agents:
+                    - id: abc123DEFghiJKL
+                      name: Sales research agent
+                      description: Researches accounts and drafts outreach
+                      team_id: team_4f8c92ab
+                      is_active: true
+                      model_name: anthropic/claude-sonnet-4
+                      system_prompt: You are a B2B sales research assistant.
+                      tools: []
+                      resources: []
+                      metadata: {}
+                      folder_id: null
+                      created_at: '2026-05-15T14:32:00Z'
+                      active_trigger_count: 2
+                    - id: xYz789AbCdEfGhI
+                      name: Support triage
+                      description: Triages incoming support tickets
+                      team_id: team_4f8c92ab
+                      is_active: true
+                      model_name: openai/gpt-5
+                      system_prompt: null
+                      tools: []
+                      resources: []
+                      metadata: {}
+                      folder_id: null
+                      created_at: '2026-04-02T09:11:00Z'
+                      active_trigger_count: 0
+                    next_cursor: null
+                empty:
+                  summary: No matches
+                  value:
+                    agents: []
+                    next_cursor: null
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have agent access on the requested team.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+    post:
+      summary: Create agent
+      description: Create a new agent. The authenticated caller must have permission to create agents on the target team.
+      operationId: createAgent
+      tags:
+      - Agents
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl -X POST 'https://api.gumloop.com/api/v1/agents' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"name\": \"Sales research agent\",\n    \"model_name\": \"anthropic/claude-sonnet-4\",\n    \"description\": \"Researches accounts and drafts outreach\",\n    \"system_prompt\": \"You are a B2B sales research assistant.\",\n    \"team_id\": \"team_4f8c92ab\"\n  }'\n"
+      - lang: python
+        label: Python
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresponse = client.agents.create(\n    name=\"Sales research agent\",\n    model_name=\"anthropic/claude-sonnet-4\",\n    description=\"Researches accounts and drafts outreach\",\n    system_prompt=\"You are a B2B sales research assistant.\",\n    team_id=\"team_4f8c92ab\",\n)\nprint(response.agent.id)\n"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - model_name
+              properties:
+                name:
+                  type: string
+                  description: Display name for the agent.
+                  example: Sales research agent
+                model_name:
+                  type: string
+                  description: ID of the LLM the agent runs on. Use `GET /models` to discover valid values.
+                  example: anthropic/claude-sonnet-4
+                description:
+                  type: string
+                  nullable: true
+                  example: Researches accounts and drafts outreach
+                system_prompt:
+                  type: string
+                  nullable: true
+                  example: You are a B2B sales research assistant.
+                tools:
+                  type: array
+                  description: Tools the agent can call. Each tool is an object whose shape depends on the tool type.
+                  items:
+                    type: object
+                  default: []
+                resources:
+                  type: array
+                  description: Resources attached to the agent.
+                  items:
+                    type: object
+                  default: []
+                skill_ids:
+                  type: array
+                  nullable: true
+                  description: 'IDs of skills to attach to the agent. Attachment happens inside the create transaction, so an invalid ID fails the whole request (no orphaned agent). Omit to attach none. The caller must hold `INVOKE` on each skill. After creation, manage skills with `PATCH /agents/{agent_id}/skills`.
+
+                    '
+                  items:
+                    type: string
+                  example:
+                  - skill_2b9c
+                  - skill_7f1a
+                metadata:
+                  type: object
+                  nullable: true
+                  description: Arbitrary key/value metadata stored on the agent.
+                folder_id:
+                  type: string
+                  nullable: true
+                  description: ID of the folder to place the agent in.
+                  example: folder_91ab
+                is_active:
+                  type: boolean
+                  description: Whether the agent is active. Defaults to `true`.
+                  default: true
+                agent_id:
+                  type: string
+                  nullable: true
+                  description: Optional caller-supplied agent ID. When omitted, the server generates one.
+                team_id:
+                  type: string
+                  nullable: true
+                  description: ID of the team to create the agent under. When omitted, the agent is owned by the authenticated user.
+                  example: team_4f8c92ab
+            examples:
+              minimal:
+                summary: Minimal create
+                value:
+                  name: Sales research agent
+                  model_name: anthropic/claude-sonnet-4
+              full:
+                summary: Full create
+                value:
+                  name: Sales research agent
+                  model_name: anthropic/claude-sonnet-4
+                  description: Researches accounts and drafts outreach
+                  system_prompt: You are a B2B sales research assistant.
+                  tools: []
+                  resources: []
+                  skill_ids:
+                  - skill_2b9c
+                  - skill_7f1a
+                  metadata: {}
+                  folder_id: folder_91ab
+                  is_active: true
+                  team_id: team_4f8c92ab
+      responses:
+        '201':
+          description: Agent created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agent:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: Unique agent identifier.
+                        example: abc123DEFghiJKL
+                      name:
+                        type: string
+                        example: Sales research agent
+                      description:
+                        type: string
+                        nullable: true
+                        example: Researches accounts and drafts outreach
+                      team_id:
+                        type: string
+                        description: ID of the team that owns the agent.
+                        example: team_4f8c92ab
+                      is_active:
+                        type: boolean
+                        example: true
+                      tools:
+                        type: array
+                        description: Tools the agent can call. Secret references are stripped and MCP server URLs are redacted before being returned.
+                        items:
+                          type: object
+                      metadata:
+                        type: object
+                      model_name:
+                        type: string
+                        nullable: true
+                        description: ID of the LLM the agent runs on.
+                        example: anthropic/claude-sonnet-4
+                      system_prompt:
+                        type: string
+                        nullable: true
+                        example: You are a B2B sales research assistant.
+                      resources:
+                        type: array
+                        items:
+                          type: object
+                      skill_ids:
+                        type: array
+                        nullable: true
+                        description: IDs of skills attached to the agent. `null` on surfaces that don't include them (e.g. the list endpoint); `[]` when none are attached. Manage with `PATCH /agents/{agent_id}/skills`.
+                        items:
+                          type: string
+                        example:
+                        - skill_2b9c
+                        - skill_7f1a
+                      folder_id:
+                        type: string
+                        nullable: true
+                        example: folder_91ab
+                      type:
+                        type: string
+                        nullable: true
+                        description: Internal agent type discriminator.
+                      created_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        description: ISO 8601 timestamp of when the agent was created.
+                        example: '2026-05-15T14:32:00Z'
+                      active_trigger_count:
+                        type: integer
+                        nullable: true
+                        description: Number of active triggers on this agent. Populated on list responses; may be `null` here.
+                      creator:
+                        type: object
+                        nullable: true
+                        description: User who created the agent. `null` when the creator is not known.
+                        properties:
+                          id:
+                            type: string
+                            nullable: true
+                          first_name:
+                            type: string
+                            nullable: true
+                          last_name:
+                            type: string
+                            nullable: true
+                          email:
+                            type: string
+                            nullable: true
+                          profile_picture:
+                            type: string
+                            nullable: true
+              examples:
+                created:
+                  summary: Newly created agent
+                  value:
+                    agent:
+                      id: abc123DEFghiJKL
+                      name: Sales research agent
+                      description: Researches accounts and drafts outreach
+                      team_id: team_4f8c92ab
+                      is_active: true
+                      tools: []
+                      metadata: {}
+                      model_name: anthropic/claude-sonnet-4
+                      system_prompt: You are a B2B sales research assistant.
+                      resources: []
+                      skill_ids:
+                      - skill_2b9c
+                      - skill_7f1a
+                      folder_id: folder_91ab
+                      type: null
+                      created_at: '2026-05-15T14:32:00Z'
+                      active_trigger_count: null
+                      creator:
+                        id: user_8c2a1b
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+        '400':
+          description: Invalid request body.
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have permission to create agents on the requested team.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+  /agents/{agent_id}:
+    get:
+      summary: Retrieve agent
+      description: Retrieve a single agent by ID.
+      operationId: retrieveAgent
+      tags:
+      - Agents
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/agents/abc123DEFghiJKL' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: 'from gumloop import Gumloop
+
+
+          client = Gumloop(access_token="YOUR_ACCESS_TOKEN")
+
+
+          response = client.agents.retrieve("abc123DEFghiJKL")
+
+          print(response.agent.name)
+
+          '
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent to retrieve.
+      responses:
+        '200':
+          description: The requested agent.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agent:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: abc123DEFghiJKL
+                      name:
+                        type: string
+                        example: Sales research agent
+                      description:
+                        type: string
+                        nullable: true
+                        example: Researches accounts and drafts outreach
+                      team_id:
+                        type: string
+                        example: team_4f8c92ab
+                      is_active:
+                        type: boolean
+                        example: true
+                      tools:
+                        type: array
+                        description: Tools the agent can call. Secret references are stripped and MCP server URLs are redacted before being returned.
+                        items:
+                          type: object
+                      metadata:
+                        type: object
+                      model_name:
+                        type: string
+                        nullable: true
+                        example: anthropic/claude-sonnet-4
+                      system_prompt:
+                        type: string
+                        nullable: true
+                        example: You are a B2B sales research assistant.
+                      resources:
+                        type: array
+                        items:
+                          type: object
+                      skill_ids:
+                        type: array
+                        nullable: true
+                        description: IDs of skills attached to the agent. `null` on surfaces that don't include them (e.g. the list endpoint); `[]` when none are attached. Manage with `PATCH /agents/{agent_id}/skills`.
+                        items:
+                          type: string
+                        example:
+                        - skill_2b9c
+                        - skill_7f1a
+                      folder_id:
+                        type: string
+                        nullable: true
+                        example: folder_91ab
+                      type:
+                        type: string
+                        nullable: true
+                        description: Internal agent type discriminator.
+                      created_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        example: '2026-05-15T14:32:00Z'
+                      active_trigger_count:
+                        type: integer
+                        nullable: true
+                        description: Number of active triggers on this agent. Populated on list responses; may be `null` here.
+                      creator:
+                        type: object
+                        nullable: true
+                        description: User who created the agent. `null` when the creator is not known.
+                        properties:
+                          id:
+                            type: string
+                            nullable: true
+                          first_name:
+                            type: string
+                            nullable: true
+                          last_name:
+                            type: string
+                            nullable: true
+                          email:
+                            type: string
+                            nullable: true
+                          profile_picture:
+                            type: string
+                            nullable: true
+              examples:
+                single:
+                  summary: Single agent
+                  value:
+                    agent:
+                      id: abc123DEFghiJKL
+                      name: Sales research agent
+                      description: Researches accounts and drafts outreach
+                      team_id: team_4f8c92ab
+                      is_active: true
+                      tools: []
+                      metadata: {}
+                      model_name: anthropic/claude-sonnet-4
+                      system_prompt: You are a B2B sales research assistant.
+                      resources: []
+                      skill_ids:
+                      - skill_2b9c
+                      - skill_7f1a
+                      folder_id: folder_91ab
+                      type: null
+                      created_at: '2026-05-15T14:32:00Z'
+                      active_trigger_count: null
+                      creator:
+                        id: user_8c2a1b
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have read access to this agent.
+        '404':
+          description: Agent not found.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+    patch:
+      summary: Update agent
+      description: 'Update an existing agent. Only fields included in the request body are changed; omitted fields are left untouched.
+
+
+        This endpoint edits document fields only. To attach or detach skills, use [`PATCH /agents/{agent_id}/skills`](/api-reference/agents/update-agent-skills); to manage MCP servers, use the [agent MCP server endpoints](/api-reference/agents/attach-agent-mcp-server).
+
+        '
+      operationId: updateAgent
+      tags:
+      - Agents
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl -X PATCH 'https://api.gumloop.com/api/v1/agents/abc123DEFghiJKL' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"description\": \"Researches enterprise accounts and drafts outreach\",\n    \"is_active\": true\n  }'\n"
+      - lang: python
+        label: Python
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresponse = client.agents.update(\n    \"abc123DEFghiJKL\",\n    description=\"Researches enterprise accounts and drafts outreach\",\n    is_active=True,\n)\nprint(response.agent.description)\n"
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  nullable: true
+                model_name:
+                  type: string
+                  nullable: true
+                  description: ID of the LLM the agent runs on. Use `GET /models` to discover valid values.
+                  example: anthropic/claude-sonnet-4
+                description:
+                  type: string
+                  nullable: true
+                  example: Researches enterprise accounts and drafts outreach
+                system_prompt:
+                  type: string
+                  nullable: true
+                tools:
+                  type: array
+                  nullable: true
+                  description: When provided, replaces the agent's tool list.
+                  items:
+                    type: object
+                resources:
+                  type: array
+                  nullable: true
+                  description: When provided, replaces the agent's resource list.
+                  items:
+                    type: object
+                metadata:
+                  type: object
+                  nullable: true
+                is_active:
+                  type: boolean
+                  nullable: true
+                team_id:
+                  type: string
+                  nullable: true
+                  description: When provided, transfers ownership of the agent to this team.
+            examples:
+              partial:
+                summary: Partial update
+                value:
+                  description: Researches enterprise accounts and drafts outreach
+                  is_active: true
+      responses:
+        '200':
+          description: The updated agent.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agent:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: abc123DEFghiJKL
+                      name:
+                        type: string
+                        example: Sales research agent
+                      description:
+                        type: string
+                        nullable: true
+                        example: Researches enterprise accounts and drafts outreach
+                      team_id:
+                        type: string
+                        example: team_4f8c92ab
+                      is_active:
+                        type: boolean
+                        example: true
+                      tools:
+                        type: array
+                        description: Tools the agent can call. Secret references are stripped and MCP server URLs are redacted before being returned.
+                        items:
+                          type: object
+                      metadata:
+                        type: object
+                      model_name:
+                        type: string
+                        nullable: true
+                        example: anthropic/claude-sonnet-4
+                      system_prompt:
+                        type: string
+                        nullable: true
+                      resources:
+                        type: array
+                        items:
+                          type: object
+                      folder_id:
+                        type: string
+                        nullable: true
+                        example: folder_91ab
+                      type:
+                        type: string
+                        nullable: true
+                        description: Internal agent type discriminator.
+                      created_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        example: '2026-05-15T14:32:00Z'
+                      active_trigger_count:
+                        type: integer
+                        nullable: true
+                        description: Number of active triggers on this agent. Populated on list responses; may be `null` here.
+                      creator:
+                        type: object
+                        nullable: true
+                        description: User who created the agent. `null` when the creator is not known.
+                        properties:
+                          id:
+                            type: string
+                            nullable: true
+                          first_name:
+                            type: string
+                            nullable: true
+                          last_name:
+                            type: string
+                            nullable: true
+                          email:
+                            type: string
+                            nullable: true
+                          profile_picture:
+                            type: string
+                            nullable: true
+              examples:
+                updated:
+                  summary: Updated agent
+                  value:
+                    agent:
+                      id: abc123DEFghiJKL
+                      name: Sales research agent
+                      description: Researches enterprise accounts and drafts outreach
+                      team_id: team_4f8c92ab
+                      is_active: true
+                      tools: []
+                      metadata: {}
+                      model_name: anthropic/claude-sonnet-4
+                      system_prompt: You are a B2B sales research assistant.
+                      resources: []
+                      folder_id: folder_91ab
+                      type: null
+                      created_at: '2026-05-15T14:32:00Z'
+                      active_trigger_count: null
+                      creator:
+                        id: user_8c2a1b
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+        '400':
+          description: Invalid request body.
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have permission to update this agent.
+        '404':
+          description: Agent not found.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+  /agents/{agent_id}/skills:
+    patch:
+      summary: Attach or detach agent skills
+      description: 'Attach and/or detach skills on an agent using deltas. This is **not** a replace-list: skills you don''t mention are left untouched.
+
+
+        - The operation is idempotent. Re-attaching a skill that''s already attached (or detaching one that isn''t) is reported under `already_attached` / `already_detached` rather than failing.
+
+        - A skill ID may not appear in both `attach` and `detach`.
+
+        - Up to 100 unique skill IDs total (`attach` + `detach`) per request.
+
+        - Attaching requires `INVOKE` permission on the skill. Detaching is permissive so stale attachments can always be removed.
+
+        '
+      operationId: updateAgentSkills
+      tags:
+      - Agents
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl -X PATCH 'https://api.gumloop.com/api/v1/agents/abc123DEFghiJKL/skills' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"attach\": [\"skill_2b9c\"],\n    \"detach\": [\"skill_7f1a\"]\n  }'\n"
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent whose skills to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                attach:
+                  type: array
+                  description: Skill IDs to attach. Ignored if already attached.
+                  items:
+                    type: string
+                  default: []
+                detach:
+                  type: array
+                  description: Skill IDs to detach. Ignored if not attached.
+                  items:
+                    type: string
+                  default: []
+            examples:
+              attachAndDetach:
+                summary: Attach one skill and detach another
+                value:
+                  attach:
+                  - skill_2b9c
+                  detach:
+                  - skill_7f1a
+      responses:
+        '200':
+          description: The resulting skill set plus what this request changed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agent_id:
+                    type: string
+                    example: abc123DEFghiJKL
+                  skill_ids:
+                    type: array
+                    description: Full set of skills attached to the agent after this request.
+                    items:
+                      type: string
+                  attached:
+                    type: array
+                    description: Skills newly attached by this request.
+                    items:
+                      type: string
+                  detached:
+                    type: array
+                    description: Skills newly detached by this request.
+                    items:
+                      type: string
+                  already_attached:
+                    type: array
+                    description: Requested attaches that were already attached (no-op).
+                    items:
+                      type: string
+                  already_detached:
+                    type: array
+                    description: Requested detaches that weren't attached (no-op).
+                    items:
+                      type: string
+              examples:
+                updated:
+                  summary: One attached, one detached
+                  value:
+                    agent_id: abc123DEFghiJKL
+                    skill_ids:
+                    - skill_2b9c
+                    attached:
+                    - skill_2b9c
+                    detached:
+                    - skill_7f1a
+                    already_attached: []
+                    already_detached: []
+        '400':
+          description: Invalid request — e.g. an ID appears in both `attach` and `detach`, more than 100 unique IDs, or a skill to attach doesn't exist or isn't active (offending IDs returned in `error.details.skill_ids`).
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller lacks update access to the agent, or lacks `INVOKE` permission on a skill being attached (offending IDs in `error.details.skill_ids`).
+        '404':
+          description: Agent not found.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+  /agents/{agent_id}/mcp-servers:
+    get:
+      summary: List agent MCP servers
+      description: 'List the MCP servers (connectors) attached to an agent. Sensitive fields such as `secret_id` and `mcp_server_url` are scrubbed from the response.
+
+        '
+      operationId: listAgentMcpServers
+      tags:
+      - Agents
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/agents/abc123DEFghiJKL/mcp-servers' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent.
+      responses:
+        '200':
+          description: The MCP servers attached to the agent.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agent_id:
+                    type: string
+                    example: abc123DEFghiJKL
+                  mcp_servers:
+                    type: array
+                    description: Attached MCP server tool configs, with secrets and server URLs redacted.
+                    items:
+                      type: object
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have read access to this agent's configuration.
+        '404':
+          description: Agent not found.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+  /agents/{agent_id}/mcp-servers/{server_id}:
+    put:
+      summary: Attach or update an agent MCP server
+      description: 'Attach an MCP server (connector) to an agent, or update its configuration if it''s already attached (upsert).
+
+
+        The `server_id` is validated against the caller''s MCP catalog. Catalog identity fields (`type`, `server_id`, `secret_id`, `mcp_server_url`) always come from the catalog and cannot be spoofed via the request body — the body carries only free-form connector configuration (e.g. approval mode, tool restrictions); any identity keys in it are ignored.
+
+
+        Attach may succeed before OAuth is completed; `auth_status` reflects the catalog''s authentication state.
+
+        '
+      operationId: attachAgentMcpServer
+      tags:
+      - Agents
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl -X PUT 'https://api.gumloop.com/api/v1/agents/abc123DEFghiJKL/mcp-servers/srv_github' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{}'\n"
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent.
+      - in: path
+        name: server_id
+        required: true
+        schema:
+          type: string
+        description: ID of the MCP server from the caller's catalog.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Free-form connector configuration. Identity keys are catalog-derived and ignored.
+            examples:
+              empty:
+                summary: Attach with default config
+                value: {}
+      responses:
+        '200':
+          description: The attached (or updated) MCP server.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agent_id:
+                    type: string
+                    example: abc123DEFghiJKL
+                  mcp_server:
+                    type: object
+                    description: The resulting MCP server tool config, with secrets and server URL redacted.
+                  created:
+                    type: boolean
+                    description: '`true` if the server was newly attached; `false` if an existing attachment was updated.'
+                    example: true
+                  auth_status:
+                    type: string
+                    nullable: true
+                    description: Catalog authentication status for the server (e.g. whether OAuth has been completed).
+                    example: authenticated
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller lacks update access to the agent, or the MCP server is restricted for the organization (`mcp_server_restricted`).
+        '404':
+          description: Agent not found, or the server ID is not in the caller's catalog (`mcp_server_not_found`).
+        '409':
+          description: The agent has duplicate entries for this server (`ambiguous_mcp_server`); remove them and retry.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+    delete:
+      summary: Detach an agent MCP server
+      description: 'Detach an MCP server (connector) from an agent. This is idempotent — detaching a server that isn''t attached returns `detached: false` rather than an error.
+
+        '
+      operationId: detachAgentMcpServer
+      tags:
+      - Agents
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl -X DELETE 'https://api.gumloop.com/api/v1/agents/abc123DEFghiJKL/mcp-servers/srv_github' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent.
+      - in: path
+        name: server_id
+        required: true
+        schema:
+          type: string
+        description: ID of the MCP server to detach.
+      responses:
+        '200':
+          description: The detach result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agent_id:
+                    type: string
+                    example: abc123DEFghiJKL
+                  server_id:
+                    type: string
+                    example: srv_github
+                  detached:
+                    type: boolean
+                    description: '`true` if the server was attached and is now removed; `false` if it was not attached.'
+                    example: true
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have update access to this agent.
+        '404':
+          description: Agent not found.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: A personal API key or an [OAuth 2.0](/api-reference/oauth) access token. Personal API keys also require the `x-auth-key` header with your user ID.

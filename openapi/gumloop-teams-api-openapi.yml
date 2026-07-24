@@ -1,0 +1,67 @@
+openapi: 3.0.0
+info:
+  title: Public Agents Teams API
+  version: 1.0.0
+servers:
+- url: https://api.gumloop.com/api/v1
+tags:
+- name: Teams
+paths:
+  /teams:
+    get:
+      summary: List teams
+      description: List teams the authenticated caller belongs to.
+      operationId: listTeams
+      tags:
+      - Teams
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/teams' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresponse = client.teams.list()\nfor team in response.teams:\n    print(team.id, team.name)\n"
+      responses:
+        '200':
+          description: Teams the caller belongs to.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  teams:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique team identifier.
+                          example: team_4f8c92ab
+                        name:
+                          type: string
+                          example: Acme Sales
+                      required:
+                      - id
+                      - name
+              examples:
+                multiple:
+                  summary: Multiple teams
+                  value:
+                    teams:
+                    - id: team_4f8c92ab
+                      name: Acme Sales
+                    - id: team_91ab73cd
+                      name: Acme Support
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: A personal API key or an [OAuth 2.0](/api-reference/oauth) access token. Personal API keys also require the `x-auth-key` header with your user ID.

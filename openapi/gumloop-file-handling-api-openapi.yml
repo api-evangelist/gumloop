@@ -1,0 +1,226 @@
+openapi: 3.0.0
+info:
+  title: Public Agents File Handling API
+  version: 1.0.0
+servers:
+- url: https://api.gumloop.com/api/v1
+tags:
+- name: File Handling
+paths:
+  /download_file:
+    post:
+      summary: Download file
+      operationId: downloadFile
+      tags:
+      - File Handling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file_name:
+                  type: string
+                  description: The name of the file to download.
+                run_id:
+                  type: string
+                  description: The ID of the flow run associated with the file.
+                saved_item_id:
+                  type: string
+                  description: The saved item ID associated with the file.
+                user_id:
+                  type: string
+                  description: Optional. The user ID associated with the flow run.
+                project_id:
+                  type: string
+                  description: Optional. The project ID associated with the flow run.
+      responses:
+        '200':
+          description: File downloaded successfully
+        '400':
+          description: Bad request (missing file_name or other required data)
+        '403':
+          description: Unauthorized (API key or user verification failed)
+        '500':
+          description: Internal server error (file download failed)
+      security:
+      - bearerAuth: []
+  /download_files:
+    post:
+      summary: Download multiple files
+      operationId: downloadFiles
+      tags:
+      - File Handling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file_names:
+                  type: array
+                  items:
+                    type: string
+                  description: An array of file names to download.
+                run_id:
+                  type: string
+                  description: The ID of the flow run associated with the files.
+                user_id:
+                  type: string
+                  description: The user ID associated with the files. Required if project_id is not provided.
+                project_id:
+                  type: string
+                  description: The project ID associated with the files. Required if user_id is not provided.
+                saved_item_id:
+                  type: string
+                  description: Optional. The saved item ID associated with the files.
+      responses:
+        '200':
+          description: Files downloaded successfully as a zip
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Bad request (missing file_names or other required data)
+        '401':
+          description: Unauthorized (missing or invalid API key)
+        '403':
+          description: Forbidden (API key does not match)
+        '500':
+          description: Internal server error (file download failed)
+      security:
+      - bearerAuth: []
+  /upload_file:
+    post:
+      summary: Upload file
+      operationId: uploadFile
+      tags:
+      - File Handling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file_name:
+                  type: string
+                  description: The name of the file to be uploaded.
+                file_content:
+                  type: string
+                  format: byte
+                  description: Base64 encoded content of the file.
+                user_id:
+                  type: string
+                  description: The user ID associated with the file. Required if project_id is not provided.
+                project_id:
+                  type: string
+                  description: The project ID associated with the file. Required if user_id is not provided.
+      responses:
+        '200':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  file_name:
+                    type: string
+                    description: The name of the uploaded file.
+        '400':
+          description: Bad request (missing file or required parameters)
+        '401':
+          description: Unauthorized (missing or invalid API key)
+        '403':
+          description: Forbidden (API key does not match)
+        '500':
+          description: Internal server error (file upload failed)
+      security:
+      - bearerAuth: []
+  /upload_files:
+    post:
+      summary: Upload multiple files
+      operationId: uploadFiles
+      tags:
+      - File Handling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      file_name:
+                        type: string
+                        description: The name of the file to be uploaded.
+                      file_content:
+                        type: string
+                        format: byte
+                        description: Base64 encoded content of the file.
+                user_id:
+                  type: string
+                  description: The user ID associated with the files. Required if project_id is not provided.
+                project_id:
+                  type: string
+                  description: The project ID associated with the files. Required if user_id is not provided.
+      responses:
+        '200':
+          description: All files uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  uploaded_files:
+                    type: array
+                    items:
+                      type: string
+                    description: Array of uploaded file names.
+        '207':
+          description: Partial success (some files failed to upload)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  partial_success:
+                    type: boolean
+                  uploaded_files:
+                    type: array
+                    items:
+                      type: string
+                    description: Array of successfully uploaded file names.
+                  failed_files:
+                    type: array
+                    items:
+                      type: string
+                    description: Array of file names that failed to upload.
+        '400':
+          description: Bad request (missing files or required parameters)
+        '401':
+          description: Unauthorized (missing or invalid API key)
+        '403':
+          description: Forbidden (API key does not match)
+        '500':
+          description: Internal server error (all file uploads failed)
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: A personal API key or an [OAuth 2.0](/api-reference/oauth) access token. Personal API keys also require the `x-auth-key` header with your user ID.

@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: Public Agents Brain API
+  version: 1.0.0
+servers:
+- url: https://api.gumloop.com/api/v1
+tags:
+- name: Brain
+paths:
+  /brain/search:
+    post:
+      summary: Search Company Brain
+      description: 'Run a hybrid (semantic + keyword) search across the knowledge sources indexed in your [Company Brain](/core-concepts/brain) and return the most relevant, ranked snippets with citations.
+
+
+        Results are scoped to what the authenticated user can see: personal sources, plus any team and organization sources shared with them. Requires the Brain feature, which is available on the Pro and Enterprise plans. Each search consumes Gumloop credits.
+
+        '
+      operationId: searchBrain
+      tags:
+      - Brain
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/brain/search' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"query\": \"what is our refund policy?\",\n    \"limit\": 8,\n    \"source_type\": [\"notion\", \"google_drive\"]\n  }'\n"
+      - lang: python
+        label: Python
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresponse = client.brain.search(\n    \"what is our refund policy?\",\n    limit=8,\n    source_type=[\"notion\", \"google_drive\"],\n)\nfor result in response.results:\n    print(result.score, result.source, result.title, result.url)\n"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - query
+              properties:
+                query:
+                  type: string
+                  description: The natural-language search query.
+                  example: what is our refund policy?
+                limit:
+                  type: integer
+                  minimum: 1
+                  maximum: 50
+                  default: 8
+                  description: Maximum number of results to return.
+                  example: 8
+                source_type:
+                  type: array
+                  nullable: true
+                  minItems: 1
+                  description: 'Restrict results to specific source types. Omit to search every source you can access. Valid values: `notion`, `google_drive`, `slack`, `github`, `confluence`, `direct_file_uploads`, `gumloop_artifacts`.
+
+                    '
+                  items:
+                    type: string
+                    enum:
+                    - notion
+                    - google_drive
+                    - slack
+                    - github
+                    - confluence
+                    - direct_file_uploads
+                    - gumloop_artifacts
+                  example:
+                  - notion
+                  - google_drive
+      responses:
+        '200':
+          description: Ranked search results.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - results
+                properties:
+                  results:
+                    type: array
+                    description: Ranked matches, most relevant first.
+                    items:
+                      type: object
+                      properties:
+                        document_id:
+                          type: string
+                          nullable: true
+                          description: Identifier of the matched document.
+                        source:
+                          type: string
+                          nullable: true
+                          description: The source type the result came from, for example `notion` or `slack`.
+                        title:
+                          type: string
+                          nullable: true
+                          description: Title of the matched document.
+                        content:
+                          type: string
+                          nullable: true
+                          description: The matching snippet of text.
+                        url:
+                          type: string
+                          nullable: true
+                          description: Link to the document in its original source, when available.
+                        score:
+                          type: number
+                          nullable: true
+                          description: Relevance score, normalized to a 0–1 range.
+                        updated_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          description: When the document was last updated in its source.
+                        owner_name:
+                          type: string
+                          nullable: true
+                          description: Display name of the document owner, when known.
+                        owner_email:
+                          type: string
+                          nullable: true
+                          description: Email of the document owner, when known.
+                        parent_title:
+                          type: string
+                          nullable: true
+                          description: Title of the parent item (for example, a channel or folder), when applicable.
+                        metadata:
+                          type: object
+                          description: Additional source-specific metadata.
+              examples:
+                success:
+                  summary: A single ranked result
+                  value:
+                    results:
+                    - document_id: notion:2f1a9c7e
+                      source: notion
+                      title: Refund Policy
+                      content: Customers may request a full refund within 30 days of purchase...
+                      url: https://www.notion.so/Refund-Policy-2f1a9c7e
+                      score: 0.87
+                      updated_at: '2024-01-15T10:30:00Z'
+                      owner_name: Jordan Lee
+                      owner_email: jordan@example.com
+                      parent_title: Policies
+                      metadata: {}
+        '400':
+          description: Invalid request, for example a missing `query` or an unrecognized `source_type`.
+        '401':
+          description: Unauthorized — missing or invalid Gumloop API credentials.
+        '403':
+          description: Forbidden — the caller lacks access to Brain (Pro or Enterprise plan required) or to this endpoint.
+        '402':
+          description: Credit limit exceeded.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: A personal API key or an [OAuth 2.0](/api-reference/oauth) access token. Personal API keys also require the `x-auth-key` header with your user ID.

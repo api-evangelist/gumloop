@@ -1,0 +1,327 @@
+openapi: 3.0.0
+info:
+  title: Public Agents Data Access API
+  version: 1.0.0
+servers:
+- url: https://api.gumloop.com/api/v1
+tags:
+- name: Data Access
+paths:
+  /get_pl_run:
+    get:
+      summary: Retrieve run details
+      description: This endpoint can be used to poll for completion and retrieve final flow outputs. Output nodes must be used to retrieve outputs.
+      operationId: getAutomationRun
+      tags:
+      - Data Access
+      parameters:
+      - in: query
+        name: run_id
+        required: true
+        schema:
+          type: string
+        description: ID of the flow run to retrieve
+      - in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+        description: The id for the user initiating the flow. Required if project_id is not provided.
+      - in: query
+        name: project_id
+        required: false
+        schema:
+          type: string
+        description: The id of the project within which the flow is executed. Required if user_id is not provided.
+      responses:
+        '200':
+          description: Successful retrieval of flow run details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                    description: The id for the user initiating the flow.
+                  state:
+                    type: string
+                    enum:
+                    - RUNNING
+                    - DONE
+                    - TERMINATING
+                    - FAILED
+                    - TERMINATED
+                    - QUEUED
+                  outputs:
+                    type: object
+                    description: JSON object where keys are the `output_name` parameters of your Gumloop Output nodes and the values are the values that get sent to your node.
+                  created_ts:
+                    type: string
+                    format: date-time
+                    description: Timestamp for when the flow was started.
+                  finished_ts:
+                    type: string
+                    format: date-time
+                    description: Timestamp for when the flow completed.
+                  log:
+                    type: array
+                    items:
+                      type: string
+                    description: A list of log entries from your Gumloop flow run.
+        '400':
+          description: Bad request (missing run_id)
+        '404':
+          description: Flow run not found
+      security:
+      - bearerAuth: []
+  /list_workbooks:
+    get:
+      summary: List workbooks and their saved flows
+      operationId: listWorkbooks
+      tags:
+      - Data Access
+      parameters:
+      - in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+        description: The user ID for which to list workbooks. Required if project_id is not provided.
+      - in: query
+        name: project_id
+        required: false
+        schema:
+          type: string
+        description: The project ID for which to list workbooks. Required if user_id is not provided.
+      responses:
+        '200':
+          description: Successful retrieval of workbooks and their saved items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workbooks:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        workbook_id:
+                          type: string
+                          description: The id of the workbook.
+                        name:
+                          type: string
+                          description: The name of the workbook.
+                        description:
+                          type: string
+                          description: The description of the workbook.
+                        created_ts:
+                          type: string
+                          format: date-time
+                          description: Timestamp for when the workbook was created.
+                        saved_items:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              saved_item_id:
+                                type: string
+                                description: The id of the saved flow.
+                              name:
+                                type: string
+                                description: The name of the saved flow.
+                              description:
+                                type: string
+                                description: The description of the saved flow.
+                              created_ts:
+                                type: string
+                                format: date-time
+                                description: Timestamp for when the saved flow was created.
+                    description: List of workbooks and their associated saved flows
+        '400':
+          description: Bad request (missing parameters)
+        '401':
+          description: Unauthorized (missing or invalid API key)
+        '403':
+          description: Forbidden (API key does not match)
+        '500':
+          description: Internal server error
+      security:
+      - bearerAuth: []
+  /list_saved_items:
+    get:
+      summary: List saved flows
+      operationId: listSavedAutomations
+      tags:
+      - Data Access
+      parameters:
+      - in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+        description: The user ID to for which to list items. Required if project_id is not provided.
+      - in: query
+        name: project_id
+        required: false
+        schema:
+          type: string
+        description: The project ID for which to list items. Required if user_id is not provided.
+      responses:
+        '200':
+          description: Successful retrieval of saved items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  saved_items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        saved_item_id:
+                          type: string
+                          description: The id for the saved flow.
+                        name:
+                          type: string
+                          description: The name of the saved flow.
+                        description:
+                          type: string
+                          description: The description of the saved flow.
+                        created_ts:
+                          type: string
+                          format: date-time
+                          description: Timestamp for when the flow was started.
+                    description: List of saved flows
+        '400':
+          description: Bad request (missing parameters)
+        '401':
+          description: Unauthorized (missing or invalid API key)
+        '403':
+          description: Forbidden (API key does not match)
+        '500':
+          description: Internal server error
+      security:
+      - bearerAuth: []
+  /get_inputs:
+    get:
+      summary: Retrieve input schema
+      operationId: getInputs
+      tags:
+      - Data Access
+      parameters:
+      - in: query
+        name: saved_item_id
+        required: true
+        schema:
+          type: string
+        description: The ID of the saved item for which to retrieve input schemas.
+      - in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+        description: User ID that created the flow. Required if project_id is not provided.
+      - in: query
+        name: project_id
+        required: false
+        schema:
+          type: string
+        description: Project ID that the flow is under. Required if user_id is not provided.
+      responses:
+        '200':
+          description: Successful retrieval of item input schemas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inputs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        data_type:
+                          type: string
+                          enum:
+                          - string
+                          - file
+                          description: The type of the input, either a 'string' or a 'file'.
+                        description:
+                          type: string
+                          nullable: true
+                          description: A description of the input. Can be null if no desecription is given.
+                        name:
+                          type: string
+                          description: The name of the input.
+                    description: List of inputs for the saved item.
+        '400':
+          description: Bad request (missing parameters)
+        '401':
+          description: Unauthorized (missing or invalid API key)
+        '403':
+          description: Forbidden (API key does not match)
+        '404':
+          description: Saved item not found
+      security:
+      - bearerAuth: []
+  /get_plrun_saved_item_map:
+    get:
+      summary: Retrieve automation run history
+      description: This endpoint retrieves the run history for automations, either by workbook or saved item. Returns the 10 most recent runs.
+      operationId: getAutomationRunHistory
+      tags:
+      - Data Access
+      parameters:
+      - in: query
+        name: workbook_id
+        required: false
+        schema:
+          type: string
+        description: The ID of the workbook to retrieve run history for. Required if saved_item_id is not provided.
+      - in: query
+        name: saved_item_id
+        required: false
+        schema:
+          type: string
+        description: The ID of the saved item to retrieve run history for. Required if workbook_id is not provided.
+      - in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+        description: The user ID. Required if project_id is not provided.
+      - in: query
+        name: project_id
+        required: false
+        schema:
+          type: string
+        description: The project ID. Required if user_id is not provided.
+      responses:
+        '200':
+          description: Successful retrieval of automation run history
+          content:
+            application/json:
+              schema:
+                type: object
+                description: A map of saved item IDs to their recent run history, with up to 10 runs per saved item
+        '400':
+          description: Bad request (missing workbook_id or saved_item_id parameter)
+        '401':
+          description: Unauthorized (missing or invalid API key)
+        '403':
+          description: Forbidden (API key does not match)
+        '404':
+          description: Workbook not found
+        '500':
+          description: Internal server error
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: A personal API key or an [OAuth 2.0](/api-reference/oauth) access token. Personal API keys also require the `x-auth-key` header with your user ID.

@@ -1,0 +1,1149 @@
+openapi: 3.0.0
+info:
+  title: Public Agents Sessions API
+  version: 1.0.0
+servers:
+- url: https://api.gumloop.com/api/v1
+tags:
+- name: Sessions
+paths:
+  /agents/{agent_id}/sessions:
+    get:
+      summary: List sessions
+      description: 'List sessions for an agent with cursor-based pagination, optional filtering, and search.
+
+        '
+      operationId: listSessions
+      tags:
+      - Sessions
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/agents/abc123DEFghiJKL/sessions?page_size=20' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresponse = client.sessions.list(\"abc123DEFghiJKL\")\nfor session in response.sessions:\n    print(session.id, session.state)\n"
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent whose sessions to list.
+      - in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+          default: 20
+          minimum: 1
+          maximum: 100
+        description: Number of sessions to return per page. Defaults to `20`, maximum `100`.
+      - in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        description: Cursor for the next page of results. Use the `next_cursor` value from a previous response.
+      - in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        description: Free-text search query to filter sessions by name or content. Also accepted as `search_query`.
+      - in: query
+        name: sort_order
+        required: false
+        schema:
+          type: string
+        description: Sort order for the results (e.g. `newest` or `oldest`).
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+        description: Filter sessions by type (e.g. `api`, `web`, `slack`).
+      - in: query
+        name: state
+        required: false
+        schema:
+          type: string
+          enum:
+          - processing
+          - completed
+          - failed
+          - queued
+          - idle
+        description: Filter sessions by state.
+      - in: query
+        name: creator_user_id
+        required: false
+        schema:
+          type: string
+        description: Filter sessions by the user who created them.
+      - in: query
+        name: trigger_id
+        required: false
+        schema:
+          type: string
+        description: Filter sessions by the trigger that initiated them.
+      responses:
+        '200':
+          description: A paginated list of sessions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: sess_xYz789AbCd
+                        agent_id:
+                          type: string
+                          example: abc123DEFghiJKL
+                        name:
+                          type: string
+                          nullable: true
+                          example: Research task
+                        type:
+                          type: string
+                          nullable: true
+                          example: api
+                        messages:
+                          type: array
+                          items:
+                            type: object
+                          description: Messages are not included in list responses. Use the retrieve session endpoint to get the full message history.
+                        created_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          example: '2026-05-15T14:32:00Z'
+                        state:
+                          type: string
+                          nullable: true
+                          enum:
+                          - processing
+                          - completed
+                          - failed
+                          - queued
+                          - idle
+                          example: completed
+                        agent_name:
+                          type: string
+                          nullable: true
+                          example: Sales research agent
+                        creator:
+                          type: object
+                          nullable: true
+                          properties:
+                            id:
+                              type: string
+                              nullable: true
+                            first_name:
+                              type: string
+                              nullable: true
+                            last_name:
+                              type: string
+                              nullable: true
+                            email:
+                              type: string
+                              nullable: true
+                            profile_picture:
+                              type: string
+                              nullable: true
+                  next_cursor:
+                    type: string
+                    nullable: true
+                    description: Cursor to pass as the `cursor` query parameter to retrieve the next page. `null` when there are no more results.
+                    example: eyJzb3J0X3ZhbHVlIjoiMjAyNi0wNS0xNVQxNDozMjowMFoiLCJpbnRlcmFjdGlvbl9pZCI6InNlc3NfeFl6Nzg5QWJDZCIsInNvcnRfYnkiOiJuZXdlc3QifQ==
+              examples:
+                paginated:
+                  summary: First page of sessions
+                  value:
+                    sessions:
+                    - id: sess_xYz789AbCd
+                      agent_id: abc123DEFghiJKL
+                      name: Research task
+                      type: api
+                      messages: []
+                      created_at: '2026-05-15T14:32:00Z'
+                      state: completed
+                      agent_name: Sales research agent
+                      creator:
+                        id: user_2b9d71f0
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+                    - id: sess_AbC123dEfG
+                      agent_id: abc123DEFghiJKL
+                      name: Follow-up call
+                      type: web
+                      messages: []
+                      created_at: '2026-05-14T09:15:00Z'
+                      state: completed
+                      agent_name: Sales research agent
+                      creator:
+                        id: user_2b9d71f0
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+                    next_cursor: eyJzb3J0X3ZhbHVlIjoiMjAyNi0wNS0xNFQwOToxNTowMFoifQ==
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have read access on the agent.
+        '404':
+          description: Agent not found.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+    post:
+      summary: Create session
+      description: 'Create a new session for an agent. When `input` is provided, the message is enqueued and the agent begins processing — the response returns `202` with the session in `processing` or `queued` state. When `input` is omitted, an idle session stub is created and the response returns `201`.
+
+
+        ### Streaming the response
+
+
+        `api.gumloop.com` only serves the non-streaming response above. To stream agent output as it''s produced, send the same request body (with `stream: true`) to the streaming host instead:
+
+
+        ```
+
+        POST https://ws.gumloop.com/api/v1/agents/{agent_id}/sessions
+
+        ```
+
+
+        The response is `text/event-stream` (Server-Sent Events). With the Python SDK, `client.sessions.stream(agent_id, input="...")` routes to `ws.gumloop.com` automatically and yields parsed `StreamEvent` objects.
+
+
+        If you send `stream: true` to `api.gumloop.com` by mistake, the response is a `400` whose body contains the correct streaming host so you can retry against it.
+
+        '
+      operationId: createSession
+      tags:
+      - Sessions
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl -X POST 'https://api.gumloop.com/api/v1/agents/abc123DEFghiJKL/sessions' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"input\": \"Research Acme Corp and draft a brief.\"}'\n"
+      - lang: python
+        label: Python
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresponse = client.sessions.create(\n    \"abc123DEFghiJKL\",\n    input=\"Research Acme Corp and draft a brief.\",\n)\nprint(response.session.id, response.session.state)\n"
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent to start a session on.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: string
+                  description: The first user message for the session. Also accepted as `message` for backwards compatibility. When omitted, an idle session is created with no messages.
+                  example: Research Acme Corp and draft a brief.
+                session_id:
+                  type: string
+                  description: Caller-supplied session ID. When omitted, the server generates one. If provided and the ID already exists, the request returns `409 session_already_exists`.
+                  example: sess_xYz789AbCd
+                metadata:
+                  type: object
+                  description: Arbitrary key/value metadata attached to the session. Stored under `metadata.client`.
+                stream:
+                  type: boolean
+                  default: false
+                  description: Must be `false` (or omitted) when calling `api.gumloop.com`. Set to `true` only when calling `ws.gumloop.com` (see the streaming section above).
+      responses:
+        '201':
+          description: Idle session created. Returned when the request body has no `input` — a session stub is created and no agent run is started.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  session:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: sess_xYz789AbCd
+                      agent_id:
+                        type: string
+                        example: abc123DEFghiJKL
+                      messages:
+                        type: array
+                        items:
+                          type: object
+                      created_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        example: '2026-05-15T14:32:00Z'
+                      state:
+                        type: string
+                        nullable: true
+                        enum:
+                        - processing
+                        - completed
+                        - failed
+                        - queued
+                        - idle
+                        example: idle
+                      agent_name:
+                        type: string
+                        nullable: true
+                        example: Sales research agent
+                      agent_team_id:
+                        type: string
+                        nullable: true
+                        example: team_4f8c92ab
+                      agent_creator_user_id:
+                        type: string
+                        nullable: true
+                        example: user_2b9d71f0
+                      agent_icon_url:
+                        type: string
+                        nullable: true
+                        example: null
+                      agent_tools:
+                        type: array
+                        description: Tools available to the agent. Secret references are stripped before being returned.
+                        items:
+                          type: object
+                      participants:
+                        type: object
+                        description: Map of participant user IDs to participant metadata.
+                      creator:
+                        type: object
+                        nullable: true
+                        description: Creator of the session. `null` when no creator is recorded.
+                        properties:
+                          id:
+                            type: string
+                            nullable: true
+                          first_name:
+                            type: string
+                            nullable: true
+                          last_name:
+                            type: string
+                            nullable: true
+                          email:
+                            type: string
+                            nullable: true
+                          profile_picture:
+                            type: string
+                            nullable: true
+                  queue_position:
+                    type: integer
+                    nullable: true
+                    description: Position in the per-agent queue. Populated only when the session was queued; otherwise `null`.
+                    example: null
+              examples:
+                idle:
+                  summary: Idle session created (no input)
+                  value:
+                    session:
+                      id: sess_xYz789AbCd
+                      agent_id: abc123DEFghiJKL
+                      messages: []
+                      created_at: '2026-05-15T14:32:00Z'
+                      state: idle
+                      agent_name: Sales research agent
+                      agent_team_id: team_4f8c92ab
+                      agent_creator_user_id: user_2b9d71f0
+                      agent_icon_url: null
+                      agent_tools: []
+                      participants: {}
+                      creator:
+                        id: user_2b9d71f0
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+                    queue_position: null
+        '202':
+          description: Session created and the first message was enqueued. Returned when `input` is provided. `queue_position` is set only when the session was queued behind concurrent runs.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  session:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: sess_xYz789AbCd
+                      agent_id:
+                        type: string
+                        example: abc123DEFghiJKL
+                      messages:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              nullable: true
+                              example: msg_a1b2c3
+                            role:
+                              type: string
+                              nullable: true
+                              example: user
+                            content:
+                              type: string
+                              nullable: true
+                              example: Research Acme Corp and draft a brief.
+                            created_at:
+                              type: string
+                              format: date-time
+                              nullable: true
+                              example: '2026-05-15T14:32:00Z'
+                            creator_id:
+                              type: string
+                              nullable: true
+                              example: user_2b9d71f0
+                            parts:
+                              type: array
+                              nullable: true
+                              items:
+                                type: object
+                      created_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        example: '2026-05-15T14:32:00Z'
+                      state:
+                        type: string
+                        nullable: true
+                        enum:
+                        - processing
+                        - completed
+                        - failed
+                        - queued
+                        - idle
+                        example: processing
+                      agent_name:
+                        type: string
+                        nullable: true
+                        example: Sales research agent
+                      agent_team_id:
+                        type: string
+                        nullable: true
+                        example: team_4f8c92ab
+                      agent_creator_user_id:
+                        type: string
+                        nullable: true
+                        example: user_2b9d71f0
+                      agent_icon_url:
+                        type: string
+                        nullable: true
+                        example: null
+                      agent_tools:
+                        type: array
+                        description: Tools available to the agent. Secret references are stripped before being returned.
+                        items:
+                          type: object
+                      participants:
+                        type: object
+                        description: Map of participant user IDs to participant metadata.
+                      creator:
+                        type: object
+                        nullable: true
+                        description: Creator of the session. `null` when no creator is recorded.
+                        properties:
+                          id:
+                            type: string
+                            nullable: true
+                          first_name:
+                            type: string
+                            nullable: true
+                          last_name:
+                            type: string
+                            nullable: true
+                          email:
+                            type: string
+                            nullable: true
+                          profile_picture:
+                            type: string
+                            nullable: true
+                  queue_position:
+                    type: integer
+                    nullable: true
+                    description: Position in the per-agent queue. Populated only when the session was queued; otherwise `null`.
+                    example: null
+              examples:
+                processing:
+                  summary: Message enqueued and processing
+                  value:
+                    session:
+                      id: sess_xYz789AbCd
+                      agent_id: abc123DEFghiJKL
+                      messages:
+                      - id: msg_a1b2c3
+                        role: user
+                        content: Research Acme Corp and draft a brief.
+                        created_at: '2026-05-15T14:32:00Z'
+                        creator_id: user_2b9d71f0
+                        parts: null
+                      created_at: '2026-05-15T14:32:00Z'
+                      state: processing
+                      agent_name: Sales research agent
+                      agent_team_id: team_4f8c92ab
+                      agent_creator_user_id: user_2b9d71f0
+                      agent_icon_url: null
+                      agent_tools: []
+                      participants:
+                        user_2b9d71f0:
+                          first_name: Ada
+                          last_name: Lovelace
+                      creator:
+                        id: user_2b9d71f0
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+                    queue_position: null
+                queued:
+                  summary: Message queued behind concurrent runs
+                  value:
+                    session:
+                      id: sess_xYz789AbCd
+                      agent_id: abc123DEFghiJKL
+                      messages:
+                      - id: msg_a1b2c3
+                        role: user
+                        content: Research Acme Corp and draft a brief.
+                        created_at: '2026-05-15T14:32:00Z'
+                        creator_id: user_2b9d71f0
+                        parts: null
+                      created_at: '2026-05-15T14:32:00Z'
+                      state: queued
+                      agent_name: Sales research agent
+                      agent_team_id: team_4f8c92ab
+                      agent_creator_user_id: user_2b9d71f0
+                      agent_icon_url: null
+                      agent_tools: []
+                      participants:
+                        user_2b9d71f0:
+                          first_name: Ada
+                          last_name: Lovelace
+                      creator:
+                        id: user_2b9d71f0
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+                    queue_position: 3
+        '400':
+          description: 'Bad request — invalid body, or `stream: true` was set on this host (use the streaming host).'
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have read access on the agent.
+        '404':
+          description: Agent not found.
+        '409':
+          description: Conflict — a session with the supplied `session_id` already exists.
+        '429':
+          description: Rate limited — the agent's concurrency limit was exceeded.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+  /sessions/{session_id}:
+    get:
+      summary: Retrieve session
+      description: Retrieve a session by ID, including its messages, current state, agent metadata, and participants.
+      operationId: retrieveSession
+      tags:
+      - Sessions
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/sessions/sess_xYz789AbCd' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresponse = client.sessions.retrieve(\"sess_xYz789AbCd\")\nprint(response.session.state)\nfor message in response.session.messages:\n    print(message.role, message.content)\n"
+      parameters:
+      - in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+        description: ID of the session to retrieve.
+      responses:
+        '200':
+          description: The session.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  session:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: sess_xYz789AbCd
+                      agent_id:
+                        type: string
+                        example: abc123DEFghiJKL
+                      messages:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              nullable: true
+                              example: msg_a1b2c3
+                            role:
+                              type: string
+                              nullable: true
+                              example: user
+                            content:
+                              type: string
+                              nullable: true
+                              example: Research Acme Corp and draft a brief.
+                            created_at:
+                              type: string
+                              format: date-time
+                              nullable: true
+                              example: '2026-05-15T14:32:00Z'
+                            creator_id:
+                              type: string
+                              nullable: true
+                              example: user_2b9d71f0
+                            parts:
+                              type: array
+                              nullable: true
+                              items:
+                                type: object
+                      created_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        example: '2026-05-15T14:32:00Z'
+                      state:
+                        type: string
+                        nullable: true
+                        enum:
+                        - processing
+                        - completed
+                        - failed
+                        - queued
+                        - idle
+                        example: completed
+                      agent_name:
+                        type: string
+                        nullable: true
+                        example: Sales research agent
+                      agent_team_id:
+                        type: string
+                        nullable: true
+                        example: team_4f8c92ab
+                      agent_creator_user_id:
+                        type: string
+                        nullable: true
+                        example: user_2b9d71f0
+                      agent_icon_url:
+                        type: string
+                        nullable: true
+                        example: null
+                      agent_tools:
+                        type: array
+                        description: Tools available to the agent. Secret references are stripped before being returned.
+                        items:
+                          type: object
+                      participants:
+                        type: object
+                        description: Map of participant user IDs to participant metadata.
+                      creator:
+                        type: object
+                        nullable: true
+                        description: Creator of the session. `null` when no creator is recorded.
+                        properties:
+                          id:
+                            type: string
+                            nullable: true
+                          first_name:
+                            type: string
+                            nullable: true
+                          last_name:
+                            type: string
+                            nullable: true
+                          email:
+                            type: string
+                            nullable: true
+                          profile_picture:
+                            type: string
+                            nullable: true
+                  queue_position:
+                    type: integer
+                    nullable: true
+                    description: Position in the per-agent queue. Populated only when the session is currently queued; otherwise `null`.
+                    example: null
+              examples:
+                completed:
+                  summary: Completed session
+                  value:
+                    session:
+                      id: sess_xYz789AbCd
+                      agent_id: abc123DEFghiJKL
+                      messages:
+                      - id: msg_a1b2c3
+                        role: user
+                        content: Research Acme Corp and draft a brief.
+                        created_at: '2026-05-15T14:32:00Z'
+                        creator_id: user_2b9d71f0
+                        parts: null
+                      - id: msg_d4e5f6
+                        role: assistant
+                        content: Here is what I found about Acme Corp...
+                        created_at: '2026-05-15T14:32:09Z'
+                        creator_id: null
+                        parts: null
+                      created_at: '2026-05-15T14:32:00Z'
+                      state: completed
+                      agent_name: Sales research agent
+                      agent_team_id: team_4f8c92ab
+                      agent_creator_user_id: user_2b9d71f0
+                      agent_icon_url: null
+                      agent_tools: []
+                      participants:
+                        user_2b9d71f0:
+                          first_name: Ada
+                          last_name: Lovelace
+                      creator:
+                        id: user_2b9d71f0
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+                    queue_position: null
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have read access on the session.
+        '404':
+          description: Session not found.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+  /sessions/{session_id}/messages:
+    post:
+      summary: Send message
+      description: 'Append a user message to an existing session and resume the agent. The session must be in a terminal state (`idle`, `completed`, or `failed`); sending to a session that is `processing` or `queued` returns `409 interaction_not_in_terminal_state`.
+
+
+        ### Streaming the response
+
+
+        `api.gumloop.com` only serves the non-streaming response above. To stream agent output as it''s produced, send the same request body (with `stream: true`) to the streaming host instead:
+
+
+        ```
+
+        POST https://ws.gumloop.com/api/v1/sessions/{session_id}/messages
+
+        ```
+
+
+        The response is `text/event-stream` (Server-Sent Events). With the Python SDK, `client.sessions.stream_message(session_id, input="...")` routes to `ws.gumloop.com` automatically and yields parsed `StreamEvent` objects.
+
+
+        If you send `stream: true` to `api.gumloop.com` by mistake, the response is a `400` whose body contains the correct streaming host so you can retry against it.
+
+        '
+      operationId: sendMessage
+      tags:
+      - Sessions
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl -X POST 'https://api.gumloop.com/api/v1/sessions/sess_xYz789AbCd/messages' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"input\": \"Now write a follow-up email.\"}'\n"
+      - lang: python
+        label: Python
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresponse = client.sessions.send(\n    \"sess_xYz789AbCd\",\n    input=\"Now write a follow-up email.\",\n)\nprint(response.session.state)\n"
+      parameters:
+      - in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+        description: ID of the session to continue.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: string
+                  description: The next user message. Required. Also accepted as `message` for backwards compatibility.
+                  example: Now write a follow-up email.
+                stream:
+                  type: boolean
+                  default: false
+                  description: Must be `false` (or omitted) when calling `api.gumloop.com`. Set to `true` only when calling `ws.gumloop.com` (see the streaming section above).
+              required:
+              - input
+      responses:
+        '202':
+          description: Message was enqueued. `queue_position` is set only when the session was queued behind concurrent runs.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  session:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: sess_xYz789AbCd
+                      agent_id:
+                        type: string
+                        example: abc123DEFghiJKL
+                      messages:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              nullable: true
+                              example: msg_g7h8i9
+                            role:
+                              type: string
+                              nullable: true
+                              example: user
+                            content:
+                              type: string
+                              nullable: true
+                              example: Now write a follow-up email.
+                            created_at:
+                              type: string
+                              format: date-time
+                              nullable: true
+                              example: '2026-05-15T14:35:00Z'
+                            creator_id:
+                              type: string
+                              nullable: true
+                              example: user_2b9d71f0
+                            parts:
+                              type: array
+                              nullable: true
+                              items:
+                                type: object
+                      created_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        example: '2026-05-15T14:32:00Z'
+                      state:
+                        type: string
+                        nullable: true
+                        enum:
+                        - processing
+                        - completed
+                        - failed
+                        - queued
+                        - idle
+                        example: processing
+                      agent_name:
+                        type: string
+                        nullable: true
+                        example: Sales research agent
+                      agent_team_id:
+                        type: string
+                        nullable: true
+                        example: team_4f8c92ab
+                      agent_creator_user_id:
+                        type: string
+                        nullable: true
+                        example: user_2b9d71f0
+                      agent_icon_url:
+                        type: string
+                        nullable: true
+                        example: null
+                      agent_tools:
+                        type: array
+                        description: Tools available to the agent. Secret references are stripped before being returned.
+                        items:
+                          type: object
+                      participants:
+                        type: object
+                        description: Map of participant user IDs to participant metadata.
+                      creator:
+                        type: object
+                        nullable: true
+                        description: Creator of the session. `null` when no creator is recorded.
+                        properties:
+                          id:
+                            type: string
+                            nullable: true
+                          first_name:
+                            type: string
+                            nullable: true
+                          last_name:
+                            type: string
+                            nullable: true
+                          email:
+                            type: string
+                            nullable: true
+                          profile_picture:
+                            type: string
+                            nullable: true
+                  queue_position:
+                    type: integer
+                    nullable: true
+                    description: Position in the per-agent queue. Populated only when the session was queued; otherwise `null`.
+                    example: null
+              examples:
+                processing:
+                  summary: Continuation enqueued and processing
+                  value:
+                    session:
+                      id: sess_xYz789AbCd
+                      agent_id: abc123DEFghiJKL
+                      messages:
+                      - id: msg_a1b2c3
+                        role: user
+                        content: Research Acme Corp and draft a brief.
+                        created_at: '2026-05-15T14:32:00Z'
+                        creator_id: user_2b9d71f0
+                        parts: null
+                      - id: msg_d4e5f6
+                        role: assistant
+                        content: Here is what I found about Acme Corp...
+                        created_at: '2026-05-15T14:32:09Z'
+                        creator_id: null
+                        parts: null
+                      - id: msg_g7h8i9
+                        role: user
+                        content: Now write a follow-up email.
+                        created_at: '2026-05-15T14:35:00Z'
+                        creator_id: user_2b9d71f0
+                        parts: null
+                      created_at: '2026-05-15T14:32:00Z'
+                      state: processing
+                      agent_name: Sales research agent
+                      agent_team_id: team_4f8c92ab
+                      agent_creator_user_id: user_2b9d71f0
+                      agent_icon_url: null
+                      agent_tools: []
+                      participants:
+                        user_2b9d71f0:
+                          first_name: Ada
+                          last_name: Lovelace
+                      creator:
+                        id: user_2b9d71f0
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+                    queue_position: null
+        '400':
+          description: 'Bad request — missing `input`, or `stream: true` was set on this host (use the streaming host).'
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have update access on the session.
+        '404':
+          description: Session not found.
+        '409':
+          description: Conflict — the session is not in a terminal state (`interaction_not_in_terminal_state`).
+        '429':
+          description: Rate limited — the agent's concurrency limit was exceeded.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+  /sessions/{session_id}/cancel:
+    post:
+      summary: Cancel session
+      description: 'Cancel an in-progress session. If the session is currently `processing` or `queued`, any running stream is aborted and the session is transitioned to `failed`. If the session is already `completed` or `failed`, its current state is returned unchanged.
+
+
+        The response carries a `session` envelope but only `id`, `agent_id`, and `state` are populated.
+
+        '
+      operationId: cancelSession
+      tags:
+      - Sessions
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl -X POST 'https://api.gumloop.com/api/v1/sessions/sess_xYz789AbCd/cancel' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: 'from gumloop import Gumloop
+
+
+          client = Gumloop(access_token="YOUR_ACCESS_TOKEN")
+
+
+          response = client.sessions.cancel("sess_xYz789AbCd")
+
+          print(response.session.state)
+
+          '
+      parameters:
+      - in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+        description: ID of the session to cancel.
+      responses:
+        '200':
+          description: Session state after the cancel attempt. Only `id`, `agent_id`, and `state` are populated on the session envelope.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  session:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: sess_xYz789AbCd
+                      agent_id:
+                        type: string
+                        example: abc123DEFghiJKL
+                      messages:
+                        type: array
+                        items:
+                          type: object
+                      created_at:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        example: null
+                      state:
+                        type: string
+                        nullable: true
+                        enum:
+                        - processing
+                        - completed
+                        - failed
+                        - queued
+                        - idle
+                        example: failed
+                      agent_name:
+                        type: string
+                        nullable: true
+                        example: null
+                      agent_team_id:
+                        type: string
+                        nullable: true
+                        example: null
+                      agent_creator_user_id:
+                        type: string
+                        nullable: true
+                        example: null
+                      agent_icon_url:
+                        type: string
+                        nullable: true
+                        example: null
+                      agent_tools:
+                        type: array
+                        items:
+                          type: object
+                      participants:
+                        type: object
+                      creator:
+                        type: object
+                        nullable: true
+                        properties:
+                          id:
+                            type: string
+                            nullable: true
+                          first_name:
+                            type: string
+                            nullable: true
+                          last_name:
+                            type: string
+                            nullable: true
+                          email:
+                            type: string
+                            nullable: true
+                          profile_picture:
+                            type: string
+                            nullable: true
+                  queue_position:
+                    type: integer
+                    nullable: true
+                    example: null
+              examples:
+                cancelled:
+                  summary: Cancelled an in-progress session
+                  value:
+                    session:
+                      id: sess_xYz789AbCd
+                      agent_id: abc123DEFghiJKL
+                      messages: []
+                      created_at: null
+                      state: failed
+                      agent_name: null
+                      agent_team_id: null
+                      agent_creator_user_id: null
+                      agent_icon_url: null
+                      agent_tools: []
+                      participants: {}
+                      creator: null
+                    queue_position: null
+                already_completed:
+                  summary: Already in a terminal state — current state returned
+                  value:
+                    session:
+                      id: sess_xYz789AbCd
+                      agent_id: abc123DEFghiJKL
+                      messages: []
+                      created_at: null
+                      state: completed
+                      agent_name: null
+                      agent_team_id: null
+                      agent_creator_user_id: null
+                      agent_icon_url: null
+                      agent_tools: []
+                      participants: {}
+                      creator: null
+                    queue_position: null
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have update access on the session.
+        '404':
+          description: Session not found.
+        '500':
+          description: Internal server error — the abort could not be persisted (`failed_to_abort`).
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: A personal API key or an [OAuth 2.0](/api-reference/oauth) access token. Personal API keys also require the `x-auth-key` header with your user ID.

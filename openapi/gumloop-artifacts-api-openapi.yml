@@ -1,0 +1,290 @@
+openapi: 3.0.0
+info:
+  title: Public Agents Artifacts API
+  version: 1.0.0
+servers:
+- url: https://api.gumloop.com/api/v1
+tags:
+- name: Artifacts
+paths:
+  /agents/{agent_id}/artifacts:
+    get:
+      summary: List artifacts
+      description: List artifacts (files) produced by an agent. Optionally scope to a specific session, search by filename, sort, and paginate.
+      operationId: listArtifacts
+      tags:
+      - Artifacts
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/agents/AGENT_ID/artifacts?page_size=20' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: "from gumloop import Gumloop\n\nclient = Gumloop(access_token=\"YOUR_ACCESS_TOKEN\")\n\nresponse = client.artifacts.list(agent_id=\"AGENT_ID\")\nfor artifact in response.artifacts:\n    print(artifact.id, artifact.filename)\n"
+      parameters:
+      - in: path
+        name: agent_id
+        required: true
+        schema:
+          type: string
+        description: ID of the agent whose artifacts to list.
+      - in: query
+        name: session_id
+        required: false
+        schema:
+          type: string
+        description: Filter to artifacts produced within a specific session.
+      - in: query
+        name: search_query
+        required: false
+        schema:
+          type: string
+        description: Case-insensitive substring match against the artifact filename.
+      - in: query
+        name: sort_order
+        required: false
+        schema:
+          type: string
+          default: newest
+        description: Sort order for results. Defaults to `newest`.
+      - in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+          default: 20
+          minimum: 1
+          maximum: 100
+        description: Number of artifacts to return per page. Clamped to 1–100.
+      - in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        description: Opaque pagination cursor returned by a prior call as `next_cursor`.
+      responses:
+        '200':
+          description: Artifacts matching the provided filters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  artifacts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique artifact identifier.
+                          example: art_aBcDeF123
+                        version_id:
+                          type: string
+                          nullable: true
+                          description: ID of this specific artifact version.
+                          example: ver_xYz9012
+                        major_version:
+                          type: integer
+                          nullable: true
+                          example: 2
+                        agent_id:
+                          type: string
+                          nullable: true
+                          description: ID of the agent that produced the artifact.
+                          example: abc123DEFghiJKL
+                        session_id:
+                          type: string
+                          nullable: true
+                          description: ID of the session in which the artifact was produced.
+                          example: ses_8h2k4m1n
+                        filename:
+                          type: string
+                          nullable: true
+                          example: q4_sales_report.pdf
+                        created_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          description: ISO 8601 timestamp of when the artifact version was created.
+                          example: '2026-05-15T14:32:00Z'
+                        metadata:
+                          type: object
+                          description: Arbitrary metadata stored with the artifact version.
+                        url:
+                          type: string
+                          nullable: true
+                          description: Signed URL for direct access to the artifact file.
+                          example: https://storage.googleapis.com/...
+                        creator:
+                          type: object
+                          nullable: true
+                          description: The user who created this artifact version. `null` when unknown.
+                          properties:
+                            id:
+                              type: string
+                              nullable: true
+                              example: user_19a3bc
+                            first_name:
+                              type: string
+                              nullable: true
+                              example: Ada
+                            last_name:
+                              type: string
+                              nullable: true
+                              example: Lovelace
+                            email:
+                              type: string
+                              nullable: true
+                              example: ada@example.com
+                            profile_picture:
+                              type: string
+                              nullable: true
+                              example: https://example.com/avatars/ada.png
+                  next_cursor:
+                    type: string
+                    nullable: true
+                    description: Cursor to pass as `cursor` on the next request. `null` when there are no more results.
+              examples:
+                multiple:
+                  summary: Multiple artifacts
+                  value:
+                    artifacts:
+                    - id: art_aBcDeF123
+                      version_id: ver_xYz9012
+                      major_version: 2
+                      agent_id: abc123DEFghiJKL
+                      session_id: ses_8h2k4m1n
+                      filename: q4_sales_report.pdf
+                      created_at: '2026-05-15T14:32:00Z'
+                      metadata:
+                        media_type: application/pdf
+                        size: 12345
+                      url: https://storage.googleapis.com/gumloop-artifacts/art_aBcDeF123?X-Goog-Signature=...
+                      creator:
+                        id: user_19a3bc
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: https://example.com/avatars/ada.png
+                    - id: art_gHiJkL456
+                      version_id: ver_aBc4567
+                      major_version: 1
+                      agent_id: abc123DEFghiJKL
+                      session_id: ses_8h2k4m1n
+                      filename: summary.txt
+                      created_at: '2026-05-15T14:30:11Z'
+                      metadata: {}
+                      url: https://storage.googleapis.com/gumloop-artifacts/art_gHiJkL456?X-Goog-Signature=...
+                      creator:
+                        id: user_19a3bc
+                        first_name: Ada
+                        last_name: Lovelace
+                        email: ada@example.com
+                        profile_picture: null
+                    next_cursor: eyJjcmVhdGVkX3RzIjoiMjAyNi0wNS0xNVQxNDozMDoxMVoifQ==
+                empty:
+                  summary: No artifacts
+                  value:
+                    artifacts: []
+                    next_cursor: null
+        '400':
+          description: Bad request — `page_size` is not an integer.
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have read access on the agent.
+        '404':
+          description: Agent not found.
+        '500':
+          description: Internal server error.
+      security:
+      - bearerAuth: []
+  /artifacts/{artifact_id}/download:
+    get:
+      summary: Download artifact
+      description: Returns a signed download URL for an artifact, plus its filename, media type, and size. Follow `download_url` to fetch the file bytes.
+      operationId: downloadArtifact
+      tags:
+      - Artifacts
+      x-codeSamples:
+      - lang: bash
+        label: cURL
+        source: "curl 'https://api.gumloop.com/api/v1/artifacts/ARTIFACT_ID/download' \\\n  -H 'Authorization: Bearer YOUR_ACCESS_TOKEN'\n"
+      - lang: python
+        label: Python
+        source: 'from gumloop import Gumloop
+
+
+          client = Gumloop(access_token="YOUR_ACCESS_TOKEN")
+
+
+          response = client.artifacts.download(artifact_id="ARTIFACT_ID")
+
+          print(response.download_url, response.filename, response.size)
+
+          '
+      parameters:
+      - in: path
+        name: artifact_id
+        required: true
+        schema:
+          type: string
+        description: ID of the artifact to download.
+      - in: query
+        name: version_id
+        required: false
+        schema:
+          type: string
+        description: Specific version of the artifact to download. Defaults to the latest version when omitted.
+      responses:
+        '200':
+          description: Signed download URL and file metadata.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  download_url:
+                    type: string
+                    description: Signed URL the caller can `GET` to fetch the file bytes.
+                    example: https://storage.googleapis.com/gumloop-artifacts/art_aBcDeF123?X-Goog-Signature=...
+                  filename:
+                    type: string
+                    nullable: true
+                    example: q4_sales_report.pdf
+                  media_type:
+                    type: string
+                    nullable: true
+                    example: application/pdf
+                  size:
+                    type: integer
+                    nullable: true
+                    description: File size in bytes.
+                    example: 12345
+                required:
+                - download_url
+              examples:
+                pdf:
+                  summary: PDF artifact
+                  value:
+                    download_url: https://storage.googleapis.com/gumloop-artifacts/art_aBcDeF123?X-Goog-Signature=...
+                    filename: q4_sales_report.pdf
+                    media_type: application/pdf
+                    size: 12345
+        '401':
+          description: Unauthorized — missing or invalid API key.
+        '403':
+          description: Forbidden — the caller does not have read access on the artifact.
+        '404':
+          description: Artifact not found, version not found, or the underlying file is unavailable.
+        '502':
+          description: Failed to generate a download URL for the underlying file.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: A personal API key or an [OAuth 2.0](/api-reference/oauth) access token. Personal API keys also require the `x-auth-key` header with your user ID.
