@@ -1,25 +1,254 @@
 aid: gumloop
 name: Gumloop
-description: 'Gumloop is a company surfaced as a portfolio company of benchmark and added to the API Evangelist
-  network as a stub for enrichment. Sector: artificial-intelligence. This profile is a lead awaiting the
-  enrichment pipeline.'
+description: >-
+  Gumloop is an AI-agent automation platform for building, deploying, and governing
+  agents that automate real work — data analysis, customer support, CRM management,
+  and back-office tasks — across tools like Slack, Microsoft Teams, and Gmail. Its
+  public REST API (https://api.gumloop.com/api/v1) exposes 49 operations spanning
+  flow execution, agents and sessions, an OpenAI-compatible chat/completions endpoint,
+  Company Brain search, agent skills, artifacts, MCP server management, evaluations,
+  file handling, teams, and organization administration. Gumloop ships first-party
+  Python and JavaScript SDKs, a `gumloop` CLI, a hosted MCP server for Claude/Cursor/
+  VS Code, OAuth 2.0 with PKCE, webhook/schedule/event triggers, and enterprise
+  controls (SSO/SAML/SCIM, audit logging, app policies).
 url: https://raw.githubusercontent.com/api-evangelist/gumloop/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://gumloop.com/images/link-preview.webp
 x-type: company
 x-source: benchmark-portfolio
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: enrichment-pipeline
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
 - Artificial Intelligence
-apis: []
+- AI Agents
+- Automation
+- Workflow Automation
+- Agent Platform
+- MCP
+- LLM
+- No-Code
+- Developer Tools
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: gumloop:gumloop-agents-api
+  name: Gumloop Agents API
+  description: The Agents API from Gumloop — 5 operation(s) for agents.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-agents-api-openapi.yml
+- aid: gumloop:gumloop-artifacts-api
+  name: Gumloop Artifacts API
+  description: The Artifacts API from Gumloop — 2 operation(s) for artifacts.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - Artifacts
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-artifacts-api-openapi.yml
+- aid: gumloop:gumloop-brain-api
+  name: Gumloop Brain API
+  description: The Brain API from Gumloop — 1 operation(s) for brain.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - Brain
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-brain-api-openapi.yml
+- aid: gumloop:gumloop-chat-completions-api
+  name: Gumloop Chat completions API
+  description: The Chat completions API from Gumloop — 1 operation(s) for chat completions.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - Chat completions
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-chat-completions-api-openapi.yml
+- aid: gumloop:gumloop-data-access-api
+  name: Gumloop Data Access API
+  description: The Data Access API from Gumloop — 5 operation(s) for data access.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - Data Access
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-data-access-api-openapi.yml
+- aid: gumloop:gumloop-evaluations-api
+  name: Gumloop Evaluations API
+  description: The Evaluations API from Gumloop — 4 operation(s) for evaluations.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - Evaluations
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-evaluations-api-openapi.yml
+- aid: gumloop:gumloop-execution-api
+  name: Gumloop Execution API
+  description: The Execution API from Gumloop — 2 operation(s) for execution.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - Execution
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-execution-api-openapi.yml
+- aid: gumloop:gumloop-file-handling-api
+  name: Gumloop File Handling API
+  description: The File Handling API from Gumloop — 4 operation(s) for file handling.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - File Handling
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-file-handling-api-openapi.yml
+- aid: gumloop:gumloop-mcp-api
+  name: Gumloop MCP API
+  description: The MCP API from Gumloop — 4 operation(s) for mcp.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - MCP
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-mcp-api-openapi.yml
+- aid: gumloop:gumloop-models-api
+  name: Gumloop Models API
+  description: The Models API from Gumloop — 1 operation(s) for models.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-models-api-openapi.yml
+- aid: gumloop:gumloop-organization-api
+  name: Gumloop Organization API
+  description: The Organization API from Gumloop — 5 operation(s) for organization.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-organization-api-openapi.yml
+- aid: gumloop:gumloop-sessions-api
+  name: Gumloop Sessions API
+  description: The Sessions API from Gumloop — 4 operation(s) for sessions.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-sessions-api-openapi.yml
+- aid: gumloop:gumloop-skills-api
+  name: Gumloop Skills API
+  description: The Skills API from Gumloop — 3 operation(s) for skills.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - Skills
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-skills-api-openapi.yml
+- aid: gumloop:gumloop-teams-api
+  name: Gumloop Teams API
+  description: The Teams API from Gumloop — 1 operation(s) for teams.
+  humanURL: https://docs.gumloop.com/api-reference/getting-started
+  baseURL: https://api.gumloop.com/api/v1
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/gumloop-teams-api-openapi.yml
 common:
+- type: DeveloperPortal
+  url: https://docs.gumloop.com
+- type: Documentation
+  url: https://docs.gumloop.com/getting-started/introduction
+- type: APIReference
+  url: https://docs.gumloop.com/api-reference/getting-started
+- type: GettingStarted
+  url: https://docs.gumloop.com/api-reference/getting-started
+- type: Authentication
+  url: authentication/gumloop-authentication.yml
+- type: OAuthScopes
+  url: scopes/gumloop-scopes.yml
+- type: Packages
+  url: packages/gumloop-packages.yml
+- type: SDKs
+  url: packages/gumloop-packages.yml
+- type: CLI
+  url: cli/gumloop-cli.yml
+- type: MCPServer
+  url: mcp/gumloop-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: WellKnown
+  url: well-known/gumloop-well-known.yml
+- type: LLMsTxt
+  url: llms/gumloop-llms.txt
+- type: Conventions
+  url: conventions/gumloop-conventions.yml
+- type: ErrorCatalog
+  url: errors/gumloop-problem-types.yml
+- type: DataModel
+  url: data-model/gumloop-data-model.yml
+- type: Conformance
+  url: conformance/gumloop-conformance.yml
+- type: Lifecycle
+  url: lifecycle/gumloop-lifecycle.yml
+- type: StatusPage
+  url: https://status.gumloop.com
+- type: ChangeLog
+  url: changelog/gumloop-changelog.yml
+- type: Webhooks
+  url: asyncapi/gumloop-webhooks.yml
+- type: TrustCenter
+  url: https://trust.gumloop.com
+- type: DomainSecurity
+  url: security/gumloop-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/gumloop-agentic-access.yml
+- type: Blog
+  url: https://gumloop.com/blog
+- type: Pricing
+  url: https://gumloop.com/pricing
+- type: SignUp
+  url: https://www.gumloop.com
+- type: Support
+  url: mailto:support@gumloop.com
+- type: TermsOfService
+  url: https://gumloop.com/tos
+- type: PrivacyPolicy
+  url: https://gumloop.com/privacy-policy
 - type: Website
   url: https://www.gumloop.com
