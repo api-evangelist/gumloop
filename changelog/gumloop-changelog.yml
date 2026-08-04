@@ -1,0 +1,31 @@
+generated: '2026-07-19'
+method: searched
+source: https://gumloop.com/changelog
+scheme: semver
+current: 10.12.0
+entries:
+- version: 10.12.0
+  date: '2026-07-17'
+  highlights: [Slack direct messaging for agents, API management of agent skills/connectors, SharePoint integration, multi-participant chat visibility, connector access controls]
+- version: 10.11.0
+  date: '2026-07-15'
+  highlights: [Zendesk as a Brain knowledge source, improved trigger editing, API key authentication, expanded Google Docs / Gumloop MCP capabilities]
+- version: 10.10.0
+  date: '2026-07-13'
+  highlights: [Brain Google Drive permission preservation + audit logging, trigger failure notifications, connector status messaging, Atlassian multi-site selection]
+- version: 10.9.0
+  date: '2026-07-09'
+  highlights: [GPT-5.6 models, rebuilt Agent Computers for code execution, Grok 4.5 support, Brain source mentions in chat, team account credential management]
+- version: 10.8.0
+  date: '2026-07-08'
+  highlights: [Gumloop Brain company knowledge bases (Google Drive/Notion/Slack/Confluence), Connector Explorer, AppLovin Ads integration, improved file processing]
+- version: 10.7.0
+  date: '2026-07-03'
+  highlights: [160+ new connectors (Granola, Klaviyo, Mixpanel), 10x faster skill loading, restored fetch-new-tools across MCP connectors]
+- version: 10.6.0
+  date: '2026-07-01'
+  highlights: [Claude Sonnet 5 model, agent-owned credentials, token-based workflow AI billing, Outreach + Rocketlane integrations, custom OAuth client support]
+- version: 10.5.0
+  date: '2026-06-29'
+  highlights: [Agent Analytics pages, per-chat credit thresholds, team-agent trigger management, DocuSign + ClickUp integrations]
+notes: Recent window only; the live changelog at https://gumloop.com/changelog is the source of truth.

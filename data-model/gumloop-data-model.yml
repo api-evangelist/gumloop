@@ -1,0 +1,79 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/gumloop-openapi-original.yml
+note: >
+  Derived from the OpenAPI path hierarchy (nested resources) and id-reference parameters;
+  the spec inlines request/response schemas rather than naming components, so entities are
+  inferred from resource paths and path parameters.
+entities:
+- name: team
+  key: team_id
+  operations: [listTeams]
+- name: agent
+  key: agent_id
+  operations: [listAgents, createAgent, retrieveAgent, updateAgent]
+- name: session
+  key: session_id
+  belongs_to: agent
+  via: agent_id
+  operations: [listSessions, createSession, retrieveSession, sendMessage, cancelSession]
+- name: skill
+  key: skill_id
+  operations: [listSkills, createSkill, updateSkill, deleteSkill, downloadSkill]
+- name: mcp_server
+  key: server_id
+  operations: [listMcpServers, retrieveMcpServer, listMcpServerTools, callMcpTools]
+- name: artifact
+  key: artifact_id
+  belongs_to: agent
+  via: agent_id
+  operations: [listArtifacts, downloadArtifact]
+- name: evaluation
+  key: evaluation_id
+  belongs_to: agent
+  via: agent_id
+  operations: [listEvaluations, getEvaluationMetrics, retrieveEvaluation, getEvaluationConfig, updateEvaluationConfig]
+- name: flow
+  key: saved_item_id
+  operations: [startFlow, killPipeline, getAutomationRun, listSavedAutomations, getInputs, getAutomationRunHistory]
+- name: workbook
+  key: workbook_id
+  operations: [listWorkbooks]
+- name: run
+  key: run_id
+  belongs_to: flow
+  via: saved_item_id
+  operations: [startFlow, getAutomationRun, killPipeline, getAutomationRunHistory]
+relationships:
+- from: agent
+  to: session
+  type: has_many
+  via: agent_id
+- from: agent
+  to: artifact
+  type: has_many
+  via: agent_id
+- from: agent
+  to: evaluation
+  type: has_many
+  via: agent_id
+- from: agent
+  to: skill
+  type: has_many
+  via: attach (updateAgentSkills)
+- from: agent
+  to: mcp_server
+  type: has_many
+  via: attach (attachAgentMcpServer)
+- from: workbook
+  to: flow
+  type: has_many
+  via: workbook_id
+- from: flow
+  to: run
+  type: has_many
+  via: saved_item_id
+- from: session
+  to: agent
+  type: belongs_to
+  via: agent_id

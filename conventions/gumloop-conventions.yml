@@ -1,0 +1,39 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.gumloop.com/api-reference
+authentication:
+  style: bearer
+  header: 'Authorization: Bearer {api_key}'
+  extra: Personal API keys also send the user id via the x-auth-key header; team keys set user_id per request.
+  oauth2: true
+  docs: https://docs.gumloop.com/api-reference/authentication
+  cross_ref: authentication/gumloop-authentication.yml
+idempotency:
+  supported: false
+  note: No Idempotency-Key header or parameter is documented. Flow triggering is not idempotent; poll get_pl_run with the returned run_id.
+pagination:
+  style: cursor
+  params: [cursor, page_size]
+  response_fields: [next_cursor]
+  note: Sessions, skills, evaluations and artifact listings are cursor-paginated (newest first); page_size must be an integer.
+versioning:
+  style: uri-path
+  current: v1
+  cross_ref: lifecycle/gumloop-lifecycle.yml
+error_envelope:
+  style: json
+  note: Plain JSON error body with a message/slug (not RFC 9457).
+  cross_ref: errors/gumloop-problem-types.yml
+rate_limit_signaling:
+  style: concurrency
+  http_status: 429
+  note: >
+    Limits are on concurrency (simultaneous runs/interactions), not daily volume.
+    Free/Pro get HTTP 429 on the excess run; Enterprise queues it. No documented
+    Retry-After header.
+  cross_ref: null
+request_tracing:
+  request_id_header: null
+  note: Flow runs are tracked by the run_id returned from start_pipeline; poll get_pl_run.
+streaming:
+  note: POST /chat/completions supports Server-Sent Events with stream:true; sessions stream agent output.

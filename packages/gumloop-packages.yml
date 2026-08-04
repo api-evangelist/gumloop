@@ -1,0 +1,22 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.gumloop.com/api-reference/sdk/
+packages:
+- language: python
+  registry: pypi
+  name: gumloop
+  url: https://pypi.org/project/gumloop/
+  install: pip install gumloop
+  official: true
+  notes: >
+    Ships two clients: the modern `Gumloop` / `GumloopClient` resource client
+    (chat completions, agents, sessions, MCP, skills, artifacts, teams) and a
+    legacy saved-automation client that emits a DeprecationWarning at construction.
+    Also the distribution behind the `gumloop` CLI (uv/pipx/pip install gumloop).
+- language: javascript
+  registry: npm
+  name: gumloop
+  url: https://www.npmjs.com/package/gumloop
+  install: npm install gumloop
+  official: true
+  notes: Node/TypeScript SDK; initialize with an API key and user_id (optional project_id).

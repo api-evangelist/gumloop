@@ -1,0 +1,429 @@
+# Gumloop
+
+## Docs
+
+- [Attach or update an agent MCP server](https://docs.gumloop.com/api-reference/agents/attach-agent-mcp-server.md): Attach an MCP server (connector) to an agent, or update its configuration if it's already attached (upsert).
+- [Create agent](https://docs.gumloop.com/api-reference/agents/create-agent.md): Create a new agent. The authenticated caller must have permission to create agents on the target team.
+- [Detach an agent MCP server](https://docs.gumloop.com/api-reference/agents/detach-agent-mcp-server.md): Detach an MCP server (connector) from an agent. This is idempotent — detaching a server that isn't attached returns `detached: false` rather than an error.
+- [List agent MCP servers](https://docs.gumloop.com/api-reference/agents/list-agent-mcp-servers.md): List the MCP servers (connectors) attached to an agent. Sensitive fields such as `secret_id` and `mcp_server_url` are scrubbed from the response.
+- [List agents](https://docs.gumloop.com/api-reference/agents/list-agents.md): List agents the caller has access to. Filter by team, search by name, or narrow to agents that use a specific tool or trigger.
+- [Retrieve agent](https://docs.gumloop.com/api-reference/agents/retrieve-agent.md): Retrieve a single agent by ID.
+- [Update agent](https://docs.gumloop.com/api-reference/agents/update-agent.md): Update an existing agent. Only fields included in the request body are changed; omitted fields are left untouched.
+- [Attach or detach agent skills](https://docs.gumloop.com/api-reference/agents/update-agent-skills.md): Attach and/or detach skills on an agent using deltas. This is **not** a replace-list: skills you don't mention are left untouched.
+- [Download artifact](https://docs.gumloop.com/api-reference/artifacts/download-artifact.md): Returns a signed download URL for an artifact, plus its filename, media type, and size. Follow `download_url` to fetch the file bytes.
+- [List artifacts](https://docs.gumloop.com/api-reference/artifacts/list-artifacts.md): List artifacts (files) produced by an agent. Optionally scope to a specific session, search by filename, sort, and paginate.
+- [Authentication](https://docs.gumloop.com/api-reference/authentication.md)
+- [Search Company Brain](https://docs.gumloop.com/api-reference/brain/search.md): Run a hybrid (semantic + keyword) search across the knowledge sources indexed in your [Company Brain](/core-concepts/brain) and return the most relevant, ranked snippets with citations.
+- [Create chat completion](https://docs.gumloop.com/api-reference/chat-completions/create-completion.md): OpenAI-compatible chat completions endpoint, multiplexed across every model Gumloop supports (Anthropic, OpenAI, Google Gemini, OpenRouter routes). Set `stream: true` for Server-Sent Events, or omit it for a unary JSON response. Image-generation models (`gpt-image-*`, `gemini-*-image-preview`, `dall…
+- [Get evaluation config](https://docs.gumloop.com/api-reference/evaluations/get-config.md): Retrieve the current evaluation configuration for an agent, including criteria, tags, data points, and sentiment settings.
+- [Get evaluation metrics](https://docs.gumloop.com/api-reference/evaluations/get-metrics.md): Returns aggregated grade and tag counts for an agent's evaluations over a time window. Useful for dashboards and reporting on agent quality trends.
+- [List evaluations](https://docs.gumloop.com/api-reference/evaluations/list-evaluations.md): Returns a cursor-paginated list of evaluation results for a specific agent, newest first. Only completed and failed evaluations are returned (transient states like queued/in_progress are excluded).
+- [Retrieve evaluation](https://docs.gumloop.com/api-reference/evaluations/retrieve-evaluation.md): Retrieve a single evaluation result by ID. The evaluation must belong to the specified agent.
+- [Update evaluation config](https://docs.gumloop.com/api-reference/evaluations/update-config.md): Partially update the evaluation configuration for an agent. Omitted fields keep their current value. Provided list fields (criteria, tags, data_points) replace that list entirely.
+- [Download file](https://docs.gumloop.com/api-reference/file-operations/download-file.md)
+- [Download multiple files](https://docs.gumloop.com/api-reference/file-operations/download-files.md)
+- [Upload file](https://docs.gumloop.com/api-reference/file-operations/upload-file.md)
+- [Upload multiple files](https://docs.gumloop.com/api-reference/file-operations/upload-files.md)
+- [List saved flows](https://docs.gumloop.com/api-reference/getting-automation-details/list-saved-automations.md)
+- [List workbooks and their saved flows](https://docs.gumloop.com/api-reference/getting-automation-details/list-workbooks.md)
+- [Retrieve input schema](https://docs.gumloop.com/api-reference/getting-automation-details/retrieve-input-schema.md)
+- [Retrieve automation run history](https://docs.gumloop.com/api-reference/getting-automation-details/retrieve-run-history.md): This endpoint retrieves the run history for automations, either by workbook or saved item. Returns the 10 most recent runs.
+- [Getting Started](https://docs.gumloop.com/api-reference/getting-started.md)
+- [Call MCP tools](https://docs.gumloop.com/api-reference/mcp/call-tool.md): Execute a batch of 1–5 MCP tool calls. Calls run concurrently and each result reports its own `status`. When Gumloop accepts the request, MCP execution failures such as target server authentication, policy blocks, invalid tools, upstream HTTP errors, and connection failures are returned in `results[…
+- [List MCP servers](https://docs.gumloop.com/api-reference/mcp/list-servers.md): Return the catalog of MCP servers visible to the caller — Gumloop-hosted (`gumcp_server`), user-deployed Gumstack (`gumstack_server`), and custom (`mcp_server`) — along with each server's connection state.
+- [List MCP server tools](https://docs.gumloop.com/api-reference/mcp/list-tools.md): Return the tools exposed by an MCP server. When the server is not in `connected` state, `tools` is empty and `gumloop_auth_url` is returned so the caller can prompt the user to authenticate.
+- [Retrieve an MCP server](https://docs.gumloop.com/api-reference/mcp/retrieve-server.md): Return a single MCP server. The response populates `allowed_tool_call_ids` with the tool call IDs the caller is permitted to invoke on this server.
+- [List models](https://docs.gumloop.com/api-reference/models/list-models.md): List the LLMs and preset model chains available to the caller, grouped for display in a model picker.
+- [OAuth 2.0](https://docs.gumloop.com/api-reference/oauth.md)
+- [Export data](https://docs.gumloop.com/api-reference/organization/export-data.md): This endpoint allows enterprise organization administrators to create and initiate a comprehensive data export for their organization or specific workspaces.
+- [Get data export status](https://docs.gumloop.com/api-reference/organization/export-status.md): This endpoint retrieves the status of a data export job and optionally downloads the export file (as CSV) if the export has completed successfully.
+- [Retrieve audit logs](https://docs.gumloop.com/api-reference/organization/get-audit-logs.md): This endpoint retrieves audit logs for all users in an organization for a specified time period.
+- [Manage custom role users](https://docs.gumloop.com/api-reference/organization/manage-permission-group-users.md): This endpoint allows organization administrators to add or remove users from a custom role (formerly "permission group"). Adding a user to a role does not remove them from any other role they belong to.
+- [Manage workspace users](https://docs.gumloop.com/api-reference/organization/manage-workspace-users.md): This endpoint allows organization administrators to add or remove users from a workspace.
+- [Kill flow run](https://docs.gumloop.com/api-reference/running-an-automation/kill-automation.md): This endpoint is used to kill a flow run and all its subflow runs.
+- [Retrieve run details](https://docs.gumloop.com/api-reference/running-an-automation/retrieve-run-details.md): This endpoint can be used to poll for completion and retrieve final flow outputs. Output nodes must be used to retrieve outputs.
+- [Start flow run](https://docs.gumloop.com/api-reference/running-an-automation/start-automation.md): This endpoint is used to trigger a flow run via API
+- [JavaScript SDK](https://docs.gumloop.com/api-reference/sdk/javascript.md)
+- [Python SDK](https://docs.gumloop.com/api-reference/sdk/python.md)
+- [Cancel session](https://docs.gumloop.com/api-reference/sessions/cancel-session.md): Cancel an in-progress session. If the session is currently `processing` or `queued`, any running stream is aborted and the session is transitioned to `failed`. If the session is already `completed` or `failed`, its current state is returned unchanged.
+- [Create session](https://docs.gumloop.com/api-reference/sessions/create-session.md): Create a new session for an agent. When `input` is provided, the message is enqueued and the agent begins processing — the response returns `202` with the session in `processing` or `queued` state. When `input` is omitted, an idle session stub is created and the response returns `201`.
+- [List sessions](https://docs.gumloop.com/api-reference/sessions/list-sessions.md): List sessions for an agent with cursor-based pagination, optional filtering, and search.
+- [Retrieve session](https://docs.gumloop.com/api-reference/sessions/retrieve-session.md): Retrieve a session by ID, including its messages, current state, agent metadata, and participants.
+- [Send message](https://docs.gumloop.com/api-reference/sessions/send-message.md): Append a user message to an existing session and resume the agent. The session must be in a terminal state (`idle`, `completed`, or `failed`); sending to a session that is `processing` or `queued` returns `409 interaction_not_in_terminal_state`.
+- [Create skill](https://docs.gumloop.com/api-reference/skills/create-skill.md): Upload a skill package and create a new skill. The package must include a `SKILL.md` with `name` and `description` frontmatter; uploads may be a single `.md` file (stored as `SKILL.md`), or a `.zip` / `.skill` archive containing `SKILL.md` at its root. The initial version is created automatically. M…
+- [Delete skill](https://docs.gumloop.com/api-reference/skills/delete-skill.md): Permanently delete a skill. This is a soft-delete — the skill will no longer appear in listings or be usable by agents.
+- [Download skill](https://docs.gumloop.com/api-reference/skills/download-skill.md): Generate a signed URL to download a skill's contents as a `.skill` archive (ZIP). When `version_id` is provided, returns that exact version; otherwise returns the current draft.
+- [List skills](https://docs.gumloop.com/api-reference/skills/list-skills.md): List skills the caller has access to. Filter by team, search by name, or narrow to a specific creator, related MCP server, or agent.
+- [Update skill](https://docs.gumloop.com/api-reference/skills/update-skill.md): Replace a skill's files with a new upload. Reparses `SKILL.md` to update the skill's `name`, `description`, and `metadata`, and creates a new version. Maximum upload size is 10 MB.
+- [List teams](https://docs.gumloop.com/api-reference/teams/list-teams.md): List teams the authenticated caller belongs to.
+- [Agents](https://docs.gumloop.com/cli/agents.md): List, inspect, create, and update agents from the terminal.
+- [Artifacts](https://docs.gumloop.com/cli/artifacts.md): List and download files produced by agents.
+- [Authentication](https://docs.gumloop.com/cli/authentication.md): Sign in with OAuth or an API key. The CLI stores credentials in your OS keychain.
+- [Brain](https://docs.gumloop.com/cli/brain.md): Search your Company Brain's indexed knowledge sources from the terminal.
+- [Chat](https://docs.gumloop.com/cli/chat.md): Send chat completions to any Gumloop-supported model from the terminal.
+- [MCP Servers](https://docs.gumloop.com/cli/mcp.md): Explore the MCP servers available to your account and execute their tools.
+- [Gumloop for Terminal](https://docs.gumloop.com/cli/overview.md): Drive Gumloop agents, sessions, chat completions, MCP servers, Company Brain, skills, and artifacts from your shell.
+- [Sessions](https://docs.gumloop.com/cli/sessions.md): Start agent conversations, send follow-ups, and cancel running sessions.
+- [Skills](https://docs.gumloop.com/cli/skills.md): Upload, update, and download agent skills as files.
+- [Join List Items vs Loop Mode](https://docs.gumloop.com/common_errors/join_list_vs_loop_mode.md)
+- [List Size Mismatch Errors](https://docs.gumloop.com/common_errors/list_size_mismatch.md)
+- [Flow Terminated Due to Excess Memory Consumption](https://docs.gumloop.com/common_errors/memory_limit.md)
+- [Type Mismatch Errors](https://docs.gumloop.com/common_errors/type_mismatch.md)
+- [Agent Artifacts (Files)](https://docs.gumloop.com/core-concepts/agent_artifacts.md)
+- [Agent Node](https://docs.gumloop.com/core-concepts/agent_node.md)
+- [Code Sandbox & Secrets](https://docs.gumloop.com/core-concepts/agent_sandbox_and_secrets.md): Secure code execution and credential management for your AI agents.
+- [Agent Triggers](https://docs.gumloop.com/core-concepts/agent_triggers.md): Run your agents automatically on a schedule or in response to external events like emails, Slack messages, and more.
+- [Agents](https://docs.gumloop.com/core-concepts/agents.md)
+- [Agent Email Inbox](https://docs.gumloop.com/core-concepts/agents_email.md): Give your agent a dedicated email address so anyone can interact with it by sending an email.
+- [Using Agents in Slack](https://docs.gumloop.com/core-concepts/agents_slack.md)
+- [Using Agents in Microsoft Teams](https://docs.gumloop.com/core-concepts/agents_teams.md): Connect your Gumloop agents to Microsoft Teams channels so your team can chat with AI-powered assistants where they already work.
+- [AI Models](https://docs.gumloop.com/core-concepts/ai_models.md)
+- [Create Triggers With AI](https://docs.gumloop.com/core-concepts/ai_trigger_creation.md): Let AI build custom polling triggers that monitor any combination of apps and fire your agent when conditions are met.
+- [Alerts](https://docs.gumloop.com/core-concepts/alerts.md)
+- [Brain](https://docs.gumloop.com/core-concepts/brain.md): Brain is your company knowledge base for agents. Connect your tools once, and your agents can search everything your team knows.
+- [Workflow Checkpoints](https://docs.gumloop.com/core-concepts/checkpoint_history.md)
+- [Connectors](https://docs.gumloop.com/core-concepts/credentials.md)
+- [Credits](https://docs.gumloop.com/core-concepts/credits.md)
+- [Custom Slack App Integration](https://docs.gumloop.com/core-concepts/custom_slack_app.md)
+- [Evaluations](https://docs.gumloop.com/core-concepts/evaluations.md): Automatically grade every agent interaction against your criteria, collect structured data, and tag conversations for reporting.
+- [Working With Files](https://docs.gumloop.com/core-concepts/files.md)
+- [Hosted Pages](https://docs.gumloop.com/core-concepts/hosted_pages.md): Give your agent a standalone page on gumloopagents.com that anyone can open directly.
+- [Human in the Loop](https://docs.gumloop.com/core-concepts/human_in_the_loop.md): Keep humans in control of your AI agents with tool approval settings, app rules, and the Ask Question ability.
+- [Gumloop Interfaces](https://docs.gumloop.com/core-concepts/interfaces.md)
+- [Loop Mode](https://docs.gumloop.com/core-concepts/loop_mode.md)
+- [Node and Workflow Library](https://docs.gumloop.com/core-concepts/node_and_flow_library.md)
+- [Node Versioning](https://docs.gumloop.com/core-concepts/node_versions.md)
+- [Okta Integration](https://docs.gumloop.com/core-concepts/okta-integration.md)
+- [User Roles](https://docs.gumloop.com/core-concepts/organization_user_roles.md): Composable organization and team roles that determine what each member can do in Gumloop.
+- [Rate Limits](https://docs.gumloop.com/core-concepts/rate_limits.md): Understand concurrency limits for workflows and agents, how they are calculated, and what happens when you hit them.
+- [Reflections](https://docs.gumloop.com/core-concepts/reflections.md): Let your agents periodically review their own work, find patterns, and propose improvements automatically.
+- [Run Log](https://docs.gumloop.com/core-concepts/run_log.md)
+- [Share Permissions](https://docs.gumloop.com/core-concepts/share_permissions.md)
+- [Agent Skills](https://docs.gumloop.com/core-concepts/skills.md): Skills are reusable knowledge packs that teach your agents how to do specific work, and get better over time.
+- [Subflows](https://docs.gumloop.com/core-concepts/subflows.md)
+- [Organization and Teams](https://docs.gumloop.com/core-concepts/teams.md)
+- [Community Template Submission Guidelines](https://docs.gumloop.com/core-concepts/template-submission-guidelines.md)
+- [Tips & Tricks](https://docs.gumloop.com/core-concepts/tips_and_tricks.md): Boost your productivity with these workflow building techniques and keyboard shortcuts
+- [Types](https://docs.gumloop.com/core-concepts/types.md)
+- [Workflows](https://docs.gumloop.com/core-concepts/workbooks.md)
+- [Workflow Triggers](https://docs.gumloop.com/core-concepts/workflow_triggers.md): Automatically start your workflows based on schedules, webhooks, and external events.
+- [AI Model Governance & Configuration](https://docs.gumloop.com/enterprise-features/ai_model_control.md)
+- [App Claims](https://docs.gumloop.com/enterprise-features/app-policies/app-claims.md): Claim a provider workspace (a specific Slack workspace, Salesforce org, Notion workspace, etc.) for your organization so only your members can connect to it from Gumloop.
+- [App Rules](https://docs.gumloop.com/enterprise-features/app-policies/app-rules.md): Block or tag specific tool calls for third-party apps at the organization or agent level.
+- [Domain Restrictions](https://docs.gumloop.com/enterprise-features/app-policies/domain-restrictions.md): Require OAuth connections to a given app to use an email address from a domain your organization controls.
+- [App Policies](https://docs.gumloop.com/enterprise-features/app-policies/overview.md): Govern how your organization uses third-party apps inside Gumloop: block risky tool calls, require corporate email domains, and claim provider workspaces.
+- [App Activity](https://docs.gumloop.com/enterprise-features/app_activity.md): Monitor tool calls, MCP interactions, and integration usage across your organization with real-time activity logs.
+- [Audit Logging](https://docs.gumloop.com/enterprise-features/audit_logging.md)
+- [Hosted MCPs](https://docs.gumloop.com/enterprise-features/hosted_mcps.md): Deploy, manage, and monitor custom MCP servers directly from GitHub repositories with full lifecycle management.
+- [Organization Analytics](https://docs.gumloop.com/enterprise-features/organization_analytics.md)
+- [Usage Data Export](https://docs.gumloop.com/enterprise-features/organization_data_export.md)
+- [Proxied MCPs](https://docs.gumloop.com/enterprise-features/proxied_mcps.md): Connect external MCP servers through a managed proxy for centralized monitoring, access control, and security.
+- [SSO, SAML & SCIM](https://docs.gumloop.com/enterprise-features/sso_saml_scim.md)
+- [Static Egress IPs](https://docs.gumloop.com/enterprise-features/static_egress_ips.md): Fixed outbound IP addresses for firewall and allowlist configuration.
+- [Custom Roles](https://docs.gumloop.com/enterprise-features/user_groups.md)
+- [Getting Started with Gumloop](https://docs.gumloop.com/getting-started/introduction.md)
+- [Welcome to Gumloop](https://docs.gumloop.com/index.md)
+- [MCP Server](https://docs.gumloop.com/mcp-server/overview.md): Connect to the Gumloop MCP server from Claude, Cursor, VS Code, and other MCP-compatible clients.
+- [Call API](https://docs.gumloop.com/nodes/advanced/call_api.md)
+- [Run Code](https://docs.gumloop.com/nodes/advanced/run_code.md)
+- [Similarity Search](https://docs.gumloop.com/nodes/advanced/similarity_search.md)
+- [Speech to Text](https://docs.gumloop.com/nodes/audio_processing/speech_to_text.md)
+- [Text to Speech](https://docs.gumloop.com/nodes/audio_processing/text_to_speech.md)
+- [Browser Extension Input](https://docs.gumloop.com/nodes/browser_extension/browser_extension_input.md)
+- [Browser Replay](https://docs.gumloop.com/nodes/browser_extension/browser_replay.md)
+- [Custom Node Builder](https://docs.gumloop.com/nodes/custom_node_details.md)
+- [Email Validator](https://docs.gumloop.com/nodes/data_enrichment/email_validator.md)
+- [Enrich Company Information](https://docs.gumloop.com/nodes/data_enrichment/enrich_company_information.md)
+- [Enrich Contact Information](https://docs.gumloop.com/nodes/data_enrichment/enrich_contact_information.md)
+- [Search Companies](https://docs.gumloop.com/nodes/data_enrichment/search_companies.md)
+- [CSV Reader](https://docs.gumloop.com/nodes/file_operations/csv_reader.md)
+- [CSV to XLSX Converter](https://docs.gumloop.com/nodes/file_operations/csv_to_xlsx.md)
+- [CSV Writer](https://docs.gumloop.com/nodes/file_operations/csv_writer.md)
+- [File Reader](https://docs.gumloop.com/nodes/file_operations/file_reader.md)
+- [Generate File](https://docs.gumloop.com/nodes/file_operations/generate_file.md)
+- [Sort CSV](https://docs.gumloop.com/nodes/file_operations/sort_csv.md)
+- [Zip File Reader](https://docs.gumloop.com/nodes/file_operations/zip_file_reader.md)
+- [Current Automation Info](https://docs.gumloop.com/nodes/flow_basics/current_automation_info.md)
+- [Current Datetime](https://docs.gumloop.com/nodes/flow_basics/current_datetime.md)
+- [Error Shield](https://docs.gumloop.com/nodes/flow_basics/error_shield.md)
+- [Filter](https://docs.gumloop.com/nodes/flow_basics/filter.md)
+- [Input](https://docs.gumloop.com/nodes/flow_basics/input_operator.md)
+- [Join Paths](https://docs.gumloop.com/nodes/flow_basics/join_paths.md)
+- [Output](https://docs.gumloop.com/nodes/flow_basics/output_operator.md)
+- [Router](https://docs.gumloop.com/nodes/flow_basics/router.md)
+- [Airtable Reader](https://docs.gumloop.com/nodes/integrations/airtable_reader.md)
+- [Airtable Updater](https://docs.gumloop.com/nodes/integrations/airtable_updater.md)
+- [Airtable Writer](https://docs.gumloop.com/nodes/integrations/airtable_writer.md)
+- [Store in S3](https://docs.gumloop.com/nodes/integrations/amazon_s3.md)
+- [Apify Task Runner](https://docs.gumloop.com/nodes/integrations/apify_task_runner.md)
+- [Arcads Video Creator](https://docs.gumloop.com/nodes/integrations/arcads_video_creator.md)
+- [Attio Company Reader](https://docs.gumloop.com/nodes/integrations/attio_company_reader.md)
+- [Attio Company Writer](https://docs.gumloop.com/nodes/integrations/attio_company_writer.md)
+- [Attio Contact Reader](https://docs.gumloop.com/nodes/integrations/attio_contact_reader.md)
+- [Attio Contact Writer](https://docs.gumloop.com/nodes/integrations/attio_contact_writer.md)
+- [Attio List Reader](https://docs.gumloop.com/nodes/integrations/attio_list_reader.md)
+- [Attio List Writer](https://docs.gumloop.com/nodes/integrations/attio_list_writer.md)
+- [BigQuery Workload Identity Federation](https://docs.gumloop.com/nodes/integrations/bigquery-workload-identity-federation.md): Connect BigQuery to Gumloop without OAuth or static service-account keys using GCP Workload Identity Federation.
+- [BigQuery Reader](https://docs.gumloop.com/nodes/integrations/bigquery_reader.md)
+- [Bluesky Scraper](https://docs.gumloop.com/nodes/integrations/bluesky_scraper.md)
+- [Google Calendar Event Creator](https://docs.gumloop.com/nodes/integrations/calendar_event_creator.md)
+- [Google Calendar Event Reader](https://docs.gumloop.com/nodes/integrations/calendar_event_reader.md)
+- [Google Calendar Event Updater](https://docs.gumloop.com/nodes/integrations/calendar_event_updater.md)
+- [Call Serp API](https://docs.gumloop.com/nodes/integrations/call_serp_api.md)
+- [Canva Autofill](https://docs.gumloop.com/nodes/integrations/canva_autofill.md)
+- [ClickUp Task Reader](https://docs.gumloop.com/nodes/integrations/clickup_task_reader.md)
+- [ClickUp Task Updater](https://docs.gumloop.com/nodes/integrations/clickup_task_updater.md)
+- [ClickUp Task Writer](https://docs.gumloop.com/nodes/integrations/clickup_task_writer.md)
+- [Confluence Page Reader](https://docs.gumloop.com/nodes/integrations/confluence_page_reader.md)
+- [Create Twitter Thread](https://docs.gumloop.com/nodes/integrations/create_twitter_thread.md)
+- [Discord Message Reader](https://docs.gumloop.com/nodes/integrations/discord_message_reader.md)
+- [Discord Message Sender](https://docs.gumloop.com/nodes/integrations/discord_message_sender.md)
+- [Discourse Reader](https://docs.gumloop.com/nodes/integrations/discourse_reader.md)
+- [Facebook Ad Library Scraper](https://docs.gumloop.com/nodes/integrations/facebook_ad_scraper.md)
+- [Firestore Writer](https://docs.gumloop.com/nodes/integrations/firestore_writer.md)
+- [Google Docs Reader](https://docs.gumloop.com/nodes/integrations/gdocs_reader.md)
+- [Google Docs Writer](https://docs.gumloop.com/nodes/integrations/gdocs_writer.md)
+- [Google Drive File Reader](https://docs.gumloop.com/nodes/integrations/gdrive_file_reader.md)
+- [Google Drive File Writer](https://docs.gumloop.com/nodes/integrations/gdrive_file_writer.md)
+- [Google Drive Folder Creator](https://docs.gumloop.com/nodes/integrations/gdrive_folder_creator.md)
+- [Google Drive Folder Reader](https://docs.gumloop.com/nodes/integrations/gdrive_folder_reader.md)
+- [Typeform Submission Reader](https://docs.gumloop.com/nodes/integrations/get_typeform_responses.md)
+- [Get Youtube Transcript](https://docs.gumloop.com/nodes/integrations/get_youtube_transcript.md)
+- [Ghost Blog Writer](https://docs.gumloop.com/nodes/integrations/ghost_blog_writer.md)
+- [GitHub PR Commenter](https://docs.gumloop.com/nodes/integrations/github_pr_commenter.md)
+- [GitHub PR Description Inserter](https://docs.gumloop.com/nodes/integrations/github_pr_description_inserter.md)
+- [Read GitHub Pull Request](https://docs.gumloop.com/nodes/integrations/github_pr_reader.md)
+- [Gmail Reader](https://docs.gumloop.com/nodes/integrations/gmail_reader.md)
+- [Gmail Sender](https://docs.gumloop.com/nodes/integrations/gmail_sender.md)
+- [Gmail Updater](https://docs.gumloop.com/nodes/integrations/gmail_updater.md)
+- [Google Ads Campaign Reader](https://docs.gumloop.com/nodes/integrations/google_ads_campaign_reader.md)
+- [Google Ads Search Term Reader](https://docs.gumloop.com/nodes/integrations/google_ads_search_term_reader.md)
+- [Google Alerts RSS Reader](https://docs.gumloop.com/nodes/integrations/google_alerts_rss_reader.md)
+- [Google Analytics Reader](https://docs.gumloop.com/nodes/integrations/google_analytics_reader.md)
+- [Google Docs Template Writer](https://docs.gumloop.com/nodes/integrations/google_doc_template_writer.md)
+- [Google Slides Reader](https://docs.gumloop.com/nodes/integrations/google_slide_reader.md)
+- [Google Slides Writer](https://docs.gumloop.com/nodes/integrations/google_slide_writer.md)
+- [Google Sheets Reader](https://docs.gumloop.com/nodes/integrations/gsheets_reader.md)
+- [Google Sheets Updater](https://docs.gumloop.com/nodes/integrations/gsheets_updater.md)
+- [Google Sheets Writer](https://docs.gumloop.com/nodes/integrations/gsheets_writer.md)
+- [Scrape Hacker News](https://docs.gumloop.com/nodes/integrations/hacker_news.md)
+- [HubSpot Company Reader](https://docs.gumloop.com/nodes/integrations/hubspot_company_reader.md)
+- [HubSpot Company Updater](https://docs.gumloop.com/nodes/integrations/hubspot_company_updater.md)
+- [HubSpot Contact Reader](https://docs.gumloop.com/nodes/integrations/hubspot_contact_reader.md)
+- [HubSpot Contact Updater](https://docs.gumloop.com/nodes/integrations/hubspot_contact_updater.md)
+- [HubSpot Deal Reader](https://docs.gumloop.com/nodes/integrations/hubspot_deal_reader.md)
+- [HubSpot Email Sender](https://docs.gumloop.com/nodes/integrations/hubspot_email_sender.md)
+- [HubSpot Engagement Reader](https://docs.gumloop.com/nodes/integrations/hubspot_engagement_reader.md)
+- [Incident.io Incidents Reader](https://docs.gumloop.com/nodes/integrations/incident_io.md): Read and monitor incidents from incident.io with automated polling triggers
+- [Jira Issue Reader](https://docs.gumloop.com/nodes/integrations/jira_issue_reader.md)
+- [Jira Issue Updater](https://docs.gumloop.com/nodes/integrations/jira_issue_updater.md)
+- [Jira Issue Writer](https://docs.gumloop.com/nodes/integrations/jira_issue_writer.md)
+- [Launch Phantom](https://docs.gumloop.com/nodes/integrations/launch_phantom.md)
+- [Linear Issue Reader](https://docs.gumloop.com/nodes/integrations/linear_issue_reader.md)
+- [Linear Issue Writer](https://docs.gumloop.com/nodes/integrations/linear_issue_writer.md)
+- [LinkedIn Company Profile Scraper](https://docs.gumloop.com/nodes/integrations/linkedin_company_profile_scraper.md)
+- [LinkedIn Job Scraper](https://docs.gumloop.com/nodes/integrations/linkedin_job_scraper.md)
+- [LinkedIn Post Writer](https://docs.gumloop.com/nodes/integrations/linkedin_post_writer.md)
+- [LinkedIn Profile Scraper](https://docs.gumloop.com/nodes/integrations/linkedin_profile_scraper.md)
+- [Mailgun Sender](https://docs.gumloop.com/nodes/integrations/mailgun_sender.md)
+- [Monday.com Board Reader](https://docs.gumloop.com/nodes/integrations/monday_board_reader.md)
+- [Monday.com Board Updater](https://docs.gumloop.com/nodes/integrations/monday_board_updater.md)
+- [Monday.com Board Writer](https://docs.gumloop.com/nodes/integrations/monday_board_writer.md)
+- [NetSuite OAuth Configuration](https://docs.gumloop.com/nodes/integrations/netsuite-oauth-config.md)
+- [Notion Database Reader](https://docs.gumloop.com/nodes/integrations/notion_database_reader.md)
+- [Notion Database Updater](https://docs.gumloop.com/nodes/integrations/notion_database_updater.md)
+- [Notion Database Writer](https://docs.gumloop.com/nodes/integrations/notion_database_writer.md)
+- [Notion Page Reader](https://docs.gumloop.com/nodes/integrations/notion_page_reader.md)
+- [Notion Page Writer](https://docs.gumloop.com/nodes/integrations/notion_page_writer.md)
+- [Microsoft OneLake File Writer](https://docs.gumloop.com/nodes/integrations/onelake_file_writer.md)
+- [Outlook Reader](https://docs.gumloop.com/nodes/integrations/outlook_reader.md)
+- [Outlook Sender](https://docs.gumloop.com/nodes/integrations/outlook_sender.md)
+- [Perplexity Web Search](https://docs.gumloop.com/nodes/integrations/perplexity_web_search.md)
+- [Reddit Scraper](https://docs.gumloop.com/nodes/integrations/reddit_scraper.md)
+- [RSS Feed Reader](https://docs.gumloop.com/nodes/integrations/rss_feed_reader.md)
+- [Run Zap](https://docs.gumloop.com/nodes/integrations/run_zap.md)
+- [Salesforce Record Reader](https://docs.gumloop.com/nodes/integrations/salesforce_record_reader.md)
+- [Semrush Domain Keywords](https://docs.gumloop.com/nodes/integrations/semrush_domain_keywords.md)
+- [Semrush Domain Overview](https://docs.gumloop.com/nodes/integrations/semrush_domain_overview.md)
+- [Semrush Keyword Overview](https://docs.gumloop.com/nodes/integrations/semrush_keyword_overview.md)
+- [Semrush URL Keywords](https://docs.gumloop.com/nodes/integrations/semrush_url_keywords.md)
+- [Slack Block Kit Sender](https://docs.gumloop.com/nodes/integrations/slack_block_kit_sender.md)
+- [Slack Canvas Writer](https://docs.gumloop.com/nodes/integrations/slack_canvas_writer.md)
+- [Slack Message Reader](https://docs.gumloop.com/nodes/integrations/slack_message_reader.md)
+- [Slack Message Sender](https://docs.gumloop.com/nodes/integrations/slack_message_sender.md)
+- [Snowflake OAuth Configuration](https://docs.gumloop.com/nodes/integrations/snowflake-oauth-config.md)
+- [Snowflake PAT Configuration](https://docs.gumloop.com/nodes/integrations/snowflake-pat-config.md)
+- [Snowflake Reader](https://docs.gumloop.com/nodes/integrations/snowflake_reader.md)
+- [Supabase SQL Writer](https://docs.gumloop.com/nodes/integrations/supabase_sql_writer.md)
+- [Supabase Table Reader](https://docs.gumloop.com/nodes/integrations/supabase_table_reader.md)
+- [Supabase Table Writer](https://docs.gumloop.com/nodes/integrations/supabase_table_writer.md)
+- [Teams Message Reader](https://docs.gumloop.com/nodes/integrations/teams_message_reader.md)
+- [Teams Message Sender](https://docs.gumloop.com/nodes/integrations/teams_message_sender.md)
+- [Translate](https://docs.gumloop.com/nodes/integrations/translate.md)
+- [Tweet](https://docs.gumloop.com/nodes/integrations/tweet.md)
+- [Twitter Scraper](https://docs.gumloop.com/nodes/integrations/twitter_scraper.md)
+- [Web Search](https://docs.gumloop.com/nodes/integrations/web_search.md)
+- [Post to WordPress](https://docs.gumloop.com/nodes/integrations/wordpress_poster.md)
+- [Zendesk Ticket Reader](https://docs.gumloop.com/nodes/integrations/zendesk_ticket_reader.md): Read and monitor support tickets from Zendesk with automated triggers
+- [JSON Reader](https://docs.gumloop.com/nodes/json/read_json_values.md)
+- [JSON Writer](https://docs.gumloop.com/nodes/json/write_json_value.md)
+- [Combine Lists](https://docs.gumloop.com/nodes/list_operations/combine_lists.md)
+- [Create List](https://docs.gumloop.com/nodes/list_operations/create_list.md)
+- [Duplicate](https://docs.gumloop.com/nodes/list_operations/duplicate.md)
+- [Flatten List of Lists](https://docs.gumloop.com/nodes/list_operations/flatten_list.md)
+- [Get List Item](https://docs.gumloop.com/nodes/list_operations/get_list_item.md)
+- [Join List Items](https://docs.gumloop.com/nodes/list_operations/join_list_items.md)
+- [List Trimmer](https://docs.gumloop.com/nodes/list_operations/list_trimmer.md)
+- [Affinity](https://docs.gumloop.com/nodes/mcp/affinity.md): Manage your CRM relationships, deals, and notes with AI-powered automation.
+- [Ahrefs](https://docs.gumloop.com/nodes/mcp/ahrefs.md): Analyze backlinks, keywords, and SEO performance with AI-powered search marketing automation.
+- [Airtable](https://docs.gumloop.com/nodes/mcp/airtable.md): Search, create, and manage Airtable records with AI-powered automation.
+- [Apify](https://docs.gumloop.com/nodes/mcp/apify.md): Discover and run web scraping Actors with AI-powered automation.
+- [Apollo](https://docs.gumloop.com/nodes/mcp/apollo.md): Find, enrich, and track B2B contacts and companies with AI-powered prospecting.
+- [AppSheet](https://docs.gumloop.com/nodes/mcp/appsheet.md): Manage your AppSheet tables with AI-powered data operations.
+- [Asana](https://docs.gumloop.com/nodes/mcp/asana.md): Manage projects, tasks, and teams with AI-powered work management.
+- [Ashby](https://docs.gumloop.com/nodes/mcp/ashby.md): Streamline recruiting with AI-powered applicant tracking and scheduling.
+- [Attio](https://docs.gumloop.com/nodes/mcp/attio.md): Manage contacts, companies, and relationships with AI-powered CRM automation.
+- [Basedash](https://docs.gumloop.com/nodes/mcp/basedash.md): Create and manage Basedash charts, dashboards, and database insights.
+- [Beehiiv](https://docs.gumloop.com/nodes/mcp/beehiiv.md): Manage your newsletter with AI-powered publishing and subscriber automation.
+- [Bing Webmaster](https://docs.gumloop.com/nodes/mcp/bing_webmaster.md): Manage your Bing Webmaster Tools with AI-powered SEO automation.
+- [Box](https://docs.gumloop.com/nodes/mcp/box.md): Manage your cloud storage with AI-powered file and folder automation.
+- [Brandfetch](https://docs.gumloop.com/nodes/mcp/brandfetch.md): Look up brand assets, logos, colors, fonts, and company details for any company.
+- [Cal.com](https://docs.gumloop.com/nodes/mcp/cal.md): Manage scheduling and bookings with AI-powered calendar automation.
+- [Canva](https://docs.gumloop.com/nodes/mcp/canva.md): Design and manage Canva assets, designs, and brand content.
+- [Carta](https://docs.gumloop.com/nodes/mcp/carta.md): Manage your Carta cap table, equity, and stakeholders.
+- [Chorus](https://docs.gumloop.com/nodes/mcp/chorus.md): Access conversation intelligence and meeting insights with AI-powered automation.
+- [Circleback](https://docs.gumloop.com/nodes/mcp/circleback.md): Search and access your Circleback meeting notes and action items.
+- [ClickHouse](https://docs.gumloop.com/nodes/mcp/clickhouse.md): Query ClickHouse Cloud and manage services, ClickPipes, and ClickStack observability with natural language.
+- [ClickUp](https://docs.gumloop.com/nodes/mcp/clickup.md): Manage tasks, projects, and team collaboration with AI-powered automation.
+- [Cloudflare](https://docs.gumloop.com/nodes/mcp/cloudflare.md): Manage your Cloudflare account, DNS, and Workers.
+- [Confluence](https://docs.gumloop.com/nodes/mcp/confluence.md): Manage documentation and knowledge bases with AI-powered content automation.
+- [Cursor](https://docs.gumloop.com/nodes/mcp/cursor.md): Manage Cursor cloud agents to launch, monitor, and control AI coding agents on your repositories.
+- [Custom MCP Servers](https://docs.gumloop.com/nodes/mcp/custom_mcp_servers.md): Connect your own MCP servers to Gumloop for extended AI capabilities.
+- [Databricks](https://docs.gumloop.com/nodes/mcp/databricks.md): Manage data engineering and ML operations with AI-powered workspace automation.
+- [Datadog](https://docs.gumloop.com/nodes/mcp/datadog.md): Monitor your infrastructure with AI-powered observability and incident management.
+- [Devin](https://docs.gumloop.com/nodes/mcp/devin.md): Manage AI coding sessions and engineering automation with natural language.
+- [Dropbox](https://docs.gumloop.com/nodes/mcp/dropbox.md): Manage files, folders, sharing, and file requests with AI-powered cloud storage automation.
+- [Exa](https://docs.gumloop.com/nodes/mcp/exa.md): Search the web intelligently with AI-powered research and content extraction.
+- [Excel](https://docs.gumloop.com/nodes/mcp/excel.md): Manage Microsoft 365 Excel workbooks with AI-powered spreadsheet automation.
+- [Expensify](https://docs.gumloop.com/nodes/mcp/expensify.md): Automate expense management with AI-powered report exports and bulk expense creation.
+- [Extend](https://docs.gumloop.com/nodes/mcp/extend.md): Process documents with AI-powered extraction, classification, and parsing.
+- [Fal](https://docs.gumloop.com/nodes/mcp/fal.md): Run AI models for image, video, audio, speech, and 3D generation using fal.ai.
+- [Fathom](https://docs.gumloop.com/nodes/mcp/fathom.md): Access meeting recordings, transcripts, and AI-generated summaries with automated notetaking.
+- [Fellow](https://docs.gumloop.com/nodes/mcp/fellow.md): Access meeting recordings, notes, and transcripts with AI-powered automation.
+- [Findymail](https://docs.gumloop.com/nodes/mcp/findymail.md): Find and verify professional emails with AI-powered lead discovery and enrichment.
+- [Firecrawl](https://docs.gumloop.com/nodes/mcp/firecrawl.md): Search, scrape, and map websites using Firecrawl's web data API.
+- [Foreplay](https://docs.gumloop.com/nodes/mcp/foreplay.md): Research ads and competitor strategies with AI-powered creative intelligence.
+- [Freshdesk](https://docs.gumloop.com/nodes/mcp/freshdesk.md): Manage support tickets, contacts, and knowledge base with AI-powered helpdesk automation.
+- [Freshsales](https://docs.gumloop.com/nodes/mcp/freshsales.md): Manage your CRM with AI-powered sales automation for contacts, accounts, deals, and more.
+- [Gamma](https://docs.gumloop.com/nodes/mcp/gamma.md): Create presentations, documents, and carousels with AI-powered content generation.
+- [GitHub](https://docs.gumloop.com/nodes/mcp/github.md): Automate repositories, issues, PRs, and projects with AI-powered development workflows.
+- [Gmail](https://docs.gumloop.com/nodes/mcp/gmail.md): Read, send, and organize emails with AI-powered inbox automation.
+- [Gong](https://docs.gumloop.com/nodes/mcp/gong.md): Access sales call recordings, transcripts, and analytics with AI-powered automation.
+- [Google Ads](https://docs.gumloop.com/nodes/mcp/google_ads.md): Manage campaigns, keywords, and performance with AI-powered advertising automation.
+- [Google Analytics](https://docs.gumloop.com/nodes/mcp/google_analytics.md): Run reports, manage GA4 properties, and send server-side events with AI-powered analytics automation.
+- [BigQuery](https://docs.gumloop.com/nodes/mcp/google_bigquery.md): Query and explore your data warehouse with AI-powered SQL automation.
+- [Google Calendar](https://docs.gumloop.com/nodes/mcp/google_calendar.md): Manage events and scheduling with AI-powered calendar automation.
+- [Google Cloud Storage](https://docs.gumloop.com/nodes/mcp/google_cloud_storage.md): Manage buckets, files, and storage operations with AI-powered cloud storage automation.
+- [Google Docs](https://docs.gumloop.com/nodes/mcp/google_docs.md): Create, read, and update Google Docs with AI-powered document automation.
+- [Google Drive](https://docs.gumloop.com/nodes/mcp/google_drive.md): Search, organize, and share files with AI-powered cloud storage automation.
+- [Google DV360](https://docs.gumloop.com/nodes/mcp/google_dv360.md): Manage campaigns, line items, and targeting with AI-powered programmatic advertising automation.
+- [Google Maps](https://docs.gumloop.com/nodes/mcp/google_maps.md): Find and enrich location data with AI-powered place discovery.
+- [Google Meet](https://docs.gumloop.com/nodes/mcp/google_meet.md): Manage video meetings and transcripts with AI-powered automation.
+- [Google PageSpeed](https://docs.gumloop.com/nodes/mcp/google_pagespeed.md): Analyze website performance, accessibility, SEO, and Core Web Vitals using Google PageSpeed Insights.
+- [Google Search Console](https://docs.gumloop.com/nodes/mcp/google_search_console.md): Query search performance, inspect URLs, and manage sitemaps with AI-powered SEO automation.
+- [Google Sheets](https://docs.gumloop.com/nodes/mcp/google_sheet.md): Read and write spreadsheet data with AI-powered automation.
+- [Google Slides](https://docs.gumloop.com/nodes/mcp/google_slides.md): Create, read, and manage Google Slides presentations with AI-powered automation.
+- [Google Tasks](https://docs.gumloop.com/nodes/mcp/google_tasks.md): Manage to-dos and task lists with AI-powered automation.
+- [Granola](https://docs.gumloop.com/nodes/mcp/granola.md): Search and access your Granola meeting notes.
+- [Greenhouse](https://docs.gumloop.com/nodes/mcp/greenhouse.md): Manage recruiting workflows with AI-powered applicant tracking and candidate management.
+- [Gumloop](https://docs.gumloop.com/nodes/mcp/gumloop.md): Manage workflows and agents programmatically with AI-powered automation control.
+- [Hex](https://docs.gumloop.com/nodes/mcp/hex.md): Manage data projects and analytics workflows with AI-powered Hex automation.
+- [HubSpot](https://docs.gumloop.com/nodes/mcp/hubspot.md): Manage your CRM with AI-powered contact, deal, and ticket automation.
+- [Incident.io](https://docs.gumloop.com/nodes/mcp/incident_io.md): Streamline incident response with AI-powered incident and alert management.
+- [Instagram](https://docs.gumloop.com/nodes/mcp/instagram.md): Scrape public Instagram data with AI-powered social media automation.
+- [Intercom](https://docs.gumloop.com/nodes/mcp/intercom.md): Manage customer conversations and support with AI-powered automation.
+- [Ironclad](https://docs.gumloop.com/nodes/mcp/ironclad.md): Manage contracts and workflows with AI-powered CLM automation.
+- [Jam](https://docs.gumloop.com/nodes/mcp/jam.md): Access your Jam bug reports and debug logs.
+- [Jira](https://docs.gumloop.com/nodes/mcp/jira.md): Manage projects and issues with AI-powered development workflow automation.
+- [Klaviyo](https://docs.gumloop.com/nodes/mcp/klaviyo.md): Manage Klaviyo profiles, campaigns, lists, and marketing data.
+- [LaunchDarkly](https://docs.gumloop.com/nodes/mcp/launchdarkly.md): Manage feature flags, segments, and environments with AI-powered release automation.
+- [Linear](https://docs.gumloop.com/nodes/mcp/linear.md): Manage issues and projects with AI-powered product development automation.
+- [Looker](https://docs.gumloop.com/nodes/mcp/looker.md): Access enterprise dashboards and analytics with AI-powered business intelligence automation.
+- [Loops](https://docs.gumloop.com/nodes/mcp/loops.md): Manage mailing lists, contacts, and email automation with AI-powered workflows.
+- [Luma](https://docs.gumloop.com/nodes/mcp/luma.md): Manage events, guests, tickets, and calendars on Lu.ma with AI-powered event management.
+- [Microsoft Teams](https://docs.gumloop.com/nodes/mcp/microsoft_teams.md): Manage teams, channels, and meetings with AI-powered collaboration automation.
+- [Microsoft Word](https://docs.gumloop.com/nodes/mcp/microsoft_word.md): Manage Word documents with AI-powered document automation.
+- [Monday](https://docs.gumloop.com/nodes/mcp/monday.md): Manage boards, items, and projects with AI-powered work management automation.
+- [NetSuite](https://docs.gumloop.com/nodes/mcp/netsuite.md): Manage ERP data with AI-powered business automation.
+- [Notion](https://docs.gumloop.com/nodes/mcp/notion.md): Search and query your workspace with AI-powered knowledge management automation.
+- [Outlook](https://docs.gumloop.com/nodes/mcp/outlook.md): Manage email with AI-powered inbox automation.
+- [Outlook Calendar](https://docs.gumloop.com/nodes/mcp/outlook_calendar.md): Manage calendar events and check availability with AI-powered scheduling automation.
+- [Outreach](https://docs.gumloop.com/nodes/mcp/outreach.md): Manage sales engagement with AI-powered outreach automation.
+- [PagerDuty](https://docs.gumloop.com/nodes/mcp/pagerduty.md): Manage incidents and on-call schedules with AI-powered response automation.
+- [Parallel](https://docs.gumloop.com/nodes/mcp/parallel.md): Search the web and extract content with AI-powered research automation.
+- [Pipedrive](https://docs.gumloop.com/nodes/mcp/pipedrive.md): Manage your sales pipeline with AI-powered CRM automation.
+- [PostgreSQL](https://docs.gumloop.com/nodes/mcp/postgresql.md): Query and manage PostgreSQL databases with AI-powered schema exploration and SQL execution.
+- [Pylon](https://docs.gumloop.com/nodes/mcp/pylon.md): Manage your Pylon support issues, accounts, and contacts.
+- [QuickBooks](https://docs.gumloop.com/nodes/mcp/quickbooks.md): Manage accounting, invoices, customers, and financial reports with AI-powered automation.
+- [Ramp](https://docs.gumloop.com/nodes/mcp/ramp.md): Manage your Ramp cards, spend, bills, and transactions.
+- [Reddit](https://docs.gumloop.com/nodes/mcp/reddit.md): Search and engage with Reddit communities using AI-powered automation.
+- [Reducto](https://docs.gumloop.com/nodes/mcp/reducto.md): Parse, extract, split, and edit documents with AI-powered document processing automation.
+- [Robinhood](https://docs.gumloop.com/nodes/mcp/robinhood.md): Trade and manage your Robinhood portfolio.
+- [Rocketlane](https://docs.gumloop.com/nodes/mcp/rocketlane.md): Manage your Rocketlane projects, tasks, and customer onboarding.
+- [Salesforce](https://docs.gumloop.com/nodes/mcp/salesforce.md): Manage your CRM with AI-powered Salesforce automation.
+- [Salesloft](https://docs.gumloop.com/nodes/mcp/salesloft.md): Manage sales engagement with AI-powered outreach automation.
+- [Seismic](https://docs.gumloop.com/nodes/mcp/seismic.md): Manage your sales enablement content with AI-powered Seismic automation.
+- [Semrush](https://docs.gumloop.com/nodes/mcp/semrush.md): Pull SEO and marketing analytics with AI-powered competitive research automation.
+- [Sentry](https://docs.gumloop.com/nodes/mcp/sentry.md): Investigate Sentry issues, errors, releases, and performance data.
+- [Shopify](https://docs.gumloop.com/nodes/mcp/shopify.md): Manage your Shopify store, blog posts, and e-commerce operations with AI-powered automation.
+- [Sigma Computing](https://docs.gumloop.com/nodes/mcp/sigma_computing.md): Manage workbooks, members, teams, and data connections with AI-powered analytics automation.
+- [Similarweb](https://docs.gumloop.com/nodes/mcp/similarweb.md): Analyze website traffic, audiences, and competitor insights with Similarweb.
+- [Slack](https://docs.gumloop.com/nodes/mcp/slack.md): Manage your workspace with AI-powered team communication automation.
+- [Snowflake](https://docs.gumloop.com/nodes/mcp/snowflake.md): Query your data warehouse with AI-powered SQL automation.
+- [Sprig](https://docs.gumloop.com/nodes/mcp/sprig.md): Pull survey data and AI insights with AI-powered research automation.
+- [Stripe](https://docs.gumloop.com/nodes/mcp/stripe.md): Manage customers, subscriptions, and payments with AI-powered billing automation.
+- [Supabase](https://docs.gumloop.com/nodes/mcp/supabase.md): Manage Supabase projects, databases, branches, and logs.
+- [Tableau](https://docs.gumloop.com/nodes/mcp/tableau.md): Access dashboards and analytics with AI-powered business intelligence automation.
+- [TikTok](https://docs.gumloop.com/nodes/mcp/tiktok.md): Scrape TikTok data with AI-powered social media automation.
+- [Trello](https://docs.gumloop.com/nodes/mcp/trello.md): Manage boards, lists, and cards with AI-powered project management automation.
+- [Vercel](https://docs.gumloop.com/nodes/mcp/vercel.md): Manage your Vercel projects, deployments, and logs.
+- [Webflow](https://docs.gumloop.com/nodes/mcp/webflow.md): Manage sites, collections, forms, and pages with AI-powered web design automation.
+- [Workday](https://docs.gumloop.com/nodes/mcp/workday.md): Download custom reports from Workday and access employee data with AI-powered automation.
+- [X (Twitter)](https://docs.gumloop.com/nodes/mcp/x.md): Manage your X presence with AI-powered social media automation.
+- [YouTube](https://docs.gumloop.com/nodes/mcp/youtube.md): Search and analyze YouTube content with AI-powered video automation.
+- [Zendesk](https://docs.gumloop.com/nodes/mcp/zendesk.md): Manage support tickets and customers with AI-powered helpdesk automation.
+- [Zoom](https://docs.gumloop.com/nodes/mcp/zoom.md): Manage meetings and recordings with AI-powered video conferencing automation.
+- [Custom SMTP Email Sender](https://docs.gumloop.com/nodes/notification/custom_smtp_email_sender.md)
+- [Send Email Notification](https://docs.gumloop.com/nodes/notification/send_email_notification.md)
+- [Send SMS Notification](https://docs.gumloop.com/nodes/notification/send_sms_notification.md)
+- [SendGrid Email Sender](https://docs.gumloop.com/nodes/notification/sendgrid_email_sender.md)
+- [AI Fill PDF](https://docs.gumloop.com/nodes/pdf/ai_fill_pdf.md)
+- [PDF Reader](https://docs.gumloop.com/nodes/pdf/pdf_reader.md)
+- [Chunk Text](https://docs.gumloop.com/nodes/text_manipulation/chunk_text.md)
+- [Combine Text](https://docs.gumloop.com/nodes/text_manipulation/combine_text.md)
+- [Find And Replace](https://docs.gumloop.com/nodes/text_manipulation/find_and_replace.md)
+- [Split Text](https://docs.gumloop.com/nodes/text_manipulation/split_text.md)
+- [Text Formatter](https://docs.gumloop.com/nodes/text_manipulation/text_formatter.md)
+- [AI Content Detector](https://docs.gumloop.com/nodes/using_ai/ai_content_detector.md)
+- [AI Filter](https://docs.gumloop.com/nodes/using_ai/ai_filter.md)
+- [AI List Sorter](https://docs.gumloop.com/nodes/using_ai/ai_list_sorter.md)
+- [AI Web Research](https://docs.gumloop.com/nodes/using_ai/ai_web_research.md)
+- [Analyze Image](https://docs.gumloop.com/nodes/using_ai/analyze_image.md)
+- [Analyze Video](https://docs.gumloop.com/nodes/using_ai/analyze_video.md)
+- [Ask AI](https://docs.gumloop.com/nodes/using_ai/ask_ai.md)
+- [Categorizer](https://docs.gumloop.com/nodes/using_ai/categorizer.md)
+- [Choosing the Right AI Node](https://docs.gumloop.com/nodes/using_ai/choosing_ai_node.md): Select the optimal AI node for your workflow needs
+- [Define AI Function](https://docs.gumloop.com/nodes/using_ai/define_ai_function.md)
+- [Extract Data](https://docs.gumloop.com/nodes/using_ai/extract_data.md)
+- [Generate Image](https://docs.gumloop.com/nodes/using_ai/generate_image.md)
+- [Generate Report](https://docs.gumloop.com/nodes/using_ai/generate_report.md)
+- [OpenAI Assistant](https://docs.gumloop.com/nodes/using_ai/openai_assistant.md)
+- [Scorer](https://docs.gumloop.com/nodes/using_ai/scorer.md)
+- [Job Posting Scraper](https://docs.gumloop.com/nodes/web_scraping/job_posting_scraper.md)
+- [Website Crawler](https://docs.gumloop.com/nodes/web_scraping/website_crawler.md)
+- [Website Scraper](https://docs.gumloop.com/nodes/web_scraping/website_scraper.md)
+
+## OpenAPI Specs
+
+- [openapi](https://docs.gumloop.com/api-reference/openapi.yaml)
+- [package-lock](https://docs.gumloop.com/package-lock.json)

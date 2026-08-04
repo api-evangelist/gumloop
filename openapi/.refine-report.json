@@ -1,0 +1,40 @@
+{
+  "provider": "gumloop",
+  "sources": [
+    "gumloop-agents-api-openapi.yml",
+    "gumloop-artifacts-api-openapi.yml",
+    "gumloop-brain-api-openapi.yml",
+    "gumloop-chat-completions-api-openapi.yml",
+    "gumloop-data-access-api-openapi.yml",
+    "gumloop-evaluations-api-openapi.yml",
+    "gumloop-execution-api-openapi.yml",
+    "gumloop-file-handling-api-openapi.yml",
+    "gumloop-mcp-api-openapi.yml",
+    "gumloop-models-api-openapi.yml",
+    "gumloop-organization-api-openapi.yml",
+    "gumloop-sessions-api-openapi.yml",
+    "gumloop-skills-api-openapi.yml",
+    "gumloop-teams-api-openapi.yml"
+  ],
+  "outputs": [
+    "gumloop-agents-api-openapi.yml",
+    "gumloop-artifacts-api-openapi.yml",
+    "gumloop-brain-api-openapi.yml",
+    "gumloop-chat-completions-api-openapi.yml",
+    "gumloop-data-access-api-openapi.yml",
+    "gumloop-evaluations-api-openapi.yml",
+    "gumloop-execution-api-openapi.yml",
+    "gumloop-file-handling-api-openapi.yml",
+    "gumloop-mcp-api-openapi.yml",
+    "gumloop-models-api-openapi.yml",
+    "gumloop-organization-api-openapi.yml",
+    "gumloop-sessions-api-openapi.yml",
+    "gumloop-skills-api-openapi.yml",
+    "gumloop-teams-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

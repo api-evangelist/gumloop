@@ -1,0 +1,54 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/gumloop-openapi-original.yml
+docs: https://docs.gumloop.com/api-reference/getting-started
+format: json
+envelope: >
+  Errors return a JSON body with an error message/slug (e.g. mcp_server_not_found,
+  ambiguous_mcp_server, interaction_not_in_terminal_state, failed_to_abort). Not
+  RFC 9457 application/problem+json.
+problems:
+- status: 400
+  title: Bad request
+  meaning: Missing or conflicting parameters, invalid request body, invalid query parameter (e.g. non-integer page_size), unsupported modality combination, or malformed SKILL.md metadata.
+  remediation: Validate required parameters and body shape against the operation schema before retrying.
+- status: 401
+  title: Unauthorized
+  meaning: Missing or invalid API key / Gumloop credentials.
+  remediation: "Send a valid `Authorization: Bearer {api_key}`; personal keys also require the x-auth-key user id header."
+- status: 402
+  title: Payment required
+  meaning: Insufficient credits or credit limit exceeded.
+  remediation: Top up credits or raise the plan's credit limit.
+- status: 403
+  title: Forbidden
+  meaning: API key does not match, caller lacks agent/skill/session access, is not an org admin, or the capability requires a Pro/Enterprise plan.
+  remediation: Ensure the acting user has the required role/permission and plan tier.
+- status: 404
+  title: Not found
+  meaning: The referenced run, saved item, workbook, agent, session, MCP server, skill, artifact, evaluation, org, workspace, or user does not exist or is not visible to the caller.
+  remediation: Verify the id and that the caller has access; note mcp_server_not_found for uncatalogued servers.
+- status: 409
+  title: Conflict
+  meaning: Ambiguous/duplicate MCP server (ambiguous_mcp_server), a session_id that already exists, or a session not in a terminal state (interaction_not_in_terminal_state).
+  remediation: Resolve the duplicate, use a fresh session_id, or wait for the session to reach a terminal state before sending.
+- status: 413
+  title: Payload too large
+  meaning: Request body exceeded 10 MB (file / skill uploads).
+  remediation: Reduce the upload below the 10 MB limit.
+- status: 429
+  title: Too many requests
+  meaning: The workflow or agent concurrency limit was exceeded (2/5/15 concurrent workflows, 5/25/100 concurrent agent interactions by plan).
+  remediation: Wait for an in-flight run to finish, then retry; Enterprise runs queue automatically.
+- status: 500
+  title: Internal server error
+  meaning: Unexpected server error, including file upload/download failures and failed_to_abort when a cancel could not be persisted.
+  remediation: Retry with backoff; contact support if persistent.
+- status: 501
+  title: Not implemented
+  meaning: Requested capability not supported by the resolved model/provider.
+  remediation: Choose a model/provider that supports the requested modality.
+- status: 502
+  title: Bad gateway
+  meaning: Upstream provider error, or object storage failed to generate a signed download URL.
+  remediation: Retry; if persistent the upstream provider or storage is degraded.

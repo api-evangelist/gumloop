@@ -1,0 +1,36 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.gumloop.com/core-concepts/workflow_triggers
+type: Webhooks
+spec_type: none
+model: inbound-triggers
+summary: >
+  Gumloop's event surface is inbound triggers, not an outbound event-delivery webhook
+  registry. Flows and agents are started by webhook triggers, schedules, and external
+  app events. There is no published AsyncAPI document; the trigger catalog below is the
+  event surface.
+triggers:
+- name: Webhook / API trigger
+  kind: inbound-webhook
+  docs: https://docs.gumloop.com/api-reference/running-an-automation/start-automation
+  detail: >
+    POST /start_pipeline (operationId startFlow) triggers a saved flow; the request body
+    is forwarded to any Webhook Input node and matched by name to Input nodes. Returns a
+    run_id and run URL; poll GET /get_pl_run (getAutomationRun) for completion.
+- name: Workflow Triggers
+  kind: schedule | webhook | external-event
+  docs: https://docs.gumloop.com/core-concepts/workflow_triggers
+  detail: Start workflows on schedules, webhooks, and external app events.
+- name: Agent Triggers
+  kind: schedule | external-event
+  docs: https://docs.gumloop.com/core-concepts/agent_triggers
+  detail: Run agents automatically on a schedule or in response to emails, Slack messages, and other external events.
+- name: AI-created polling triggers
+  kind: polling
+  docs: https://docs.gumloop.com/core-concepts/ai_trigger_creation
+  detail: AI-built polling triggers that monitor combinations of apps and fire when conditions are met.
+- name: Agent Email Inbox
+  kind: email
+  docs: https://docs.gumloop.com/core-concepts/agents_email
+  detail: A dedicated email address that lets anyone interact with an agent by sending email.
+notes: N/A for AsyncAPI scoring — no event-emission spec exists; captured as a Webhooks surface only.

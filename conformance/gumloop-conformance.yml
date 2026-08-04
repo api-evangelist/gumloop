@@ -1,0 +1,37 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/gumloop-openapi-original.yml
+standards:
+- id: oauth2
+  conforms: true
+  evidence: api.gumloop.com publishes RFC 8414 authorization-server metadata (authorize/token/revoke, authorization_code + refresh_token grants)
+- id: oauth2-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported = [S256]; PKCE required
+- id: oidc-discovery
+  conforms: partial
+  evidence: /.well-known/openid-configuration present but response_types_supported = [id_token] only (no userinfo_endpoint / full OP surface)
+- id: oauth2-dynamic-client-registration
+  conforms: partial
+  evidence: registration_endpoint advertised (RFC 7591) but registration is invite-only in practice
+- id: bearer-token-rfc6750
+  conforms: true
+  evidence: Authorization = Bearer {api_key} across all operations (bearerAuth http scheme)
+- id: openai-chat-completions-compat
+  conforms: true
+  evidence: POST /chat/completions is an OpenAI-compatible completions endpoint (stream + unary)
+- id: cursor-pagination
+  conforms: true
+  evidence: sessions, skills, evaluations and artifact listings use cursor-based pagination with page_size
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: error responses are plain JSON error envelopes, not application/problem+json
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no Sunset/Deprecation header contract documented
+- id: idempotency-key
+  conforms: false
+  evidence: no Idempotency-Key header/parameter documented in the spec or docs
+- id: asyncapi
+  conforms: false
+  evidence: webhooks/triggers documented but no AsyncAPI document published

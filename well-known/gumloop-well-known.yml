@@ -1,0 +1,23 @@
+generated: '2026-07-19'
+method: searched
+source: https://api.gumloop.com/.well-known/
+host: https://api.gumloop.com
+documents:
+- path: /.well-known/openid-configuration
+  status: 200
+  file: gumloop-openid-configuration.json
+- path: /.well-known/oauth-authorization-server
+  status: 200
+  file: gumloop-oauth-authorization-server.json
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+notes: >
+  api.gumloop.com publishes OAuth 2.0 Authorization Server Metadata (RFC 8414) and
+  an OpenID Provider configuration. The authorization server advertises PKCE (S256),
+  authorization_code + refresh_token grants, dynamic client registration
+  (registration_endpoint), and the scopes gumstack, userinfo, gumloop_api,
+  gumloop_api.mcp, gumloop_university. The www marketing host exposes none of these.

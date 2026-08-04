@@ -1,0 +1,42 @@
+generated: '2026-07-19'
+method: searched
+source: https://api.gumloop.com/.well-known/oauth-authorization-server
+docs: https://docs.gumloop.com/api-reference/oauth
+schemes:
+- name: OAuth2
+  source: https://api.gumloop.com/.well-known/oauth-authorization-server
+  grant_types: [authorization_code, refresh_token]
+  pkce: S256 (required)
+  registration: invite-only (email support@gumloop.com for a client_id)
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.gumloop.com/oauth/authorize
+    tokenUrl: https://api.gumloop.com/oauth/token
+    revocationUrl: https://api.gumloop.com/oauth/revoke
+scopes:
+- scope: gumloop_api
+  description: Call the Gumloop developer API on behalf of the user. Requires the user to be on the Pro plan or higher.
+  flows: [authorizationCode]
+  sources: [https://docs.gumloop.com/api-reference/oauth]
+- scope: userinfo
+  description: Read the user's basic profile (email, name).
+  flows: [authorizationCode]
+  sources: [https://docs.gumloop.com/api-reference/oauth]
+- scope: gumloop_api.mcp
+  description: Access the Gumloop API's MCP surface on behalf of the user.
+  flows: [authorizationCode]
+  sources: [https://api.gumloop.com/.well-known/oauth-authorization-server]
+- scope: gumstack
+  description: Access user-deployed Gumstack MCP servers.
+  flows: [authorizationCode]
+  sources: [https://api.gumloop.com/.well-known/oauth-authorization-server]
+- scope: gumloop_university
+  description: Access Gumloop University resources.
+  flows: [authorizationCode]
+  sources: [https://api.gumloop.com/.well-known/oauth-authorization-server]
+notes: >
+  The public OpenAPI declares only a bearerAuth (http bearer) scheme, but the API
+  host publishes a full OAuth 2.0 authorization server. Scopes gumloop_api and
+  userinfo are described in the docs; gumstack, gumloop_api.mcp and gumloop_university
+  are advertised in the RFC 8414 metadata. token_endpoint_auth_method is `none`
+  (public clients with PKCE).

@@ -1,0 +1,30 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.gumloop.com/cli/overview
+name: gumloop
+description: Gumloop for Terminal — drive agents, sessions, chat completions, MCP servers, Company Brain, skills, and artifacts from your shell.
+install:
+- uv tool install gumloop
+- pipx install gumloop
+- pip install gumloop
+binary: gumloop
+auth:
+  methods: [oauth, api-key]
+  note: Sign in with OAuth or an API key; credentials are stored in the OS keychain.
+commands:
+- group: login / logout
+  purpose: Authenticate and sign out.
+- group: agents
+  purpose: List, inspect, create, and update agents from the terminal.
+- group: sessions
+  purpose: Start agent conversations, send follow-ups, and cancel running sessions.
+- group: chat
+  purpose: Send chat completions to any Gumloop-supported model.
+- group: mcp
+  purpose: Explore available MCP servers and execute their tools.
+- group: brain
+  purpose: Search your Company Brain's indexed knowledge sources.
+- group: skills
+  purpose: Upload, update, and download agent skills as files.
+- group: artifacts
+  purpose: List and download files produced by agents.

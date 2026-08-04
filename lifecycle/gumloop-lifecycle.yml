@@ -1,0 +1,25 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.gumloop.com
+versioning:
+  scheme: uri-path
+  current: v1
+  base: https://api.gumloop.com/api/v1
+  docs: https://docs.gumloop.com/api-reference/getting-started
+product_versioning:
+  scheme: semver
+  current: 10.12.0
+  docs: https://gumloop.com/changelog
+  note: Product/platform changelog is semver; the public HTTP API is pinned at /api/v1.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: >
+    No formal API deprecation policy or Sunset/Deprecation header contract published.
+    The Python SDK marks the legacy saved-automation client (GumloopClient) deprecated
+    with a DeprecationWarning; node/flow versioning is documented for the builder.
+status_page: https://status.gumloop.com
+sla:
+  url: https://trust.gumloop.com
+  uptime_target: null
+deprecated_operations: []

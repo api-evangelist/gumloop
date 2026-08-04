@@ -1,0 +1,16 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/gumloop-openapi-original.yml
+skills:
+- file: gumloop-run-a-flow.md
+  name: Run a Gumloop flow and collect its output
+  api: openapi/gumloop-openapi-original.yml
+  operations: [getInputs, startFlow, getAutomationRun, killPipeline]
+- file: gumloop-agent-session.md
+  name: Create a Gumloop agent and run a session
+  api: openapi/gumloop-openapi-original.yml
+  operations: [createAgent, createSession, retrieveSession, sendMessage, cancelSession]
+- file: gumloop-call-mcp-tools.md
+  name: Discover and call MCP tools through Gumloop
+  api: openapi/gumloop-openapi-original.yml
+  operations: [listMcpServers, retrieveMcpServer, listMcpServerTools, callMcpTools]

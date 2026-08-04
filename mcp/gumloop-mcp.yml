@@ -1,0 +1,36 @@
+generated: '2026-07-19'
+method: searched
+status: published
+source: https://docs.gumloop.com/mcp-server/overview
+server:
+  name: gumloop
+  transport: sse
+  url: https://mcp.gumloop.com/gumloop/mcp
+  auth: OAuth (handled automatically on first connect) or a Gumloop API key from the Connectors page
+  clients:
+  - Claude (Settings > Connectors)
+  - Cursor (Settings > MCP, Type SSE)
+  - VS Code (.vscode/mcp.json via npx mcp-remote)
+tool_categories:
+- name: Agent Management
+  tools: [list_agents, get_agent, create_agent, update_agent, attach_agent_skills, detach_agent_skills, attach_agent_mcp_server, detach_agent_mcp_server, list_models]
+- name: Agent Sessions
+  tools: [start_agent, get_agent_status, create_agent_session, get_session, send_session_message, cancel_session]
+- name: Skills
+  tools: [list_skills, create_skill, update_skill, delete_skill, download_skill]
+- name: Artifacts
+  tools: [list_agent_artifacts, download_artifact]
+- name: Teams
+  tools: [list_teams]
+- name: MCP Server Management
+  tools: [list_mcp_servers, get_mcp_server, list_mcp_server_tools, call_mcp_tool, list_mcp_resources, read_mcp_resource, list_mcp_prompts, get_mcp_prompt]
+- name: Company Brain
+  tools: [search_brain]
+- name: Documentation & Admin
+  tools: [search_documentation, ask_gummie, get_audit_logs]
+- name: Workflow Management
+  tools: [list_saved_flows, list_workbooks, start_flow_run, get_run_details, get_run_history]
+notes: >
+  Official hosted remote MCP server exposing ~40 tools across 9 categories. Distinct
+  from Gumloop's product capability of connecting agents to third-party MCP servers
+  (the /mcp/* REST endpoints in the OpenAPI).

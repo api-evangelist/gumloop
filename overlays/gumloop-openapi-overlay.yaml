@@ -1,0 +1,39 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Gumloop Public API
+  version: 1.0.0
+extends: openapi/gumloop-openapi-original.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-rating: 4
+    x-apievangelist-notes: >
+      Rich 49-operation agent-automation API with OAuth 2.0 (PKCE), first-party Python/JS
+      SDKs, a CLI, and a hosted MCP server. Gaps: no RFC 9457 problem+json, no Idempotency-Key
+      contract, no AsyncAPI/outbound webhooks, and only bearerAuth declared in-spec (OAuth
+      lives in the authorization-server metadata, not the OpenAPI securitySchemes).
+    x-authentication: authentication/gumloop-authentication.yml
+    x-oauth-scopes: scopes/gumloop-scopes.yml
+    x-conventions: conventions/gumloop-conventions.yml
+    x-error-catalog: errors/gumloop-problem-types.yml
+- target: $.servers[0]
+  update:
+    description: Production base URL for the Gumloop Public API (v1).
+- target: $.components.securitySchemes
+  update:
+    oauth2:
+      type: oauth2
+      description: >
+        OAuth 2.0 authorization-code flow with PKCE (S256), advertised at
+        https://api.gumloop.com/.well-known/oauth-authorization-server but not
+        declared in the published OpenAPI. Registration is invite-only.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.gumloop.com/oauth/authorize
+          tokenUrl: https://api.gumloop.com/oauth/token
+          scopes:
+            gumloop_api: Call the Gumloop developer API on behalf of the user (Pro+).
+            userinfo: Read the user's basic profile (email, name).
+            gumloop_api.mcp: Access the Gumloop API MCP surface.
+            gumstack: Access user-deployed Gumstack MCP servers.
+            gumloop_university: Access Gumloop University resources.

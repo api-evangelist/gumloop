@@ -1,0 +1,18 @@
+generated: '2026-07-19'
+method: searched
+probe: false
+url: https://trust.gumloop.com
+certifications: []
+evidence:
+- source: https://www.gumloop.com
+  kind: homepage-link
+  detail: Homepage links a "Security/Trust" destination at trust.gumloop.com.
+- source: https://trust.gumloop.com
+  kind: reachable
+  detail: HTTP 200; trust portal is a client-rendered SPA whose certification list could not be extracted server-side.
+notes: >
+  A dedicated trust center exists at trust.gumloop.com but its named certifications
+  (e.g. SOC 2, ISO 27001) could not be verified from server-rendered content, so none
+  are asserted here. No Compliance pointer is emitted without a confirmed published
+  certification. Enterprise docs reference SSO/SAML/SCIM, audit logging, static egress
+  IPs, and org data export.
