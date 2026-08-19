@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Public Agents File Handling API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "File Handling",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Download file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/download_file",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Download file"
+        },
+        {
+          "info": {
+            "name": "Download multiple files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/download_files",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Download multiple files"
+        },
+        {
+          "info": {
+            "name": "Upload file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/upload_file",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Upload file"
+        },
+        {
+          "info": {
+            "name": "Upload multiple files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/upload_files",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Upload multiple files"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

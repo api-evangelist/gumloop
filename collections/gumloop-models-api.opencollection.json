@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Public Agents Models API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/models",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query",
+                "description": "Scope model availability to a specific team. When omitted, uses the authenticated user's default organization."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List the LLMs and preset model chains available to the caller, grouped for display in a model picker."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

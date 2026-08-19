@@ -1,0 +1,204 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Public Agents Skills API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Skills",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List skills",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/skills",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query",
+                "description": "Scope the listing to a single team. When omitted, returns skills owned by the authenticated user."
+              },
+              {
+                "name": "search_query",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring match against the skill name."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for the returned skills."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of skills per page. Clamped between 1 and 100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination cursor returned in `next_cursor` from a prior page."
+              },
+              {
+                "name": "creator_user_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter to skills created by this user ID."
+              },
+              {
+                "name": "related_server_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter to skills that reference this MCP server ID in their metadata."
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter to skills attached to this agent."
+              },
+              {
+                "name": "unused",
+                "value": "",
+                "type": "query",
+                "description": "When set, filters to skills that have not been used."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List skills the caller has access to. Filter by team, search by name, or narrow to a specific creator, related MCP server, or agent."
+        },
+        {
+          "info": {
+            "name": "Create skill",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/skills",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "files",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "team_id",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Upload a skill package and create a new skill. The package must include a `SKILL.md` with `name` and `description` frontmatter; uploads may be a single `.md` file (stored as `SKILL.md`), or a `.zip` / `.skill` archive containing `SKILL.md` at its root. The initial version is created automatically. Maximum upload size is 10 MB."
+        },
+        {
+          "info": {
+            "name": "Update skill",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.gumloop.com/api/v1/skills/:skill_id",
+            "params": [
+              {
+                "name": "skill_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the skill to update."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "files",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Replace a skill's files with a new upload. Reparses `SKILL.md` to update the skill's `name`, `description`, and `metadata`, and creates a new version. Maximum upload size is 10 MB."
+        },
+        {
+          "info": {
+            "name": "Delete skill",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.gumloop.com/api/v1/skills/:skill_id",
+            "params": [
+              {
+                "name": "skill_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the skill to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Permanently delete a skill. This is a soft-delete — the skill will no longer appear in listings or be usable by agents."
+        },
+        {
+          "info": {
+            "name": "Download skill",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/skills/:skill_id/download",
+            "params": [
+              {
+                "name": "skill_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the skill to download."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "query",
+                "description": "Specific version to download. When omitted, the current draft is returned."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate a signed URL to download a skill's contents as a `.skill` archive (ZIP). When `version_id` is provided, returns that exact version; otherwise returns the current draft."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

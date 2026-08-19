@@ -1,0 +1,874 @@
+{
+  "item": [
+    {
+      "id": "9b4d69f9-52a3-4202-884b-9d29286d7dc3",
+      "name": "Artifacts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b4074683-dfeb-4489-8232-6a54d6f65dd6",
+          "name": "List artifacts",
+          "request": {
+            "name": "List artifacts",
+            "description": {
+              "content": "List artifacts (files) produced by an agent. Optionally scope to a specific session, search by filename, sort, and paginate.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents",
+                ":agent_id",
+                "artifacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "session_id",
+                  "value": "<string>",
+                  "description": "Filter to artifacts produced within a specific session."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_query",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring match against the artifact filename."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "newest",
+                  "description": "Sort order for results. Defaults to `newest`."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "Number of artifacts to return per page. Clamped to 1–100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Opaque pagination cursor returned by a prior call as `next_cursor`."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) ID of the agent whose artifacts to list."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "09d55b6f-ff9d-4523-b893-0595fb0c9fbc",
+              "name": "Artifacts matching the provided filters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "artifacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "newest"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent whose artifacts to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"artifacts\": [\n    {\n      \"id\": \"art_aBcDeF123\",\n      \"version_id\": \"ver_xYz9012\",\n      \"major_version\": 2,\n      \"agent_id\": \"abc123DEFghiJKL\",\n      \"session_id\": \"ses_8h2k4m1n\",\n      \"filename\": \"q4_sales_report.pdf\",\n      \"created_at\": \"2026-05-15T14:32:00Z\",\n      \"metadata\": {\n        \"media_type\": \"application/pdf\",\n        \"size\": 12345\n      },\n      \"url\": \"https://storage.googleapis.com/gumloop-artifacts/art_aBcDeF123?X-Goog-Signature=...\",\n      \"creator\": {\n        \"id\": \"user_19a3bc\",\n        \"first_name\": \"Ada\",\n        \"last_name\": \"Lovelace\",\n        \"email\": \"ada@example.com\",\n        \"profile_picture\": \"https://example.com/avatars/ada.png\"\n      }\n    },\n    {\n      \"id\": \"art_gHiJkL456\",\n      \"version_id\": \"ver_aBc4567\",\n      \"major_version\": 1,\n      \"agent_id\": \"abc123DEFghiJKL\",\n      \"session_id\": \"ses_8h2k4m1n\",\n      \"filename\": \"summary.txt\",\n      \"created_at\": \"2026-05-15T14:30:11Z\",\n      \"metadata\": {},\n      \"url\": \"https://storage.googleapis.com/gumloop-artifacts/art_gHiJkL456?X-Goog-Signature=...\",\n      \"creator\": {\n        \"id\": \"user_19a3bc\",\n        \"first_name\": \"Ada\",\n        \"last_name\": \"Lovelace\",\n        \"email\": \"ada@example.com\",\n        \"profile_picture\": null\n      }\n    }\n  ],\n  \"next_cursor\": \"eyJjcmVhdGVkX3RzIjoiMjAyNi0wNS0xNVQxNDozMDoxMVoifQ==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1f3f971-1f4d-4f5f-8540-2391abba2aa5",
+              "name": "Bad request — `page_size` is not an integer.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "artifacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "newest"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent whose artifacts to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8870eeaa-7627-4acc-980d-15f9f2578213",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "artifacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "newest"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent whose artifacts to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6ee07ff8-88de-4b57-80f0-21ae00d25cbf",
+              "name": "Forbidden — the caller does not have read access on the agent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "artifacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "newest"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent whose artifacts to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a6f798bc-fc3a-459f-b132-790ad1bccc01",
+              "name": "Agent not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "artifacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "newest"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent whose artifacts to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cabc21b7-10f5-4307-baeb-bb3f1f01c8a4",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "artifacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "newest"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent whose artifacts to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c61941da-249e-4f91-b7da-65aa4980c116",
+          "name": "Download artifact",
+          "request": {
+            "name": "Download artifact",
+            "description": {
+              "content": "Returns a signed download URL for an artifact, plus its filename, media type, and size. Follow `download_url` to fetch the file bytes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "artifacts",
+                ":artifact_id",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "version_id",
+                  "value": "<string>",
+                  "description": "Specific version of the artifact to download. Defaults to the latest version when omitted."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "artifact_id",
+                  "description": "(Required) ID of the artifact to download."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5e549c5e-5694-4020-bc6d-dca5ae8c776f",
+              "name": "Signed download URL and file metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "artifacts",
+                    ":artifact_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "artifact_id",
+                      "description": "(Required) ID of the artifact to download."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"download_url\": \"https://storage.googleapis.com/gumloop-artifacts/art_aBcDeF123?X-Goog-Signature=...\",\n  \"filename\": \"q4_sales_report.pdf\",\n  \"media_type\": \"application/pdf\",\n  \"size\": 12345\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfb6b996-5627-48e7-b2c8-5877ef27ac98",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "artifacts",
+                    ":artifact_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "artifact_id",
+                      "description": "(Required) ID of the artifact to download."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "34993360-b85e-4f77-afcf-e7078fa9a2f2",
+              "name": "Forbidden — the caller does not have read access on the artifact.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "artifacts",
+                    ":artifact_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "artifact_id",
+                      "description": "(Required) ID of the artifact to download."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8c59af9f-641c-42fa-be3f-6d2e405cb7f3",
+              "name": "Artifact not found, version not found, or the underlying file is unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "artifacts",
+                    ":artifact_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "artifact_id",
+                      "description": "(Required) ID of the artifact to download."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cca0b4a8-5a6a-43bc-98d4-f6039dc30409",
+              "name": "Failed to generate a download URL for the underlying file.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "artifacts",
+                    ":artifact_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "artifact_id",
+                      "description": "(Required) ID of the artifact to download."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.gumloop.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "54177a42-9148-4533-8c61-f91cd53bedf7",
+    "name": "Public Agents Artifacts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

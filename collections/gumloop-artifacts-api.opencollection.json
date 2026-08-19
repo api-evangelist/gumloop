@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Public Agents Artifacts API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Artifacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List artifacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/agents/:agent_id/artifacts",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the agent whose artifacts to list."
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter to artifacts produced within a specific session."
+              },
+              {
+                "name": "search_query",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring match against the artifact filename."
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results. Defaults to `newest`."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of artifacts to return per page. Clamped to 1–100."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination cursor returned by a prior call as `next_cursor`."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List artifacts (files) produced by an agent. Optionally scope to a specific session, search by filename, sort, and paginate."
+        },
+        {
+          "info": {
+            "name": "Download artifact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/artifacts/:artifact_id/download",
+            "params": [
+              {
+                "name": "artifact_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the artifact to download."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "query",
+                "description": "Specific version of the artifact to download. Defaults to the latest version when omitted."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a signed download URL for an artifact, plus its filename, media type, and size. Follow `download_url` to fetch the file bytes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

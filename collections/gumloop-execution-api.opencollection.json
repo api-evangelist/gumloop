@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Public Agents Execution API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Execution",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Start flow run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/start_pipeline",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint is used to trigger a flow run via API"
+        },
+        {
+          "info": {
+            "name": "Kill flow run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/kill_pipeline",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint is used to kill a flow run and all its subflow runs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

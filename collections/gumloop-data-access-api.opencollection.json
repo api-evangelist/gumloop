@@ -1,0 +1,187 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Public Agents Data Access API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Access",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve run details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/get_pl_run",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the flow run to retrieve"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "The id for the user initiating the flow. Required if project_id is not provided."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "The id of the project within which the flow is executed. Required if user_id is not provided."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint can be used to poll for completion and retrieve final flow outputs. Output nodes must be used to retrieve outputs."
+        },
+        {
+          "info": {
+            "name": "List workbooks and their saved flows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/list_workbooks",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "The user ID for which to list workbooks. Required if project_id is not provided."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "The project ID for which to list workbooks. Required if user_id is not provided."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List workbooks and their saved flows"
+        },
+        {
+          "info": {
+            "name": "List saved flows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/list_saved_items",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "The user ID to for which to list items. Required if project_id is not provided."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "The project ID for which to list items. Required if user_id is not provided."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List saved flows"
+        },
+        {
+          "info": {
+            "name": "Retrieve input schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/get_inputs",
+            "params": [
+              {
+                "name": "saved_item_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the saved item for which to retrieve input schemas."
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "User ID that created the flow. Required if project_id is not provided."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Project ID that the flow is under. Required if user_id is not provided."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve input schema"
+        },
+        {
+          "info": {
+            "name": "Retrieve automation run history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/get_plrun_saved_item_map",
+            "params": [
+              {
+                "name": "workbook_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workbook to retrieve run history for. Required if saved_item_id is not provided."
+              },
+              {
+                "name": "saved_item_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the saved item to retrieve run history for. Required if workbook_id is not provided."
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "The user ID. Required if project_id is not provided."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "The project ID. Required if user_id is not provided."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint retrieves the run history for automations, either by workbook or saved item. Returns the 10 most recent runs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

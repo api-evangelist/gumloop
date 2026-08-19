@@ -1,0 +1,1324 @@
+{
+  "item": [
+    {
+      "id": "0f4b37b0-b572-4614-9312-bdab56b7a4e5",
+      "name": "Evaluations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5f00970c-2e98-4e88-aa0a-0eab3de0907d",
+          "name": "List evaluations",
+          "request": {
+            "name": "List evaluations",
+            "description": {
+              "content": "Returns a cursor-paginated list of evaluation results for a specific agent, newest first.\nOnly completed and failed evaluations are returned (transient states like queued/in_progress are excluded).\n\nEach evaluation includes the grade, criteria pass/fail results, extracted data points, applied tags, and sentiment analysis.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents",
+                ":agent_id",
+                "evaluations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "Number of evaluations to return per page (1-100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor from a previous response's `next_cursor` field."
+                },
+                {
+                  "disabled": false,
+                  "key": "grade",
+                  "value": "<string>",
+                  "description": "Filter evaluations by grade."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) ID of the agent whose evaluations to list."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b69cb771-0612-4bf3-a4bc-ebba489d0984",
+              "name": "Paginated list of evaluation results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "grade",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent whose evaluations to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"evaluations\": [\n    {\n      \"evaluation_id\": \"eval_abc123\",\n      \"interaction_id\": \"int_xyz789\",\n      \"agent_id\": \"agent_456\",\n      \"created_ts\": \"2026-06-15T14:30:00+00:00\",\n      \"status\": \"completed\",\n      \"grade\": \"pass\",\n      \"call_successful\": \"success\",\n      \"sentiment\": \"positive\",\n      \"summary\": \"User asked about pricing and the agent provided accurate tier information.\",\n      \"criteria_results\": [\n        {\n          \"id\": \"crit_1\",\n          \"name\": \"Accuracy\",\n          \"type\": \"other\",\n          \"priority\": \"needs_attention\",\n          \"result\": \"success\",\n          \"rationale\": \"All pricing information matched the current rate card.\"\n        },\n        {\n          \"id\": \"crit_2\",\n          \"name\": \"Stayed on Topic\",\n          \"type\": \"voice_tone\",\n          \"priority\": \"needs_review\",\n          \"result\": \"success\",\n          \"rationale\": \"Agent focused exclusively on the pricing question.\"\n        }\n      ],\n      \"data_results\": [\n        {\n          \"id\": \"dp_1\",\n          \"name\": \"Customer Intent\",\n          \"data_type\": \"string\",\n          \"value\": \"pricing inquiry\"\n        },\n        {\n          \"id\": \"dp_2\",\n          \"name\": \"Confidence Score\",\n          \"data_type\": \"number\",\n          \"value\": 8.5\n        }\n      ],\n      \"applied_tags\": [\n        \"PRICING_INQUIRY\",\n        \"POSITIVE_FEEDBACK\"\n      ]\n    }\n  ],\n  \"next_cursor\": \"eyJjcmVhdGVkX3RzIjoiMjAyNi0wNi0xNVQxNDozMDowMCswMDowMCJ9\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c827858-d60f-4e42-bc27-16f799e1f1d2",
+              "name": "Invalid grade parameter.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "grade",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent whose evaluations to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a57b31b0-1426-4559-ae18-fb8f3cce0895",
+              "name": "Unauthorized — missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "grade",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent whose evaluations to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b2a3589b-60f2-4e14-ab75-8d6703170470",
+              "name": "Forbidden — insufficient permissions on this agent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "grade",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent whose evaluations to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7bff0235-c939-4f0b-8705-914d9d876793",
+          "name": "Get evaluation metrics",
+          "request": {
+            "name": "Get evaluation metrics",
+            "description": {
+              "content": "Returns aggregated grade and tag counts for an agent's evaluations over a time window.\nUseful for dashboards and reporting on agent quality trends.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents",
+                ":agent_id",
+                "evaluations",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "days",
+                  "value": "30",
+                  "description": "Number of days to look back (1-365). Defaults to 30."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) ID of the agent."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7c9eb3fd-f1cc-48f0-a8a4-5f8ecad77349",
+              "name": "Aggregated evaluation metrics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluations",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "days",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"grades\": {\n    \"pass\": 118,\n    \"needs_review\": 19,\n    \"needs_attention\": 5\n  },\n  \"tags\": {\n    \"PRICING_INQUIRY\": 34,\n    \"SUPPORT_TICKET\": 52,\n    \"ESCALATION_NEEDED\": 8,\n    \"POSITIVE_FEEDBACK\": 45\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23501629-f63f-4d33-bf90-1a1827b5a84c",
+              "name": "Unauthorized — missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluations",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "days",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c0f604dc-5994-4ce7-84ed-0d23fb31de5a",
+              "name": "Forbidden — insufficient permissions on this agent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluations",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "days",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6e8af87-f095-4b23-8d2e-000d264cdf6b",
+          "name": "Retrieve evaluation",
+          "request": {
+            "name": "Retrieve evaluation",
+            "description": {
+              "content": "Retrieve a single evaluation result by ID. The evaluation must belong to the specified agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents",
+                ":agent_id",
+                "evaluations",
+                ":evaluation_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) ID of the agent the evaluation belongs to."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "evaluation_id",
+                  "description": "(Required) ID of the evaluation to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fe0ccba4-1dc0-4ec5-ad14-5cbfe50b19e4",
+              "name": "The requested evaluation result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluations",
+                    ":evaluation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent the evaluation belongs to."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "evaluation_id",
+                      "description": "(Required) ID of the evaluation to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"evaluation\": {\n    \"evaluation_id\": \"eval_abc123\",\n    \"interaction_id\": \"int_xyz789\",\n    \"agent_id\": \"agent_456\",\n    \"created_ts\": \"2026-06-15T14:30:00+00:00\",\n    \"status\": \"completed\",\n    \"grade\": \"needs_review\",\n    \"call_successful\": \"success\",\n    \"sentiment\": \"negative\",\n    \"summary\": \"User was frustrated with response time. Agent eventually resolved the issue.\",\n    \"criteria_results\": [\n      {\n        \"id\": \"crit_1\",\n        \"name\": \"Accuracy\",\n        \"type\": \"other\",\n        \"priority\": \"needs_attention\",\n        \"result\": \"success\",\n        \"rationale\": \"Information provided was correct.\"\n      },\n      {\n        \"id\": \"crit_2\",\n        \"name\": \"Professional Tone\",\n        \"type\": \"voice_tone\",\n        \"priority\": \"needs_review\",\n        \"result\": \"failure\",\n        \"rationale\": \"Agent used overly casual language in a formal support context.\"\n      }\n    ],\n    \"data_results\": [\n      {\n        \"id\": \"dp_1\",\n        \"name\": \"Resolution Status\",\n        \"data_type\": \"string\",\n        \"value\": \"resolved\"\n      },\n      {\n        \"id\": \"dp_2\",\n        \"name\": \"Handoff Requested\",\n        \"data_type\": \"boolean\",\n        \"value\": false\n      }\n    ],\n    \"applied_tags\": [\n      \"SUPPORT_TICKET\",\n      \"TONE_ISSUE\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "530efe96-6fe3-4aa9-ae8e-8efd95f566a3",
+              "name": "Unauthorized — missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluations",
+                    ":evaluation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent the evaluation belongs to."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "evaluation_id",
+                      "description": "(Required) ID of the evaluation to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "faf8bffc-4bfd-48b4-afc1-f8b79df0a959",
+              "name": "Evaluation not found or does not belong to this agent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluations",
+                    ":evaluation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent the evaluation belongs to."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "evaluation_id",
+                      "description": "(Required) ID of the evaluation to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf8ab24d-60d1-4a62-89d2-55b5b41fb4d4",
+          "name": "Get evaluation config",
+          "request": {
+            "name": "Get evaluation config",
+            "description": {
+              "content": "Retrieve the current evaluation configuration for an agent, including criteria, tags, data points, and sentiment settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents",
+                ":agent_id",
+                "evaluation-config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) ID of the agent."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "461de37d-c4ec-457a-b2ce-833043c70ed2",
+              "name": "The agent's evaluation configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluation-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"config\": {\n    \"agent_id\": \"agent_456\",\n    \"enabled\": true,\n    \"is_active\": true,\n    \"model_name\": \"anthropic/claude-sonnet-4\",\n    \"frequency\": \"debounced\",\n    \"language\": \"auto\",\n    \"include_auto_tags\": true,\n    \"interaction_types\": [],\n    \"criteria\": [\n      {\n        \"id\": \"crit_1\",\n        \"name\": \"Accuracy\",\n        \"prompt\": \"The agent provided factually correct information.\",\n        \"type\": \"other\",\n        \"priority\": \"needs_attention\"\n      },\n      {\n        \"id\": \"crit_2\",\n        \"name\": \"Professional Tone\",\n        \"prompt\": \"The agent maintained a professional tone throughout.\",\n        \"type\": \"voice_tone\",\n        \"priority\": \"needs_review\"\n      }\n    ],\n    \"tags\": [\n      {\n        \"name\": \"PRICING_INQUIRY\",\n        \"description\": \"User asked about pricing or billing.\"\n      },\n      {\n        \"name\": \"ESCALATION_NEEDED\",\n        \"description\": \"Issue requires human intervention.\"\n      }\n    ],\n    \"data_points\": [\n      {\n        \"id\": \"dp_1\",\n        \"name\": \"Customer Intent\",\n        \"data_type\": \"string\",\n        \"description\": \"Summarize the customer's primary intent in 2-5 words.\"\n      },\n      {\n        \"id\": \"dp_2\",\n        \"name\": \"Confidence Score\",\n        \"data_type\": \"number\",\n        \"description\": \"Rate 1-10 how confident the agent appeared.\"\n      }\n    ],\n    \"sentiment\": {\n      \"enabled\": true,\n      \"affects_grade\": true,\n      \"description\": \"Focus on the customer's final message tone.\"\n    },\n    \"updated_ts\": \"2026-06-10T09:00:00+00:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23232f2d-5d00-432e-8de7-cdf739016e33",
+              "name": "Unauthorized — missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluation-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bc97e0c1-6dc8-444b-857d-70dab495bbc1",
+              "name": "Forbidden — insufficient permissions on this agent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluation-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8479fba8-0520-4285-b78f-02974cf438a1",
+          "name": "Update evaluation config",
+          "request": {
+            "name": "Update evaluation config",
+            "description": {
+              "content": "Partially update the evaluation configuration for an agent.\nOmitted fields keep their current value. Provided list fields (criteria, tags, data_points) replace that list entirely.\n\nRequires Pro tier or above.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents",
+                ":agent_id",
+                "evaluation-config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) ID of the agent."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"model_name\": \"<string>\",\n  \"include_auto_tags\": \"<boolean>\",\n  \"criteria\": [\n    {\n      \"name\": \"<string>\",\n      \"prompt\": \"<string>\",\n      \"type\": \"<string>\",\n      \"priority\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"prompt\": \"<string>\",\n      \"type\": \"<string>\",\n      \"priority\": \"<string>\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"data_points\": [\n    {\n      \"name\": \"<string>\",\n      \"data_type\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"data_type\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"sentiment\": {\n    \"enabled\": \"<boolean>\",\n    \"affects_grade\": \"<boolean>\",\n    \"description\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8a17dbf3-a9d6-4f82-87c7-5e9ecaabf9ec",
+              "name": "Updated evaluation configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluation-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"model_name\": \"<string>\",\n  \"include_auto_tags\": \"<boolean>\",\n  \"criteria\": [\n    {\n      \"name\": \"<string>\",\n      \"prompt\": \"<string>\",\n      \"type\": \"<string>\",\n      \"priority\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"prompt\": \"<string>\",\n      \"type\": \"<string>\",\n      \"priority\": \"<string>\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"data_points\": [\n    {\n      \"name\": \"<string>\",\n      \"data_type\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"data_type\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"sentiment\": {\n    \"enabled\": \"<boolean>\",\n    \"affects_grade\": \"<boolean>\",\n    \"description\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"config\": {\n    \"agent_id\": \"string\",\n    \"enabled\": false,\n    \"is_active\": true,\n    \"model_name\": \"string\",\n    \"frequency\": \"string\",\n    \"language\": \"string\",\n    \"include_auto_tags\": false,\n    \"interaction_types\": [\n      \"string\",\n      \"string\"\n    ],\n    \"criteria\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"prompt\": \"string\",\n        \"type\": \"string\",\n        \"priority\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"prompt\": \"string\",\n        \"type\": \"string\",\n        \"priority\": \"string\"\n      }\n    ],\n    \"tags\": [\n      {\n        \"name\": \"string\",\n        \"description\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"description\": \"string\"\n      }\n    ],\n    \"data_points\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"data_type\": \"string\",\n        \"description\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"data_type\": \"string\",\n        \"description\": \"string\"\n      }\n    ],\n    \"sentiment\": {\n      \"enabled\": true,\n      \"affects_grade\": false,\n      \"description\": \"string\"\n    },\n    \"updated_ts\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1391097d-eb7c-4257-b626-695d2469f848",
+              "name": "Invalid request (e.g. exceeds limits).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluation-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"model_name\": \"<string>\",\n  \"include_auto_tags\": \"<boolean>\",\n  \"criteria\": [\n    {\n      \"name\": \"<string>\",\n      \"prompt\": \"<string>\",\n      \"type\": \"<string>\",\n      \"priority\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"prompt\": \"<string>\",\n      \"type\": \"<string>\",\n      \"priority\": \"<string>\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"data_points\": [\n    {\n      \"name\": \"<string>\",\n      \"data_type\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"data_type\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"sentiment\": {\n    \"enabled\": \"<boolean>\",\n    \"affects_grade\": \"<boolean>\",\n    \"description\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "de3b505f-551c-4124-8b70-14783b926103",
+              "name": "Unauthorized — missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluation-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"model_name\": \"<string>\",\n  \"include_auto_tags\": \"<boolean>\",\n  \"criteria\": [\n    {\n      \"name\": \"<string>\",\n      \"prompt\": \"<string>\",\n      \"type\": \"<string>\",\n      \"priority\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"prompt\": \"<string>\",\n      \"type\": \"<string>\",\n      \"priority\": \"<string>\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"data_points\": [\n    {\n      \"name\": \"<string>\",\n      \"data_type\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"data_type\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"sentiment\": {\n    \"enabled\": \"<boolean>\",\n    \"affects_grade\": \"<boolean>\",\n    \"description\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1c198230-d95b-445b-baf3-541f9febbf6f",
+              "name": "Forbidden — requires Pro tier or insufficient permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "evaluation-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) ID of the agent."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"model_name\": \"<string>\",\n  \"include_auto_tags\": \"<boolean>\",\n  \"criteria\": [\n    {\n      \"name\": \"<string>\",\n      \"prompt\": \"<string>\",\n      \"type\": \"<string>\",\n      \"priority\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"prompt\": \"<string>\",\n      \"type\": \"<string>\",\n      \"priority\": \"<string>\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"data_points\": [\n    {\n      \"name\": \"<string>\",\n      \"data_type\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"data_type\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"sentiment\": {\n    \"enabled\": \"<boolean>\",\n    \"affects_grade\": \"<boolean>\",\n    \"description\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.gumloop.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7ce2d24b-dcc8-4488-aa50-a958f465250f",
+    "name": "Public Agents Evaluations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

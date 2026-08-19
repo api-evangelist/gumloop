@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Public Agents MCP API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MCP",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List MCP servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/mcp/servers",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query",
+                "description": "Scope the catalog to a single team. When omitted, returns servers visible to the authenticated user."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return the catalog of MCP servers visible to the caller — Gumloop-hosted (`gumcp_server`), user-deployed Gumstack (`gumstack_server`), and custom (`mcp_server`) — along with each server's connection state."
+        },
+        {
+          "info": {
+            "name": "Retrieve an MCP server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/mcp/servers/:server_id",
+            "params": [
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the MCP server to retrieve."
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query",
+                "description": "Scope the lookup to a single team."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return a single MCP server. The response populates `allowed_tool_call_ids` with the tool call IDs the caller is permitted to invoke on this server."
+        },
+        {
+          "info": {
+            "name": "List MCP server tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/mcp/servers/:server_id/tools",
+            "params": [
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the MCP server."
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query",
+                "description": "Scope the lookup to a single team."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return the tools exposed by an MCP server. When the server is not in `connected` state, `tools` is empty and `gumloop_auth_url` is returned so the caller can prompt the user to authenticate."
+        },
+        {
+          "info": {
+            "name": "Call MCP tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/mcp/tools/call",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Execute a batch of 1–5 MCP tool calls. Calls run concurrently and each result reports its own `status`. When Gumloop accepts the request, MCP execution failures such as target server authentication, policy blocks, invalid tools, upstream HTTP errors, and connection failures are returned in `results[*].status` and `results[*].error`. Top-level `4xx` responses are reserved for Gumloop request, authentication, and permission failures. `200` covers homogeneous execution outcomes (all calls succeeded"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

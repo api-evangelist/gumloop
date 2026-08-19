@@ -1,0 +1,469 @@
+{
+  "item": [
+    {
+      "id": "64f566e4-8eed-4325-bd32-e11f4d86a959",
+      "name": "Chat completions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2fd1d9ad-bbec-4544-b0da-17f3e5f7aa22",
+          "name": "Create chat completion",
+          "request": {
+            "name": "Create chat completion",
+            "description": {
+              "content": "OpenAI-compatible chat completions endpoint, multiplexed across every model Gumloop supports\n(Anthropic, OpenAI, Google Gemini, OpenRouter routes). Set `stream: true` for Server-Sent Events,\nor omit it for a unary JSON response. Image-generation models (`gpt-image-*`, `gemini-*-image-preview`,\n`dall-e-*`) are dispatched automatically when `modalities` includes `\"image\"` and yield image\nattachments on `choices[0].message.images`.\n\n### Streaming host\n\nChat completions live on the streaming host. Send all requests — unary or streaming — to:\n\n```\nPOST https://ws.gumloop.com/api/v1/chat/completions\n```\n\n`api.gumloop.com` does not serve this endpoint; the Python SDK routes there automatically.\n\n### Billing\n\nEach completion charges the caller's credit balance based on token usage (with cache-token semantics per provider) plus a flat 30-credit fee for image-gen calls. Users who configure their own provider API key get a 50% discount.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "api",
+                "v1",
+                "chat",
+                "completions"
+              ],
+              "host": [
+                "ws",
+                "gumloop",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"stream\": false,\n  \"temperature\": \"<number>\",\n  \"max_completion_tokens\": \"<integer>\",\n  \"modalities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"image_config\": \"<object>\",\n  \"response_format\": \"<object>\",\n  \"tools\": \"<array>\",\n  \"tool_choice\": \"<string>\",\n  \"provider\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ad104bb3-3f27-4b6a-aaae-f1df26c81143",
+              "name": "Chat completion. When `stream` is `false` (or omitted), the response is the `chat.completion` envelope below. When `stream: true`, the response is `text/event-stream`; each event carries one `chat.completion.chunk` and the terminator is `data: [DONE]`.\n",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "ws",
+                    "gumloop",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"claude-sonnet-4-5\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Capital of Canada?\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"chatcmpl-9a3f8c2b14d6e7\",\n  \"object\": \"chat.completion\",\n  \"created\": 1747315920,\n  \"model\": \"claude-sonnet-4-5\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"finish_reason\": \"stop\",\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"Ottawa.\"\n      }\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 12,\n    \"completion_tokens\": 1,\n    \"total_tokens\": 13\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a75761c1-3247-4ef1-965e-7ef2803d24e7",
+              "name": "Invalid request body, unsupported modality combination, or unregistered model slug.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "ws",
+                    "gumloop",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"claude-sonnet-4-5\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Capital of Canada?\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c42ff99a-2dea-4658-a7c1-f8dd45886879",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "ws",
+                    "gumloop",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"claude-sonnet-4-5\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Capital of Canada?\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e83cc06a-30be-4ec6-afc5-4c0134851fbe",
+              "name": "Insufficient credits.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "ws",
+                    "gumloop",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"claude-sonnet-4-5\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Capital of Canada?\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e9f7f1b8-1bb4-42d8-80da-400f3938171d",
+              "name": "User profile not found.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "ws",
+                    "gumloop",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"claude-sonnet-4-5\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Capital of Canada?\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7d92344b-3b93-45db-b346-64a3a1b2d70a",
+              "name": "Requested capability not supported by the resolved provider.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "ws",
+                    "gumloop",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"claude-sonnet-4-5\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Capital of Canada?\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Implemented",
+              "code": 501,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "87e3ac7c-c0eb-4aa4-bf03-06b84c9634ac",
+              "name": "Upstream provider error.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "ws",
+                    "gumloop",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"claude-sonnet-4-5\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Capital of Canada?\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.gumloop.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "16b2a1ff-1efe-4043-9cd5-d8ca290ecddb",
+    "name": "Public Agents Chat completions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

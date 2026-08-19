@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Public Agents Brain API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Brain",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Company Brain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/brain/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Run a hybrid (semantic + keyword) search across the knowledge sources indexed in your [Company Brain](/core-concepts/brain) and return the most relevant, ranked snippets with citations.\n\nResults are scoped to what the authenticated user can see: personal sources, plus any team and organization sources shared with them. Requires the Brain feature, which is available on the Pro and Enterprise plans. Each search consumes Gumloop credits.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

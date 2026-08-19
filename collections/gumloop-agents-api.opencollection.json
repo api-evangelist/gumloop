@@ -1,0 +1,252 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Public Agents API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/agents",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "query",
+                "description": "Scope the listing to a single team. When omitted, returns agents owned by the authenticated user."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring match against the agent name."
+              },
+              {
+                "name": "creator",
+                "value": "",
+                "type": "query",
+                "description": "Filter to agents created by this user ID."
+              },
+              {
+                "name": "has_triggers",
+                "value": "",
+                "type": "query",
+                "description": "When `true`, only returns agents that have at least one active trigger configured."
+              },
+              {
+                "name": "tool",
+                "value": "",
+                "type": "query",
+                "description": "Filter to agents that use the specified MCP server as a tool."
+              },
+              {
+                "name": "flow",
+                "value": "",
+                "type": "query",
+                "description": "Filter to agents that use the specified saved flow as a tool."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List agents the caller has access to. Filter by team, search by name, or narrow to agents that use a specific tool or trigger."
+        },
+        {
+          "info": {
+            "name": "Create agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/agents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new agent. The authenticated caller must have permission to create agents on the target team."
+        },
+        {
+          "info": {
+            "name": "Retrieve agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/agents/:agent_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the agent to retrieve."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a single agent by ID."
+        },
+        {
+          "info": {
+            "name": "Update agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.gumloop.com/api/v1/agents/:agent_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the agent to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing agent. Only fields included in the request body are changed; omitted fields are left untouched.\n\nThis endpoint edits document fields only. To attach or detach skills, use [`PATCH /agents/{agent_id}/skills`](/api-reference/agents/update-agent-skills); to manage MCP servers, use the [agent MCP server endpoints](/api-reference/agents/attach-agent-mcp-server).\n"
+        },
+        {
+          "info": {
+            "name": "Attach or detach agent skills",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.gumloop.com/api/v1/agents/:agent_id/skills",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the agent whose skills to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Attach and/or detach skills on an agent using deltas. This is **not** a replace-list: skills you don't mention are left untouched.\n\n- The operation is idempotent. Re-attaching a skill that's already attached (or detaching one that isn't) is reported under `already_attached` / `already_detached` rather than failing.\n- A skill ID may not appear in both `attach` and `detach`.\n- Up to 100 unique skill IDs total (`attach` + `detach`) per request.\n- Attaching requires `INVOKE` permission on the skill."
+        },
+        {
+          "info": {
+            "name": "List agent MCP servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/agents/:agent_id/mcp-servers",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the agent."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List the MCP servers (connectors) attached to an agent. Sensitive fields such as `secret_id` and `mcp_server_url` are scrubbed from the response.\n"
+        },
+        {
+          "info": {
+            "name": "Attach or update an agent MCP server",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.gumloop.com/api/v1/agents/:agent_id/mcp-servers/:server_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the agent."
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the MCP server from the caller's catalog."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Attach an MCP server (connector) to an agent, or update its configuration if it's already attached (upsert).\n\nThe `server_id` is validated against the caller's MCP catalog. Catalog identity fields (`type`, `server_id`, `secret_id`, `mcp_server_url`) always come from the catalog and cannot be spoofed via the request body — the body carries only free-form connector configuration (e.g. approval mode, tool restrictions); any identity keys in it are ignored.\n\nAttach may succeed before OAuth is comple"
+        },
+        {
+          "info": {
+            "name": "Detach an agent MCP server",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.gumloop.com/api/v1/agents/:agent_id/mcp-servers/:server_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the agent."
+              },
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the MCP server to detach."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Detach an MCP server (connector) from an agent. This is idempotent — detaching a server that isn't attached returns `detached: false` rather than an error.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

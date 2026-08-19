@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Public Agents Evaluations API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Evaluations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List evaluations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/agents/:agent_id/evaluations",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the agent whose evaluations to list."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of evaluations to return per page (1-100)."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response's `next_cursor` field."
+              },
+              {
+                "name": "grade",
+                "value": "",
+                "type": "query",
+                "description": "Filter evaluations by grade."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a cursor-paginated list of evaluation results for a specific agent, newest first.\nOnly completed and failed evaluations are returned (transient states like queued/in_progress are excluded).\n\nEach evaluation includes the grade, criteria pass/fail results, extracted data points, applied tags, and sentiment analysis.\n"
+        },
+        {
+          "info": {
+            "name": "Get evaluation metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/agents/:agent_id/evaluations/metrics",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the agent."
+              },
+              {
+                "name": "days",
+                "value": "",
+                "type": "query",
+                "description": "Number of days to look back (1-365). Defaults to 30."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns aggregated grade and tag counts for an agent's evaluations over a time window.\nUseful for dashboards and reporting on agent quality trends.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve evaluation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/agents/:agent_id/evaluations/:evaluation_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the agent the evaluation belongs to."
+              },
+              {
+                "name": "evaluation_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the evaluation to retrieve."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a single evaluation result by ID. The evaluation must belong to the specified agent."
+        },
+        {
+          "info": {
+            "name": "Get evaluation config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/agents/:agent_id/evaluation-config",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the agent."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve the current evaluation configuration for an agent, including criteria, tags, data points, and sentiment settings."
+        },
+        {
+          "info": {
+            "name": "Update evaluation config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.gumloop.com/api/v1/agents/:agent_id/evaluation-config",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the agent."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Partially update the evaluation configuration for an agent.\nOmitted fields keep their current value. Provided list fields (criteria, tags, data_points) replace that list entirely.\n\nRequires Pro tier or above.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

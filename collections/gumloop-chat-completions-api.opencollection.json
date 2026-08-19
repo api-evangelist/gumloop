@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Public Agents Chat completions API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chat completions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create chat completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/chat/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "OpenAI-compatible chat completions endpoint, multiplexed across every model Gumloop supports\n(Anthropic, OpenAI, Google Gemini, OpenRouter routes). Set `stream: true` for Server-Sent Events,\nor omit it for a unary JSON response. Image-generation models (`gpt-image-*`, `gemini-*-image-preview`,\n`dall-e-*`) are dispatched automatically when `modalities` includes `\"image\"` and yield image\nattachments on `choices[0].message.images`.\n\n### Streaming host\n\nChat completions live on the streaming host. S"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

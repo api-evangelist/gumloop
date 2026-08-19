@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Public Agents Organization API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve audit logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/get_audit_logs",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the organization to retrieve audit logs for."
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "Your user id -- you must be an organization admin to retrieve organization logs."
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp for log filtering (ISO format)."
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "End timestamp for log filtering (ISO format)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint retrieves audit logs for all users in an organization for a specified time period."
+        },
+        {
+          "info": {
+            "name": "Manage workspace users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/manage_workspace_users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint allows organization administrators to add or remove users from a workspace."
+        },
+        {
+          "info": {
+            "name": "Manage custom role users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/manage_permission_group_users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint allows organization administrators to add or remove users from a custom role (formerly \"permission group\"). Adding a user to a role does not remove them from any other role they belong to."
+        },
+        {
+          "info": {
+            "name": "Export data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gumloop.com/api/v1/export_data",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint allows enterprise organization administrators to create and initiate a comprehensive data export for their organization or specific workspaces.\n\nThe export supports four data types:\n- **Workflow data** (`data_type: \"workflows\"`): Includes workflow runs, workbook details, user information, and other organizational data.\n- **Agent data** (`data_type: \"agents\"`): Includes agent configurations, metadata, tools, and creator information.\n- **Agent interaction data** (`data_type: \"agent_i"
+        },
+        {
+          "info": {
+            "name": "Get data export status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gumloop.com/api/v1/export_status",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the user requesting the export status."
+              },
+              {
+                "name": "data_export_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the data export job to check (returned by the Export data endpoint)."
+              },
+              {
+                "name": "download",
+                "value": "",
+                "type": "query",
+                "description": "Set to `true` to download the export file directly when the export is completed. When `true` and the export state is `COMPLETED`, the response will be a CSV file download instead of JSON.\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint retrieves the status of a data export job and optionally downloads the export file (as CSV) if the export has completed successfully.\n\nUse the `data_export_id` returned by the [Export data](/api-reference/organization/export-data) endpoint to check progress.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

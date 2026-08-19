@@ -1,0 +1,381 @@
+{
+  "item": [
+    {
+      "id": "82417d98-655d-4002-bba6-d418f12c825a",
+      "name": "Brain",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f5937681-c6b1-40ed-a47c-8e645fddd1b7",
+          "name": "Search Company Brain",
+          "request": {
+            "name": "Search Company Brain",
+            "description": {
+              "content": "Run a hybrid (semantic + keyword) search across the knowledge sources indexed in your [Company Brain](/core-concepts/brain) and return the most relevant, ranked snippets with citations.\n\nResults are scoped to what the authenticated user can see: personal sources, plus any team and organization sources shared with them. Requires the Brain feature, which is available on the Pro and Enterprise plans. Each search consumes Gumloop credits.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "brain",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"limit\": 8,\n  \"source_type\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cdaeb576-e199-4ea3-916d-406a89b8894c",
+              "name": "Ranked search results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"what is our refund policy?\",\n  \"limit\": 8,\n  \"source_type\": [\n    \"notion\",\n    \"google_drive\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"document_id\": \"notion:2f1a9c7e\",\n      \"source\": \"notion\",\n      \"title\": \"Refund Policy\",\n      \"content\": \"Customers may request a full refund within 30 days of purchase...\",\n      \"url\": \"https://www.notion.so/Refund-Policy-2f1a9c7e\",\n      \"score\": 0.87,\n      \"updated_at\": \"2024-01-15T10:30:00Z\",\n      \"owner_name\": \"Jordan Lee\",\n      \"owner_email\": \"jordan@example.com\",\n      \"parent_title\": \"Policies\",\n      \"metadata\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f9bb161-0e38-41e8-a1bb-fdd25ea43951",
+              "name": "Invalid request, for example a missing `query` or an unrecognized `source_type`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"what is our refund policy?\",\n  \"limit\": 8,\n  \"source_type\": [\n    \"notion\",\n    \"google_drive\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9742bcd5-d3be-48d8-9288-a13c32977c74",
+              "name": "Unauthorized — missing or invalid Gumloop API credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"what is our refund policy?\",\n  \"limit\": 8,\n  \"source_type\": [\n    \"notion\",\n    \"google_drive\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "802e81e5-a9ec-422c-b04a-3b68e7c9fc14",
+              "name": "Credit limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"what is our refund policy?\",\n  \"limit\": 8,\n  \"source_type\": [\n    \"notion\",\n    \"google_drive\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "00693e5d-6ae0-4bf0-985c-edea75e3c119",
+              "name": "Forbidden — the caller lacks access to Brain (Pro or Enterprise plan required) or to this endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"what is our refund policy?\",\n  \"limit\": 8,\n  \"source_type\": [\n    \"notion\",\n    \"google_drive\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1679e9fb-d07e-495e-a8f5-b12048af9a02",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "brain",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"what is our refund policy?\",\n  \"limit\": 8,\n  \"source_type\": [\n    \"notion\",\n    \"google_drive\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.gumloop.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1db87e45-9c0e-434b-bb17-95d779b53f13",
+    "name": "Public Agents Brain API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

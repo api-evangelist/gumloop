@@ -1,0 +1,2076 @@
+{
+  "item": [
+    {
+      "id": "1d76e846-b571-4a4c-a815-273936e3be15",
+      "name": "Skills",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b6116774-20e8-4357-bd77-dac44674d458",
+          "name": "List skills",
+          "request": {
+            "name": "List skills",
+            "description": {
+              "content": "List skills the caller has access to. Filter by team, search by name, or narrow to a specific creator, related MCP server, or agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "skills"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "team_id",
+                  "value": "<string>",
+                  "description": "Scope the listing to a single team. When omitted, returns skills owned by the authenticated user."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_query",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring match against the skill name."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "newest",
+                  "description": "Sort order for the returned skills."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "Number of skills per page. Clamped between 1 and 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Opaque pagination cursor returned in `next_cursor` from a prior page."
+                },
+                {
+                  "disabled": false,
+                  "key": "creator_user_id",
+                  "value": "<string>",
+                  "description": "Filter to skills created by this user ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "related_server_id",
+                  "value": "<string>",
+                  "description": "Filter to skills that reference this MCP server ID in their metadata."
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_id",
+                  "value": "<string>",
+                  "description": "Filter to skills attached to this agent."
+                },
+                {
+                  "disabled": false,
+                  "key": "unused",
+                  "value": "<string>",
+                  "description": "When set, filters to skills that have not been used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "221127af-674c-4d77-a795-3cbec5be5714",
+              "name": "Skills matching the provided filters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "newest"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creator_user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "related_server_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "unused",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"skills\": [\n    {\n      \"id\": \"skill_x7y8z9\",\n      \"name\": \"Lead enrichment\",\n      \"description\": \"Enriches inbound leads with firmographics.\",\n      \"team_id\": \"team_4f8c92ab\",\n      \"created_at\": \"2026-05-15T14:32:00Z\",\n      \"updated_at\": \"2026-05-16T09:10:00Z\",\n      \"metadata\": {\n        \"related_server_ids\": [\n          \"apollo\"\n        ]\n      },\n      \"usage_count\": 42,\n      \"view_count\": 117,\n      \"last_used_at\": \"2026-05-18T22:01:00Z\",\n      \"version_id\": \"sv_a1b2c3d4\",\n      \"major_version\": 3,\n      \"is_deployed\": true,\n      \"version_created_at\": \"2026-05-16T09:10:00Z\",\n      \"creator\": {\n        \"id\": \"user_2b9d71f0\",\n        \"first_name\": \"Ada\",\n        \"last_name\": \"Lovelace\",\n        \"email\": \"ada@example.com\",\n        \"profile_picture\": null\n      }\n    },\n    {\n      \"id\": \"skill_p4q5r6\",\n      \"name\": \"Ticket triage\",\n      \"description\": \"Classifies and routes support tickets.\",\n      \"team_id\": \"team_4f8c92ab\",\n      \"created_at\": \"2026-04-02T09:11:00Z\",\n      \"updated_at\": \"2026-04-02T09:11:00Z\",\n      \"metadata\": {},\n      \"usage_count\": 0,\n      \"view_count\": 5,\n      \"last_used_at\": null,\n      \"version_id\": \"sv_e5f6g7h8\",\n      \"major_version\": 1,\n      \"is_deployed\": false,\n      \"version_created_at\": \"2026-04-02T09:11:00Z\",\n      \"creator\": {\n        \"id\": \"user_2b9d71f0\",\n        \"first_name\": \"Ada\",\n        \"last_name\": \"Lovelace\",\n        \"email\": \"ada@example.com\",\n        \"profile_picture\": null\n      }\n    }\n  ],\n  \"next_cursor\": null,\n  \"total_count\": 2\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6807c12c-eb91-4c14-a3c7-15f4521fc066",
+              "name": "Bad request — invalid query parameter (for example, non-integer `page_size`).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "newest"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creator_user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "related_server_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "unused",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "463c65d8-910a-455d-86df-3743c15b7964",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "newest"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creator_user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "related_server_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "unused",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a9ffbeef-9a80-4b0b-939c-4cc0358d9441",
+              "name": "Forbidden — the caller does not have skill access on the requested team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "newest"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creator_user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "related_server_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "unused",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ff72c9c0-4777-4828-bf42-b2ad3be02447",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "team_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "newest"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creator_user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "related_server_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "unused",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2e41930-8f8e-46ea-9076-23f12dec818d",
+          "name": "Create skill",
+          "request": {
+            "name": "Create skill",
+            "description": {
+              "content": "Upload a skill package and create a new skill. The package must include a `SKILL.md` with `name` and `description` frontmatter; uploads may be a single `.md` file (stored as `SKILL.md`), or a `.zip` / `.skill` archive containing `SKILL.md` at its root. The initial version is created automatically. Maximum upload size is 10 MB.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "skills"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "files",
+                  "value": "[\"<binary>\",\"<binary>\"]",
+                  "type": "text",
+                  "description": "(Required) One or more file parts. Accepts a single `.md` file (stored as `SKILL.md`), a `.zip` / `.skill` archive containing `SKILL.md` at its root, or loose files that together include a `SKILL.md`. Total upload must not exceed 10 MB."
+                },
+                {
+                  "key": "team_id",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Team that should own the skill. When omitted, the skill is owned by the authenticated user."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1fe17456-26e9-4342-be7d-308595966451",
+              "name": "Skill created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) One or more file parts. Accepts a single `.md` file (stored as `SKILL.md`), a `.zip` / `.skill` archive containing `SKILL.md` at its root, or loose files that together include a `SKILL.md`. Total upload must not exceed 10 MB.",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Team that should own the skill. When omitted, the skill is owned by the authenticated user.",
+                        "type": "text/plain"
+                      },
+                      "key": "team_id",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"skill\": {\n    \"id\": \"skill_x7y8z9\",\n    \"name\": \"Lead enrichment\",\n    \"description\": \"Enriches inbound leads with firmographics.\",\n    \"team_id\": \"team_4f8c92ab\",\n    \"created_at\": \"2026-05-19T09:00:00Z\",\n    \"updated_at\": \"2026-05-19T09:00:00Z\",\n    \"metadata\": {},\n    \"usage_count\": 0,\n    \"view_count\": 0,\n    \"last_used_at\": null,\n    \"version_id\": \"sv_a1b2c3d4\",\n    \"major_version\": 1,\n    \"is_deployed\": false,\n    \"version_created_at\": \"2026-05-19T09:00:00Z\",\n    \"creator\": {\n      \"id\": \"user_2b9d71f0\",\n      \"first_name\": \"Ada\",\n      \"last_name\": \"Lovelace\",\n      \"email\": \"ada@example.com\",\n      \"profile_picture\": null\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79e5e67a-20b2-481b-bbf7-16115ae7a391",
+              "name": "Bad request — missing or invalid `SKILL.md`, unsafe archive, or malformed metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) One or more file parts. Accepts a single `.md` file (stored as `SKILL.md`), a `.zip` / `.skill` archive containing `SKILL.md` at its root, or loose files that together include a `SKILL.md`. Total upload must not exceed 10 MB.",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Team that should own the skill. When omitted, the skill is owned by the authenticated user.",
+                        "type": "text/plain"
+                      },
+                      "key": "team_id",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ad717129-01da-4cbb-9fd1-1ae350026077",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) One or more file parts. Accepts a single `.md` file (stored as `SKILL.md`), a `.zip` / `.skill` archive containing `SKILL.md` at its root, or loose files that together include a `SKILL.md`. Total upload must not exceed 10 MB.",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Team that should own the skill. When omitted, the skill is owned by the authenticated user.",
+                        "type": "text/plain"
+                      },
+                      "key": "team_id",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0bbb537b-bd59-42c3-a668-3723f320bf2c",
+              "name": "Forbidden — the caller cannot create skills on the requested team.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) One or more file parts. Accepts a single `.md` file (stored as `SKILL.md`), a `.zip` / `.skill` archive containing `SKILL.md` at its root, or loose files that together include a `SKILL.md`. Total upload must not exceed 10 MB.",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Team that should own the skill. When omitted, the skill is owned by the authenticated user.",
+                        "type": "text/plain"
+                      },
+                      "key": "team_id",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7a5b5889-444a-41d9-b538-291008fa7653",
+              "name": "Upload too large — request body exceeded 10 MB.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) One or more file parts. Accepts a single `.md` file (stored as `SKILL.md`), a `.zip` / `.skill` archive containing `SKILL.md` at its root, or loose files that together include a `SKILL.md`. Total upload must not exceed 10 MB.",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Team that should own the skill. When omitted, the skill is owned by the authenticated user.",
+                        "type": "text/plain"
+                      },
+                      "key": "team_id",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "621a1ccc-688f-4604-866b-652bfb4d758e",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) One or more file parts. Accepts a single `.md` file (stored as `SKILL.md`), a `.zip` / `.skill` archive containing `SKILL.md` at its root, or loose files that together include a `SKILL.md`. Total upload must not exceed 10 MB.",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Team that should own the skill. When omitted, the skill is owned by the authenticated user.",
+                        "type": "text/plain"
+                      },
+                      "key": "team_id",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd8f01b5-4d7c-4f02-8e1b-d96257dda65b",
+          "name": "Update skill",
+          "request": {
+            "name": "Update skill",
+            "description": {
+              "content": "Replace a skill's files with a new upload. Reparses `SKILL.md` to update the skill's `name`, `description`, and `metadata`, and creates a new version. Maximum upload size is 10 MB.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "skills",
+                ":skill_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "skill_id",
+                  "description": "(Required) ID of the skill to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "files",
+                  "value": "[\"<binary>\",\"<binary>\"]",
+                  "type": "text",
+                  "description": "(Required) One or more file parts containing the new skill contents. Same shape as the create endpoint — must include a `SKILL.md`. Total upload must not exceed 10 MB."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "983ec709-6384-461a-abd0-2af8c2763777",
+              "name": "Skill updated. The returned `version_id` and `major_version` reflect the new version that was created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) One or more file parts containing the new skill contents. Same shape as the create endpoint — must include a `SKILL.md`. Total upload must not exceed 10 MB.",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"skill\": {\n    \"id\": \"skill_x7y8z9\",\n    \"name\": \"Lead enrichment\",\n    \"description\": \"Enriches inbound leads with firmographics and intent signals.\",\n    \"team_id\": \"team_4f8c92ab\",\n    \"created_at\": \"2026-05-15T14:32:00Z\",\n    \"updated_at\": \"2026-05-19T11:42:00Z\",\n    \"metadata\": {\n      \"related_server_ids\": [\n        \"apollo\"\n      ]\n    },\n    \"usage_count\": 42,\n    \"view_count\": 117,\n    \"last_used_at\": \"2026-05-18T22:01:00Z\",\n    \"version_id\": \"sv_b9c8d7e6\",\n    \"major_version\": 4,\n    \"is_deployed\": false,\n    \"version_created_at\": \"2026-05-19T11:42:00Z\",\n    \"creator\": {\n      \"id\": \"user_2b9d71f0\",\n      \"first_name\": \"Ada\",\n      \"last_name\": \"Lovelace\",\n      \"email\": \"ada@example.com\",\n      \"profile_picture\": null\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27820637-5462-497c-aa93-6bef58c26f05",
+              "name": "Bad request — missing or invalid `SKILL.md`, unsafe archive, or malformed metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) One or more file parts containing the new skill contents. Same shape as the create endpoint — must include a `SKILL.md`. Total upload must not exceed 10 MB.",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "548146af-de4a-44b6-b923-e85f64a7b94d",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) One or more file parts containing the new skill contents. Same shape as the create endpoint — must include a `SKILL.md`. Total upload must not exceed 10 MB.",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4185d25b-ccf3-4a9a-bde4-207dc89a5042",
+              "name": "Forbidden — the caller cannot update this skill.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) One or more file parts containing the new skill contents. Same shape as the create endpoint — must include a `SKILL.md`. Total upload must not exceed 10 MB.",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "794fb8ee-737a-42f0-a560-f233628f2221",
+              "name": "Skill not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) One or more file parts containing the new skill contents. Same shape as the create endpoint — must include a `SKILL.md`. Total upload must not exceed 10 MB.",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dbbccbd4-8fd9-4461-9ad4-0725fd5624cc",
+              "name": "Upload too large — request body exceeded 10 MB.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) One or more file parts containing the new skill contents. Same shape as the create endpoint — must include a `SKILL.md`. Total upload must not exceed 10 MB.",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ebe853d2-207a-4efc-a788-9bfce3e5d557",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) One or more file parts containing the new skill contents. Same shape as the create endpoint — must include a `SKILL.md`. Total upload must not exceed 10 MB.",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8af5c9d-1156-4e32-9b33-5989491e4347",
+          "name": "Delete skill",
+          "request": {
+            "name": "Delete skill",
+            "description": {
+              "content": "Permanently delete a skill. This is a soft-delete — the skill will no longer appear in listings or be usable by agents.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "skills",
+                ":skill_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "skill_id",
+                  "description": "(Required) ID of the skill to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "86199367-c3a7-49b4-8a22-99fb533422a0",
+              "name": "Skill deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deleted\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e8c0f90-aee2-4d7e-aaf9-c13c679ec054",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "971f2cf8-d351-4f98-be29-13d86c98d580",
+              "name": "Forbidden — the caller cannot delete this skill.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "97237f15-f4c3-4b54-85cc-e620d1f179ca",
+              "name": "Skill not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b8d82f61-aab6-43e7-913e-991ffe37f1ce",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "463a3850-0d7d-4916-9ca4-1f0e5588e776",
+          "name": "Download skill",
+          "request": {
+            "name": "Download skill",
+            "description": {
+              "content": "Generate a signed URL to download a skill's contents as a `.skill` archive (ZIP). When `version_id` is provided, returns that exact version; otherwise returns the current draft.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "skills",
+                ":skill_id",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "version_id",
+                  "value": "<string>",
+                  "description": "Specific version to download. When omitted, the current draft is returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "skill_id",
+                  "description": "(Required) ID of the skill to download."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4d1381df-9bb1-47b8-9849-125de4b22f63",
+              "name": "Signed download URL for the requested skill archive.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to download."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"download_url\": \"https://storage.googleapis.com/gumloop-skills/skill_x7y8z9/Lead%20enrichment.skill?X-Goog-Signature=...\",\n  \"filename\": \"Lead enrichment.skill\",\n  \"media_type\": \"application/zip\",\n  \"size\": 18432,\n  \"id\": \"skill_x7y8z9\",\n  \"version_id\": \"sv_a1b2c3d4\",\n  \"major_version\": 3\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fbefacc-cce9-4ed2-a965-c4129aa226b4",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to download."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "75c1744d-0984-45f5-94f5-6973e30af33b",
+              "name": "Forbidden — the caller cannot read this skill.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to download."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6705d4b5-267b-4ce8-808a-eac87f851f1f",
+              "name": "Skill, version, or skill files not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to download."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "70f48f87-73e1-4e7d-8ebe-920134f880de",
+              "name": "Failed to generate a signed download URL from object storage.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "skills",
+                    ":skill_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "skill_id",
+                      "description": "(Required) ID of the skill to download."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.gumloop.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8e412b9d-5e16-43c6-a6b7-e22f6762ee7d",
+    "name": "Public Agents Skills API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}
