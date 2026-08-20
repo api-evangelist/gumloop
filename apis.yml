@@ -37,6 +37,17 @@ tags:
 - Artificial Intelligence
 - AI Agents
 - Automation
+- Workflow-Automation
+- Agent Platform
+- MCP
+- LLM
+- No-Code
+- Developer Tools
+tags_raw:
+- Company
+- Artificial Intelligence
+- AI Agents
+- Automation
 - Workflow Automation
 - Agent Platform
 - MCP
@@ -85,6 +96,8 @@ apis:
   humanURL: https://docs.gumloop.com/api-reference/getting-started
   baseURL: https://api.gumloop.com/api/v1
   tags:
+  - Chat Completions
+  tags_raw:
   - Chat completions
   properties:
   - type: OpenAPI
@@ -185,6 +198,8 @@ apis:
   humanURL: https://docs.gumloop.com/api-reference/getting-started
   baseURL: https://api.gumloop.com/api/v1
   tags:
+  - Team
+  tags_raw:
   - Teams
   properties:
   - type: OpenAPI
