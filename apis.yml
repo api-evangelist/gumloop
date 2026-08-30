@@ -108,7 +108,7 @@ apis:
   humanURL: https://docs.gumloop.com/api-reference/getting-started
   baseURL: https://api.gumloop.com/api/v1
   tags:
-  - Chat Completions
+  - Chat completions
   tags_raw:
   - Chat completions
   properties:
