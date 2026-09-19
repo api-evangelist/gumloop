@@ -132,6 +132,8 @@ apis:
   humanURL: https://docs.gumloop.com/api-reference/getting-started
   baseURL: https://api.gumloop.com/api/v1
   tags:
+  - Evaluation
+  tags_raw:
   - Evaluations
   properties:
   - type: OpenAPI
