@@ -1,20 +1,7 @@
 {
   "provider": "gumloop",
   "sources": [
-    "gumloop-agents-api-openapi.yml",
-    "gumloop-artifacts-api-openapi.yml",
-    "gumloop-brain-api-openapi.yml",
-    "gumloop-chat-completions-api-openapi.yml",
-    "gumloop-data-access-api-openapi.yml",
-    "gumloop-evaluations-api-openapi.yml",
-    "gumloop-execution-api-openapi.yml",
-    "gumloop-file-handling-api-openapi.yml",
-    "gumloop-mcp-api-openapi.yml",
-    "gumloop-models-api-openapi.yml",
-    "gumloop-organization-api-openapi.yml",
-    "gumloop-sessions-api-openapi.yml",
-    "gumloop-skills-api-openapi.yml",
-    "gumloop-teams-api-openapi.yml"
+    "_original/gumloop-openapi-original.yml"
   ],
   "outputs": [
     "gumloop-agents-api-openapi.yml",
@@ -35,6 +22,39 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "gumloop-openapi-original.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "gumloop-openapi-original.yml: declared missing tag: Agents",
+    "gumloop-openapi-original.yml: declared missing tag: Artifacts",
+    "gumloop-openapi-original.yml: declared missing tag: Brain",
+    "gumloop-openapi-original.yml: declared missing tag: Chat completions",
+    "gumloop-openapi-original.yml: declared missing tag: Data Access",
+    "gumloop-openapi-original.yml: declared missing tag: Evaluations",
+    "gumloop-openapi-original.yml: declared missing tag: Execution",
+    "gumloop-openapi-original.yml: declared missing tag: File Handling",
+    "gumloop-openapi-original.yml: declared missing tag: MCP",
+    "gumloop-openapi-original.yml: declared missing tag: Models",
+    "gumloop-openapi-original.yml: declared missing tag: Organization",
+    "gumloop-openapi-original.yml: declared missing tag: Sessions",
+    "gumloop-openapi-original.yml: declared missing tag: Skills",
+    "gumloop-openapi-original.yml: declared missing tag: Teams",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "gumloop-agents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gumloop-artifacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gumloop-brain-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gumloop-chat-completions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gumloop-data-access-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gumloop-evaluations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gumloop-execution-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gumloop-file-handling-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gumloop-mcp-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gumloop-models-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gumloop-organization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gumloop-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gumloop-skills-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gumloop-teams-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

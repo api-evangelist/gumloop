@@ -1,0 +1,31 @@
+# Front Door AI Index — gumloop — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: gumloop
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.gumloop.com
+  final_host: www.gumloop.com
+  ownership: own
+  owner: gumloop
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 19
+  host_score: 19
+  density: 7.33
+  words: 2593
+  tiers:
+    agentic: 6
+    core: 12
+    model: 1
+  ambiguous: 50
+  top_terms:
+    agent: 48
+    AI: 12
+    AI agent: 5
+    Claude: 1
+    agentic: 1
+    intelligence: 1
+    smart: 1

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Public Agents Models API
+  title: Public Models API
   version: 1.0.0
 servers:
 - url: https://api.gumloop.com/api/v1

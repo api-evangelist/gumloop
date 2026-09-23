@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   title: Public Agents API
   version: 1.0.0
@@ -199,12 +199,14 @@ paths:
                   description: ID of the LLM the agent runs on. Use `GET /models` to discover valid values.
                   example: anthropic/claude-sonnet-4
                 description:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                   example: Researches accounts and drafts outreach
                 system_prompt:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                   example: You are a B2B sales research assistant.
                 tools:
                   type: array
@@ -219,8 +221,9 @@ paths:
                     type: object
                   default: []
                 skill_ids:
-                  type: array
-                  nullable: true
+                  type:
+                  - array
+                  - 'null'
                   description: 'IDs of skills to attach to the agent. Attachment happens inside the create transaction, so an invalid ID fails the whole request (no orphaned agent). Omit to attach none. The caller must hold `INVOKE` on each skill. After creation, manage skills with `PATCH /agents/{agent_id}/skills`.
 
                     '
@@ -230,12 +233,14 @@ paths:
                   - skill_2b9c
                   - skill_7f1a
                 metadata:
-                  type: object
-                  nullable: true
+                  type:
+                  - object
+                  - 'null'
                   description: Arbitrary key/value metadata stored on the agent.
                 folder_id:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                   description: ID of the folder to place the agent in.
                   example: folder_91ab
                 is_active:
@@ -243,12 +248,14 @@ paths:
                   description: Whether the agent is active. Defaults to `true`.
                   default: true
                 agent_id:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                   description: Optional caller-supplied agent ID. When omitted, the server generates one.
                 team_id:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                   description: ID of the team to create the agent under. When omitted, the agent is owned by the authenticated user.
                   example: team_4f8c92ab
             examples:
@@ -292,8 +299,9 @@ paths:
                         type: string
                         example: Sales research agent
                       description:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: Researches accounts and drafts outreach
                       team_id:
                         type: string
@@ -310,21 +318,24 @@ paths:
                       metadata:
                         type: object
                       model_name:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         description: ID of the LLM the agent runs on.
                         example: anthropic/claude-sonnet-4
                       system_prompt:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: You are a B2B sales research assistant.
                       resources:
                         type: array
                         items:
                           type: object
                       skill_ids:
-                        type: array
-                        nullable: true
+                        type:
+                        - array
+                        - 'null'
                         description: IDs of skills attached to the agent. `null` on surfaces that don't include them (e.g. the list endpoint); `[]` when none are attached. Manage with `PATCH /agents/{agent_id}/skills`.
                         items:
                           type: string
@@ -332,43 +343,53 @@ paths:
                         - skill_2b9c
                         - skill_7f1a
                       folder_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: folder_91ab
                       type:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         description: Internal agent type discriminator.
                       created_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         description: ISO 8601 timestamp of when the agent was created.
                         example: '2026-05-15T14:32:00Z'
                       active_trigger_count:
-                        type: integer
-                        nullable: true
+                        type:
+                        - integer
+                        - 'null'
                         description: Number of active triggers on this agent. Populated on list responses; may be `null` here.
                       creator:
-                        type: object
-                        nullable: true
+                        type:
+                        - object
+                        - 'null'
                         description: User who created the agent. `null` when the creator is not known.
                         properties:
                           id:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           first_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           last_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           email:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           profile_picture:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
               examples:
                 created:
                   summary: Newly created agent
@@ -456,8 +477,9 @@ paths:
                         type: string
                         example: Sales research agent
                       description:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: Researches accounts and drafts outreach
                       team_id:
                         type: string
@@ -473,20 +495,23 @@ paths:
                       metadata:
                         type: object
                       model_name:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: anthropic/claude-sonnet-4
                       system_prompt:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: You are a B2B sales research assistant.
                       resources:
                         type: array
                         items:
                           type: object
                       skill_ids:
-                        type: array
-                        nullable: true
+                        type:
+                        - array
+                        - 'null'
                         description: IDs of skills attached to the agent. `null` on surfaces that don't include them (e.g. the list endpoint); `[]` when none are attached. Manage with `PATCH /agents/{agent_id}/skills`.
                         items:
                           type: string
@@ -494,42 +519,52 @@ paths:
                         - skill_2b9c
                         - skill_7f1a
                       folder_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: folder_91ab
                       type:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         description: Internal agent type discriminator.
                       created_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         example: '2026-05-15T14:32:00Z'
                       active_trigger_count:
-                        type: integer
-                        nullable: true
+                        type:
+                        - integer
+                        - 'null'
                         description: Number of active triggers on this agent. Populated on list responses; may be `null` here.
                       creator:
-                        type: object
-                        nullable: true
+                        type:
+                        - object
+                        - 'null'
                         description: User who created the agent. `null` when the creator is not known.
                         properties:
                           id:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           first_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           last_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           email:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           profile_picture:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
               examples:
                 single:
                   summary: Single agent
@@ -573,9 +608,7 @@ paths:
       description: 'Update an existing agent. Only fields included in the request body are changed; omitted fields are left untouched.
 
 
-        This endpoint edits document fields only. To attach or detach skills, use [`PATCH /agents/{agent_id}/skills`](/api-reference/agents/update-agent-skills); to manage MCP servers, use the [agent MCP server endpoints](/api-reference/agents/attach-agent-mcp-server).
-
-        '
+        This endpoint edits document fields only. To attach or detach skills, use `PATCH /agents/{agent_id}/skills`; to manage MCP servers, use the agent MCP server endpoints.'
       operationId: updateAgent
       tags:
       - Agents
@@ -601,41 +634,50 @@ paths:
               type: object
               properties:
                 name:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                 model_name:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                   description: ID of the LLM the agent runs on. Use `GET /models` to discover valid values.
                   example: anthropic/claude-sonnet-4
                 description:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                   example: Researches enterprise accounts and drafts outreach
                 system_prompt:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                 tools:
-                  type: array
-                  nullable: true
+                  type:
+                  - array
+                  - 'null'
                   description: When provided, replaces the agent's tool list.
                   items:
                     type: object
                 resources:
-                  type: array
-                  nullable: true
+                  type:
+                  - array
+                  - 'null'
                   description: When provided, replaces the agent's resource list.
                   items:
                     type: object
                 metadata:
-                  type: object
-                  nullable: true
+                  type:
+                  - object
+                  - 'null'
                 is_active:
-                  type: boolean
-                  nullable: true
+                  type:
+                  - boolean
+                  - 'null'
                 team_id:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                   description: When provided, transfers ownership of the agent to this team.
             examples:
               partial:
@@ -661,8 +703,9 @@ paths:
                         type: string
                         example: Sales research agent
                       description:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: Researches enterprise accounts and drafts outreach
                       team_id:
                         type: string
@@ -678,53 +721,65 @@ paths:
                       metadata:
                         type: object
                       model_name:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: anthropic/claude-sonnet-4
                       system_prompt:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                       resources:
                         type: array
                         items:
                           type: object
                       folder_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: folder_91ab
                       type:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         description: Internal agent type discriminator.
                       created_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         example: '2026-05-15T14:32:00Z'
                       active_trigger_count:
-                        type: integer
-                        nullable: true
+                        type:
+                        - integer
+                        - 'null'
                         description: Number of active triggers on this agent. Populated on list responses; may be `null` here.
                       creator:
-                        type: object
-                        nullable: true
+                        type:
+                        - object
+                        - 'null'
                         description: User who created the agent. `null` when the creator is not known.
                         properties:
                           id:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           first_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           last_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           email:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           profile_picture:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
               examples:
                 updated:
                   summary: Updated agent
@@ -774,9 +829,7 @@ paths:
 
         - Up to 100 unique skill IDs total (`attach` + `detach`) per request.
 
-        - Attaching requires `INVOKE` permission on the skill. Detaching is permissive so stale attachments can always be removed.
-
-        '
+        - Attaching requires `INVOKE` permission on the skill. Detaching is permissive so stale attachments can always be removed.'
       operationId: updateAgentSkills
       tags:
       - Agents
@@ -882,9 +935,7 @@ paths:
   /agents/{agent_id}/mcp-servers:
     get:
       summary: List agent MCP servers
-      description: 'List the MCP servers (connectors) attached to an agent. Sensitive fields such as `secret_id` and `mcp_server_url` are scrubbed from the response.
-
-        '
+      description: List the MCP servers (connectors) attached to an agent. Sensitive fields such as `secret_id` and `mcp_server_url` are scrubbed from the response.
       operationId: listAgentMcpServers
       tags:
       - Agents
@@ -934,9 +985,7 @@ paths:
         The `server_id` is validated against the caller''s MCP catalog. Catalog identity fields (`type`, `server_id`, `secret_id`, `mcp_server_url`) always come from the catalog and cannot be spoofed via the request body — the body carries only free-form connector configuration (e.g. approval mode, tool restrictions); any identity keys in it are ignored.
 
 
-        Attach may succeed before OAuth is completed; `auth_status` reflects the catalog''s authentication state.
-
-        '
+        Attach may succeed before OAuth is completed; `auth_status` reflects the catalog''s authentication state.'
       operationId: attachAgentMcpServer
       tags:
       - Agents
@@ -987,8 +1036,9 @@ paths:
                     description: '`true` if the server was newly attached; `false` if an existing attachment was updated.'
                     example: true
                   auth_status:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     description: Catalog authentication status for the server (e.g. whether OAuth has been completed).
                     example: authenticated
         '401':
@@ -1005,9 +1055,7 @@ paths:
       - bearerAuth: []
     delete:
       summary: Detach an agent MCP server
-      description: 'Detach an MCP server (connector) from an agent. This is idempotent — detaching a server that isn''t attached returns `detached: false` rather than an error.
-
-        '
+      description: 'Detach an MCP server (connector) from an agent. This is idempotent — detaching a server that isn''t attached returns `detached: false` rather than an error.'
       operationId: detachAgentMcpServer
       tags:
       - Agents

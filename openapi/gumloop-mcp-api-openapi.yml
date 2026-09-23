@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Public Agents MCP API
+  title: Public MCP API
   version: 1.0.0
 servers:
 - url: https://api.gumloop.com/api/v1
@@ -51,8 +51,9 @@ paths:
                           description: Stable identifier for the server.
                           example: gumloop_slack
                         name:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           example: Slack
                         type:
                           type: string
@@ -63,29 +64,34 @@ paths:
                           description: Connection state. `connected` means the server is ready to accept tool calls; other values (for example `unauthenticated`, `blocked`) indicate the user must complete OAuth or the server is otherwise unavailable.
                           example: connected
                         icon_url:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           example: https://www.gumloop.com/icons/slack.png
                         description:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           example: Send and read Slack messages.
                         gumloop_auth_url:
                           type: string
                           description: URL the user should visit to connect or reauthorize this server.
                           example: https://www.gumloop.com/oauth/connect/slack
                         mcp_url:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: For `mcp_server` (custom) and `gumstack_server` entries, the upstream MCP URL. `null` for Gumloop-hosted servers.
                           example: null
                         tool_count:
-                          type: integer
-                          nullable: true
+                          type:
+                          - integer
+                          - 'null'
                           example: 12
                         allowed_tool_call_ids:
-                          type: array
-                          nullable: true
+                          type:
+                          - array
+                          - 'null'
                           description: Populated only by the retrieve endpoint. Always `null` here.
                           items:
                             type: string
@@ -180,8 +186,9 @@ paths:
                         type: string
                         example: gumloop_slack
                       name:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: Slack
                       type:
                         type: string
@@ -191,27 +198,32 @@ paths:
                         type: string
                         example: connected
                       icon_url:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: https://www.gumloop.com/icons/slack.png
                       description:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: Send and read Slack messages.
                       gumloop_auth_url:
                         type: string
                         example: https://www.gumloop.com/oauth/connect/slack
                       mcp_url:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: null
                       tool_count:
-                        type: integer
-                        nullable: true
+                        type:
+                        - integer
+                        - 'null'
                         example: 12
                       allowed_tool_call_ids:
-                        type: array
-                        nullable: true
+                        type:
+                        - array
+                        - 'null'
                         description: Tool call IDs the caller is permitted to invoke on this server, after RBAC and policy checks.
                         items:
                           type: string
@@ -296,8 +308,9 @@ paths:
                           type: string
                           example: slack_send_message
                         description:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           example: Send a message to a Slack channel.
                         input_schema:
                           type: object
@@ -313,28 +326,33 @@ paths:
                             - channel
                             - text
                         server_id:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           example: gumloop_slack
                         server_type:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           example: gumcp_server
                         server:
                           type: object
                           description: Server metadata snapshot. Defaults to `{}`.
                           example: {}
                   server_id:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     example: gumloop_slack
                   status:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     example: connected
                   gumloop_auth_url:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     example: https://www.gumloop.com/oauth/connect/slack
               examples:
                 connected:
@@ -412,8 +430,9 @@ paths:
                     - tool_name
                     properties:
                       ref:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         description: Caller-supplied identifier echoed back on the matching result. When omitted, Gumloop assigns the call's zero-based index in `calls` as its `ref`.
                         example: send-1
                       server_id:
@@ -429,8 +448,9 @@ paths:
                           channel: '#general'
                           text: Hello from Gumloop
                 team_id:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                   description: Team the calls are scoped to.
                   example: team_4f8c92ab
       responses:
@@ -453,20 +473,23 @@ paths:
                           type: string
                           example: send-1
                         server_id:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           example: gumloop_slack
                         tool_name:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           example: slack_send_message
                         status:
                           type: string
                           description: One of `success`, `unauthenticated`, or `error`.
                           example: success
                         content:
-                          type: array
-                          nullable: true
+                          type:
+                          - array
+                          - 'null'
                           description: Raw MCP content blocks returned by the tool when `status` is `success`.
                           items:
                             type: object
@@ -474,8 +497,9 @@ paths:
                           - type: text
                             text: 'Message sent to #general'
                         error:
-                          type: object
-                          nullable: true
+                          type:
+                          - object
+                          - 'null'
                           description: Error payload when `status` is not `success`. Includes `code`, `message`, `type`, and optional `param` and `details`.
                           example: null
               examples:

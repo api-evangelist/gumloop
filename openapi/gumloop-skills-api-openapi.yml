@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Public Agents Skills API
+  title: Public Skills API
   version: 1.0.0
 servers:
 - url: https://api.gumloop.com/api/v1
@@ -112,15 +112,17 @@ paths:
                           description: ID of the team that owns the skill.
                           example: team_4f8c92ab
                         created_at:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
-                          nullable: true
                           description: ISO 8601 timestamp of when the skill was created.
                           example: '2026-05-15T14:32:00Z'
                         updated_at:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
-                          nullable: true
                           description: ISO 8601 timestamp of when the skill was last updated.
                           example: '2026-05-16T09:10:00Z'
                         metadata:
@@ -128,63 +130,78 @@ paths:
                           description: User-defined metadata. May include `related_server_ids` (array of MCP server IDs the skill references).
                           default: {}
                         usage_count:
-                          type: integer
-                          nullable: true
+                          type:
+                          - integer
+                          - 'null'
                           example: 42
                         view_count:
-                          type: integer
-                          nullable: true
+                          type:
+                          - integer
+                          - 'null'
                           example: 117
                         last_used_at:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
-                          nullable: true
                           example: '2026-05-18T22:01:00Z'
                         version_id:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: ID of the version exposed by this payload (the current draft, by default).
                           example: sv_a1b2c3d4
                         major_version:
-                          type: integer
-                          nullable: true
+                          type:
+                          - integer
+                          - 'null'
                           example: 3
                         is_deployed:
-                          type: boolean
-                          nullable: true
+                          type:
+                          - boolean
+                          - 'null'
                           example: true
                         version_created_at:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
-                          nullable: true
                           example: '2026-05-16T09:10:00Z'
                         creator:
-                          type: object
-                          nullable: true
+                          type:
+                          - object
+                          - 'null'
                           description: Creator of the skill. `null` when no creator is recorded.
                           properties:
                             id:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                             first_name:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                             last_name:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                             email:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                             profile_picture:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                   next_cursor:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     description: Opaque cursor for the next page, or `null` when there are no more results.
                   total_count:
-                    type: integer
-                    nullable: true
+                    type:
+                    - integer
+                    - 'null'
                     description: Total number of skills matching the filters across all pages.
               examples:
                 multiple:
@@ -308,15 +325,17 @@ paths:
                         description: ID of the team that owns the skill.
                         example: team_4f8c92ab
                       created_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         description: ISO 8601 timestamp of when the skill was created.
                         example: '2026-05-19T09:00:00Z'
                       updated_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         description: ISO 8601 timestamp of when the skill was last updated.
                         example: '2026-05-19T09:00:00Z'
                       metadata:
@@ -324,56 +343,69 @@ paths:
                         description: User-defined metadata. May include `related_server_ids` (array of MCP server IDs the skill references).
                         default: {}
                       usage_count:
-                        type: integer
-                        nullable: true
+                        type:
+                        - integer
+                        - 'null'
                         example: 0
                       view_count:
-                        type: integer
-                        nullable: true
+                        type:
+                        - integer
+                        - 'null'
                         example: 0
                       last_used_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         example: null
                       version_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         description: ID of the version exposed by this payload (the current draft, by default).
                         example: sv_a1b2c3d4
                       major_version:
-                        type: integer
-                        nullable: true
+                        type:
+                        - integer
+                        - 'null'
                         example: 1
                       is_deployed:
-                        type: boolean
-                        nullable: true
+                        type:
+                        - boolean
+                        - 'null'
                         example: false
                       version_created_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         example: '2026-05-19T09:00:00Z'
                       creator:
-                        type: object
-                        nullable: true
+                        type:
+                        - object
+                        - 'null'
                         description: Creator of the skill. `null` when no creator is recorded.
                         properties:
                           id:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           first_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           last_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           email:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           profile_picture:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
               examples:
                 created:
                   summary: Newly created skill
@@ -473,15 +505,17 @@ paths:
                         description: ID of the team that owns the skill.
                         example: team_4f8c92ab
                       created_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         description: ISO 8601 timestamp of when the skill was created.
                         example: '2026-05-15T14:32:00Z'
                       updated_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         description: ISO 8601 timestamp of when the skill was last updated.
                         example: '2026-05-19T11:42:00Z'
                       metadata:
@@ -489,56 +523,69 @@ paths:
                         description: User-defined metadata. May include `related_server_ids` (array of MCP server IDs the skill references).
                         default: {}
                       usage_count:
-                        type: integer
-                        nullable: true
+                        type:
+                        - integer
+                        - 'null'
                         example: 42
                       view_count:
-                        type: integer
-                        nullable: true
+                        type:
+                        - integer
+                        - 'null'
                         example: 117
                       last_used_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         example: '2026-05-18T22:01:00Z'
                       version_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         description: ID of the version exposed by this payload (the newly created version).
                         example: sv_b9c8d7e6
                       major_version:
-                        type: integer
-                        nullable: true
+                        type:
+                        - integer
+                        - 'null'
                         example: 4
                       is_deployed:
-                        type: boolean
-                        nullable: true
+                        type:
+                        - boolean
+                        - 'null'
                         example: false
                       version_created_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         example: '2026-05-19T11:42:00Z'
                       creator:
-                        type: object
-                        nullable: true
+                        type:
+                        - object
+                        - 'null'
                         description: Creator of the skill. `null` when no creator is recorded.
                         properties:
                           id:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           first_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           last_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           email:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           profile_picture:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
               examples:
                 updated:
                   summary: Skill after update
@@ -694,19 +741,22 @@ paths:
                     - application/zip
                     description: Media type of the archive at `download_url`.
                   size:
-                    type: integer
-                    nullable: true
+                    type:
+                    - integer
+                    - 'null'
                     description: Size of the archive in bytes.
                   id:
                     type: string
                     description: ID of the skill the archive was generated for.
                   version_id:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     description: Version that was archived, or `null` if the skill has no current version.
                   major_version:
-                    type: integer
-                    nullable: true
+                    type:
+                    - integer
+                    - 'null'
                     description: Major version number of the archived version, or `null` if unavailable.
               examples:
                 download:

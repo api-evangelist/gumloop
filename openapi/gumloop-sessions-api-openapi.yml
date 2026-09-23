@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Public Agents Sessions API
+  title: Public Sessions API
   version: 1.0.0
 servers:
 - url: https://api.gumloop.com/api/v1
@@ -10,9 +10,7 @@ paths:
   /agents/{agent_id}/sessions:
     get:
       summary: List sessions
-      description: 'List sessions for an agent with cursor-based pagination, optional filtering, and search.
-
-        '
+      description: List sessions for an agent with cursor-based pagination, optional filtering, and search.
       operationId: listSessions
       tags:
       - Sessions
@@ -107,12 +105,14 @@ paths:
                           type: string
                           example: abc123DEFghiJKL
                         name:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           example: Research task
                         type:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           example: api
                         messages:
                           type: array
@@ -120,13 +120,15 @@ paths:
                             type: object
                           description: Messages are not included in list responses. Use the retrieve session endpoint to get the full message history.
                         created_at:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
-                          nullable: true
                           example: '2026-05-15T14:32:00Z'
                         state:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           enum:
                           - processing
                           - completed
@@ -135,31 +137,39 @@ paths:
                           - idle
                           example: completed
                         agent_name:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           example: Sales research agent
                         creator:
-                          type: object
-                          nullable: true
+                          type:
+                          - object
+                          - 'null'
                           properties:
                             id:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                             first_name:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                             last_name:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                             email:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                             profile_picture:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                   next_cursor:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     description: Cursor to pass as the `cursor` query parameter to retrieve the next page. `null` when there are no more results.
                     example: eyJzb3J0X3ZhbHVlIjoiMjAyNi0wNS0xNVQxNDozMjowMFoiLCJpbnRlcmFjdGlvbl9pZCI6InNlc3NfeFl6Nzg5QWJDZCIsInNvcnRfYnkiOiJuZXdlc3QifQ==
               examples:
@@ -227,9 +237,7 @@ paths:
         The response is `text/event-stream` (Server-Sent Events). With the Python SDK, `client.sessions.stream(agent_id, input="...")` routes to `ws.gumloop.com` automatically and yields parsed `StreamEvent` objects.
 
 
-        If you send `stream: true` to `api.gumloop.com` by mistake, the response is a `400` whose body contains the correct streaming host so you can retry against it.
-
-        '
+        If you send `stream: true` to `api.gumloop.com` by mistake, the response is a `400` whose body contains the correct streaming host so you can retry against it.'
       operationId: createSession
       tags:
       - Sessions
@@ -291,13 +299,15 @@ paths:
                         items:
                           type: object
                       created_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         example: '2026-05-15T14:32:00Z'
                       state:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         enum:
                         - processing
                         - completed
@@ -306,20 +316,24 @@ paths:
                         - idle
                         example: idle
                       agent_name:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: Sales research agent
                       agent_team_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: team_4f8c92ab
                       agent_creator_user_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: user_2b9d71f0
                       agent_icon_url:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: null
                       agent_tools:
                         type: array
@@ -330,28 +344,35 @@ paths:
                         type: object
                         description: Map of participant user IDs to participant metadata.
                       creator:
-                        type: object
-                        nullable: true
+                        type:
+                        - object
+                        - 'null'
                         description: Creator of the session. `null` when no creator is recorded.
                         properties:
                           id:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           first_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           last_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           email:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           profile_picture:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                   queue_position:
-                    type: integer
-                    nullable: true
+                    type:
+                    - integer
+                    - 'null'
                     description: Position in the per-agent queue. Populated only when the session was queued; otherwise `null`.
                     example: null
               examples:
@@ -399,39 +420,47 @@ paths:
                           type: object
                           properties:
                             id:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: msg_a1b2c3
                             role:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: user
                             content:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: Research Acme Corp and draft a brief.
                             created_at:
-                              type: string
+                              type:
+                              - string
+                              - 'null'
                               format: date-time
-                              nullable: true
                               example: '2026-05-15T14:32:00Z'
                             creator_id:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: user_2b9d71f0
                             parts:
-                              type: array
-                              nullable: true
+                              type:
+                              - array
+                              - 'null'
                               items:
                                 type: object
                       created_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         example: '2026-05-15T14:32:00Z'
                       state:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         enum:
                         - processing
                         - completed
@@ -440,20 +469,24 @@ paths:
                         - idle
                         example: processing
                       agent_name:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: Sales research agent
                       agent_team_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: team_4f8c92ab
                       agent_creator_user_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: user_2b9d71f0
                       agent_icon_url:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: null
                       agent_tools:
                         type: array
@@ -464,28 +497,35 @@ paths:
                         type: object
                         description: Map of participant user IDs to participant metadata.
                       creator:
-                        type: object
-                        nullable: true
+                        type:
+                        - object
+                        - 'null'
                         description: Creator of the session. `null` when no creator is recorded.
                         properties:
                           id:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           first_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           last_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           email:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           profile_picture:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                   queue_position:
-                    type: integer
-                    nullable: true
+                    type:
+                    - integer
+                    - 'null'
                     description: Position in the per-agent queue. Populated only when the session was queued; otherwise `null`.
                     example: null
               examples:
@@ -611,39 +651,47 @@ paths:
                           type: object
                           properties:
                             id:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: msg_a1b2c3
                             role:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: user
                             content:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: Research Acme Corp and draft a brief.
                             created_at:
-                              type: string
+                              type:
+                              - string
+                              - 'null'
                               format: date-time
-                              nullable: true
                               example: '2026-05-15T14:32:00Z'
                             creator_id:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: user_2b9d71f0
                             parts:
-                              type: array
-                              nullable: true
+                              type:
+                              - array
+                              - 'null'
                               items:
                                 type: object
                       created_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         example: '2026-05-15T14:32:00Z'
                       state:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         enum:
                         - processing
                         - completed
@@ -652,20 +700,24 @@ paths:
                         - idle
                         example: completed
                       agent_name:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: Sales research agent
                       agent_team_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: team_4f8c92ab
                       agent_creator_user_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: user_2b9d71f0
                       agent_icon_url:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: null
                       agent_tools:
                         type: array
@@ -676,28 +728,35 @@ paths:
                         type: object
                         description: Map of participant user IDs to participant metadata.
                       creator:
-                        type: object
-                        nullable: true
+                        type:
+                        - object
+                        - 'null'
                         description: Creator of the session. `null` when no creator is recorded.
                         properties:
                           id:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           first_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           last_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           email:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           profile_picture:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                   queue_position:
-                    type: integer
-                    nullable: true
+                    type:
+                    - integer
+                    - 'null'
                     description: Position in the per-agent queue. Populated only when the session is currently queued; otherwise `null`.
                     example: null
               examples:
@@ -770,9 +829,7 @@ paths:
         The response is `text/event-stream` (Server-Sent Events). With the Python SDK, `client.sessions.stream_message(session_id, input="...")` routes to `ws.gumloop.com` automatically and yields parsed `StreamEvent` objects.
 
 
-        If you send `stream: true` to `api.gumloop.com` by mistake, the response is a `400` whose body contains the correct streaming host so you can retry against it.
-
-        '
+        If you send `stream: true` to `api.gumloop.com` by mistake, the response is a `400` whose body contains the correct streaming host so you can retry against it.'
       operationId: sendMessage
       tags:
       - Sessions
@@ -830,39 +887,47 @@ paths:
                           type: object
                           properties:
                             id:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: msg_g7h8i9
                             role:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: user
                             content:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: Now write a follow-up email.
                             created_at:
-                              type: string
+                              type:
+                              - string
+                              - 'null'
                               format: date-time
-                              nullable: true
                               example: '2026-05-15T14:35:00Z'
                             creator_id:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: user_2b9d71f0
                             parts:
-                              type: array
-                              nullable: true
+                              type:
+                              - array
+                              - 'null'
                               items:
                                 type: object
                       created_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         example: '2026-05-15T14:32:00Z'
                       state:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         enum:
                         - processing
                         - completed
@@ -871,20 +936,24 @@ paths:
                         - idle
                         example: processing
                       agent_name:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: Sales research agent
                       agent_team_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: team_4f8c92ab
                       agent_creator_user_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: user_2b9d71f0
                       agent_icon_url:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: null
                       agent_tools:
                         type: array
@@ -895,28 +964,35 @@ paths:
                         type: object
                         description: Map of participant user IDs to participant metadata.
                       creator:
-                        type: object
-                        nullable: true
+                        type:
+                        - object
+                        - 'null'
                         description: Creator of the session. `null` when no creator is recorded.
                         properties:
                           id:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           first_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           last_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           email:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           profile_picture:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                   queue_position:
-                    type: integer
-                    nullable: true
+                    type:
+                    - integer
+                    - 'null'
                     description: Position in the per-agent queue. Populated only when the session was queued; otherwise `null`.
                     example: null
               examples:
@@ -985,9 +1061,7 @@ paths:
       description: 'Cancel an in-progress session. If the session is currently `processing` or `queued`, any running stream is aborted and the session is transitioned to `failed`. If the session is already `completed` or `failed`, its current state is returned unchanged.
 
 
-        The response carries a `session` envelope but only `id`, `agent_id`, and `state` are populated.
-
-        '
+        The response carries a `session` envelope but only `id`, `agent_id`, and `state` are populated.'
       operationId: cancelSession
       tags:
       - Sessions
@@ -1037,13 +1111,15 @@ paths:
                         items:
                           type: object
                       created_at:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         example: null
                       state:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         enum:
                         - processing
                         - completed
@@ -1052,20 +1128,24 @@ paths:
                         - idle
                         example: failed
                       agent_name:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: null
                       agent_team_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: null
                       agent_creator_user_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: null
                       agent_icon_url:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: null
                       agent_tools:
                         type: array
@@ -1074,27 +1154,34 @@ paths:
                       participants:
                         type: object
                       creator:
-                        type: object
-                        nullable: true
+                        type:
+                        - object
+                        - 'null'
                         properties:
                           id:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           first_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           last_name:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           email:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                           profile_picture:
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                   queue_position:
-                    type: integer
-                    nullable: true
+                    type:
+                    - integer
+                    - 'null'
                     example: null
               examples:
                 cancelled:

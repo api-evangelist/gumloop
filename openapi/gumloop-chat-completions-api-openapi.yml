@@ -1,11 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Public Agents Chat completions API
+  title: Public Chat completions API
   version: 1.0.0
 servers:
 - url: https://api.gumloop.com/api/v1
 tags:
-- name: Chat completions
+- name: Chat Completions
 paths:
   /chat/completions:
     post:
@@ -42,12 +42,10 @@ paths:
         ### Billing
 
 
-        Each completion charges the caller''s credit balance based on token usage (with cache-token semantics per provider) plus a flat 30-credit fee for image-gen calls. Users who configure their own provider API key get a 50% discount.
-
-        '
+        Each completion charges the caller''s credit balance based on token usage (with cache-token semantics per provider) plus a flat 30-credit fee for image-gen calls. Users who configure their own provider API key get a 50% discount.'
       operationId: createChatCompletion
       tags:
-      - Chat completions
+      - Chat Completions
       x-codeSamples:
       - lang: bash
         label: cURL

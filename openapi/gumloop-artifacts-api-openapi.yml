@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Public Agents Artifacts API
+  title: Public Artifacts API
   version: 1.0.0
 servers:
 - url: https://api.gumloop.com/api/v1
@@ -80,70 +80,84 @@ paths:
                           description: Unique artifact identifier.
                           example: art_aBcDeF123
                         version_id:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: ID of this specific artifact version.
                           example: ver_xYz9012
                         major_version:
-                          type: integer
-                          nullable: true
+                          type:
+                          - integer
+                          - 'null'
                           example: 2
                         agent_id:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: ID of the agent that produced the artifact.
                           example: abc123DEFghiJKL
                         session_id:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: ID of the session in which the artifact was produced.
                           example: ses_8h2k4m1n
                         filename:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           example: q4_sales_report.pdf
                         created_at:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
-                          nullable: true
                           description: ISO 8601 timestamp of when the artifact version was created.
                           example: '2026-05-15T14:32:00Z'
                         metadata:
                           type: object
                           description: Arbitrary metadata stored with the artifact version.
                         url:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: Signed URL for direct access to the artifact file.
                           example: https://storage.googleapis.com/...
                         creator:
-                          type: object
-                          nullable: true
+                          type:
+                          - object
+                          - 'null'
                           description: The user who created this artifact version. `null` when unknown.
                           properties:
                             id:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: user_19a3bc
                             first_name:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: Ada
                             last_name:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: Lovelace
                             email:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: ada@example.com
                             profile_picture:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                               example: https://example.com/avatars/ada.png
                   next_cursor:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     description: Cursor to pass as `cursor` on the next request. `null` when there are no more results.
               examples:
                 multiple:
@@ -250,16 +264,19 @@ paths:
                     description: Signed URL the caller can `GET` to fetch the file bytes.
                     example: https://storage.googleapis.com/gumloop-artifacts/art_aBcDeF123?X-Goog-Signature=...
                   filename:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     example: q4_sales_report.pdf
                   media_type:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     example: application/pdf
                   size:
-                    type: integer
-                    nullable: true
+                    type:
+                    - integer
+                    - 'null'
                     description: File size in bytes.
                     example: 12345
                 required:

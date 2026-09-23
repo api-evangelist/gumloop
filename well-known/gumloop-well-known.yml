@@ -1,23 +1,50 @@
-generated: '2026-07-19'
+generated: '2026-09-19'
 method: searched
 source: https://api.gumloop.com/.well-known/
 host: https://api.gumloop.com
-documents:
-- path: /.well-known/openid-configuration
-  status: 200
-  file: gumloop-openid-configuration.json
-- path: /.well-known/oauth-authorization-server
-  status: 200
-  file: gumloop-oauth-authorization-server.json
-- path: /.well-known/security.txt
-  status: 404
-- path: /.well-known/api-catalog
-  status: 404
-- path: /.well-known/ai-plugin.json
-  status: 404
-notes: >
-  api.gumloop.com publishes OAuth 2.0 Authorization Server Metadata (RFC 8414) and
-  an OpenID Provider configuration. The authorization server advertises PKCE (S256),
-  authorization_code + refresh_token grants, dynamic client registration
-  (registration_endpoint), and the scopes gumstack, userinfo, gumloop_api,
+notes: 'api.gumloop.com publishes OAuth 2.0 Authorization Server Metadata (RFC 8414) and an OpenID Provider
+  configuration. The authorization server advertises PKCE (S256), authorization_code + refresh_token grants,
+  dynamic client registration (registration_endpoint), and the scopes gumstack, userinfo, gumloop_api,
   gumloop_api.mcp, gumloop_university. The www marketing host exposes none of these.
+
+  '
+hosts:
+- host: https://api.gumloop.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: gumloop-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: gumloop-oauth-authorization-server.json
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://mcp.gumloop.com
+  documents:
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: gumloop-mcp-oauth-protected-resource.json
+    bytes: 172
+  path_echo_control: passed
+x-shape-fix:
+  converted: '2026-08-20'
+  from: documents
+  note: Rewritten into hosts[] -> documents[], the only shape well_known_docs() in score.rb reads. A served
+    .well-known surface recorded in any other shape scores as absent.
+x-mcp-probe:
+  probed: '2026-09-19'
+  issue: roadmap#321, roadmap#337
+  documents:
+  - host: https://mcp.gumloop.com
+    path: /.well-known/oauth-protected-resource
+    file: gumloop-mcp-oauth-protected-resource.json
+  validated_on: resource (RFC 9728) / issuer (RFC 8414, OIDC)
+  negative_control: one per host; a 2xx JSON object at an impossible path discards the host
+note: 'MCP-host OAuth discovery added 2026-09-19 (roadmap#321/#337): the harvest visits a provider''s
+  primary hosts, and RFC 9728 protected-resource metadata lives on the MCP host, so these documents existed
+  and were invisible to the scorer. Fetched live and validated on `resource`/`issuer`; one negative control
+  per host.'

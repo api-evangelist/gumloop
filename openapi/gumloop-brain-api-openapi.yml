@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Public Agents Brain API
+  title: Public Brain API
   version: 1.0.0
 servers:
 - url: https://api.gumloop.com/api/v1
@@ -10,12 +10,10 @@ paths:
   /brain/search:
     post:
       summary: Search Company Brain
-      description: 'Run a hybrid (semantic + keyword) search across the knowledge sources indexed in your [Company Brain](/core-concepts/brain) and return the most relevant, ranked snippets with citations.
+      description: 'Run a hybrid (semantic + keyword) search across the knowledge sources indexed in your Company Brain and return the most relevant, ranked snippets with citations.
 
 
-        Results are scoped to what the authenticated user can see: personal sources, plus any team and organization sources shared with them. Requires the Brain feature, which is available on the Pro and Enterprise plans. Each search consumes Gumloop credits.
-
-        '
+        Results are scoped to what the authenticated user can see: personal sources, plus any team and organization sources shared with them. Requires the Brain feature, which is available on the Pro and Enterprise plans. Each search consumes Gumloop credits.'
       operationId: searchBrain
       tags:
       - Brain
@@ -47,8 +45,9 @@ paths:
                   description: Maximum number of results to return.
                   example: 8
                 source_type:
-                  type: array
-                  nullable: true
+                  type:
+                  - array
+                  - 'null'
                   minItems: 1
                   description: 'Restrict results to specific source types. Omit to search every source you can access. Valid values: `notion`, `google_drive`, `slack`, `github`, `confluence`, `direct_file_uploads`, `gumloop_artifacts`.
 
@@ -83,45 +82,55 @@ paths:
                       type: object
                       properties:
                         document_id:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: Identifier of the matched document.
                         source:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: The source type the result came from, for example `notion` or `slack`.
                         title:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: Title of the matched document.
                         content:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: The matching snippet of text.
                         url:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: Link to the document in its original source, when available.
                         score:
-                          type: number
-                          nullable: true
+                          type:
+                          - number
+                          - 'null'
                           description: Relevance score, normalized to a 0–1 range.
                         updated_at:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
-                          nullable: true
                           description: When the document was last updated in its source.
                         owner_name:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: Display name of the document owner, when known.
                         owner_email:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: Email of the document owner, when known.
                         parent_title:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: Title of the parent item (for example, a channel or folder), when applicable.
                         metadata:
                           type: object

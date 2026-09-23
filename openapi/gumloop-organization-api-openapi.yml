@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Public Agents Organization API
+  title: Public Organization API
   version: 1.0.0
 servers:
 - url: https://api.gumloop.com/api/v1
@@ -266,9 +266,7 @@ paths:
         **Scoping requirement:** For non-credit-log exports, at least one scoping parameter must be provided: `workspace_ids`, `include_all_workspaces`, `include_personal_workspaces`, or `entity_ids`. Requests that omit all scoping parameters will receive a `400` error.
 
 
-        **Note:** Credit log exports work differently from workflow and agent exports. When `data_type` is `"credit_logs"`, the following parameters are **not applicable** and will be ignored: `export_level`, `workspace_ids`, `include_all_workspaces`, `include_personal_workspaces`, and `entity_ids`. Credit log exports are always scoped to the entire organization. Use `category_filter` to filter by credit log category.
-
-        '
+        **Note:** Credit log exports work differently from workflow and agent exports. When `data_type` is `"credit_logs"`, the following parameters are **not applicable** and will be ignored: `export_level`, `workspace_ids`, `include_all_workspaces`, `include_personal_workspaces`, and `entity_ids`. Credit log exports are always scoped to the entire organization. Use `category_filter` to filter by credit log category.'
       operationId: exportData
       tags:
       - Organization
@@ -501,9 +499,7 @@ paths:
       description: 'This endpoint retrieves the status of a data export job and optionally downloads the export file (as CSV) if the export has completed successfully.
 
 
-        Use the `data_export_id` returned by the [Export data](/api-reference/organization/export-data) endpoint to check progress.
-
-        '
+        Use the `data_export_id` returned by the Export data endpoint to check progress.'
       operationId: exportStatus
       tags:
       - Organization
