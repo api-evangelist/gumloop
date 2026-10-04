@@ -1,24 +1,22 @@
-# Kin Score artifact — gumloop — 2026-09-01T210448
+# Kin Score artifact — gumloop — 2026-09-22T213221
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: gumloop
-  schema_version: 0.18.0
-  scored_at: '2026-09-01'
-  run_ts: 2026-09-01T210448
-  composite: 52.5
-  band: developing
+  schema_version: 0.22.0
+  scored_at: '2026-09-22'
+  run_ts: 2026-09-22T213221
+  composite: 56.8
+  band: strong
   facets:
     discoverability: 75.9
     contract_quality: 62.5
-    governance: 4.5
+    contract_governance: 4.5
     operational_transparency: 39.5
     developer_ergonomics: 73.2
-    commercial_clarity: 44.7
-    contract_governance: 4.5
     access_clarity: 44.7
   agent_readiness:
-    score: 47.3
+    score: 50.9
     band: agent-ready
     band_gated_from: agent-native
     dimensions:
@@ -38,7 +36,7 @@ kin_score:
       agent_card: false
       dry_run_mode: false
       delegated_identity: false
-      protected_resource_metadata: false
+      protected_resource_metadata: verified
       dynamic_client_registration: false
       agentic_commerce: false
   provenance:
