@@ -1,0 +1,26 @@
+slug: gumloop
+provider: Gumloop
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Agents
+  spec_file: gumloop-agents-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.72
+  evidence: POST /agents  createAgent  Create agent; PATCH /agents/{agent_id}/skills  updateAgentSkills  Attach
+    or detach agent skills; PUT /agents/{agent_id}/mcp-servers/{server_id}  attachAgentMcpServer
+  reason: Operations create, configure and version AI agents, their skills and MCP tool servers — lifecycle
+    management of AI/ML agent assets, best matched by Artificial Intelligence Management. Some ambiguity
+    remains as it is also a process-automation platform surface.
