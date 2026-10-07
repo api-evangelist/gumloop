@@ -1,0 +1,38 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://www.gumloop.com/pricing
+sources:
+- https://www.gumloop.com/pricing
+- https://gumloop.com/pricing
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed+licensed
+  method: page
+  read: '2026-10-07'
+  evidence: Virtual Private Cloud Virtual Private Cloud Optional
+  managed_tier: Pro
+published: true
+note: Pro has a 14-day free trial; Enterprise pricing is custom with an 8% orchestration fee noted.
+plan_count: 2
+currency: USD
+plans:
+- name: Pro
+  price_text: Starts at $37 / month
+  price: 37
+  currency: USD
+  period: month
+  included_quota: 20k credits per month; Unlimited seats; Unlimited teams; 5 concurrent workflow runs;
+    25 concurrent agent chats
+- name: Enterprise
+  price_text: Custom Pricing
+  period: none
+  included_quota: Custom credits; Orchestration Fee 8%; Custom concurrency
+rate_limit_statements:
+- Concurrent Workflow Runs 5
+- Concurrent Agent Chats 25
