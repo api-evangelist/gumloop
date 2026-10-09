@@ -82,3 +82,18 @@ deployment:
   probe: gated
   checked: '2026-08-12'
   source: catalog MCP census
+rfc9728:
+  endpoint: https://mcp.gumloop.com/gumloop/mcp
+  metadata_url: https://mcp.gumloop.com/.well-known/oauth-protected-resource/gumloop/mcp
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://mcp.gumloop.com/gumloop/mcp
+    authorization_servers:
+    - https://api.gumloop.com
+    scopes_supported:
+    - gumstack
+    bearer_methods_supported:
+    - header
