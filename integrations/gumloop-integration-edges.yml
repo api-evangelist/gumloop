@@ -18,6 +18,25 @@ edges:
     detected: '2026-10-13'
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
+- partner_name: Greenhouse (own)
+  partner: greenhouse
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://integrations.greenhouse.com/partners/gumloop
+  mirror_of: greenhouse/integrations/greenhouse-integration-edges.yml
+  apps:
+  - Gumloop
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
 generated: '2026-10-13'
 method: searched
-checked: []
+checked:
+- greenhouse/integrations/greenhouse-integration-edges.yml
+source:
+- greenhouse/integrations/greenhouse-integration-edges.yml
