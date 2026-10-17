@@ -467,6 +467,85 @@ paths:
       - bearerAuth: []
 components:
   schemas:
+    EvaluationConfig:
+      type: object
+      properties:
+        agent_id:
+          type: string
+        enabled:
+          type: boolean
+        is_active:
+          type: boolean
+        model_name:
+          type:
+          - string
+          - 'null'
+        frequency:
+          type:
+          - string
+          - 'null'
+        language:
+          type:
+          - string
+          - 'null'
+        include_auto_tags:
+          type: boolean
+        interaction_types:
+          type: array
+          items:
+            type: string
+        criteria:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              prompt:
+                type: string
+              type:
+                type: string
+              priority:
+                type: string
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+        data_points:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              data_type:
+                type: string
+              description:
+                type: string
+        sentiment:
+          type:
+          - object
+          - 'null'
+          properties:
+            enabled:
+              type: boolean
+            affects_grade:
+              type: boolean
+            description:
+              type: string
+        updated_ts:
+          type:
+          - string
+          - 'null'
     EvaluationResult:
       type: object
       properties:
@@ -571,85 +650,6 @@ components:
           description: Tags applied to this evaluation.
           items:
             type: string
-    EvaluationConfig:
-      type: object
-      properties:
-        agent_id:
-          type: string
-        enabled:
-          type: boolean
-        is_active:
-          type: boolean
-        model_name:
-          type:
-          - string
-          - 'null'
-        frequency:
-          type:
-          - string
-          - 'null'
-        language:
-          type:
-          - string
-          - 'null'
-        include_auto_tags:
-          type: boolean
-        interaction_types:
-          type: array
-          items:
-            type: string
-        criteria:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              name:
-                type: string
-              prompt:
-                type: string
-              type:
-                type: string
-              priority:
-                type: string
-        tags:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              description:
-                type: string
-        data_points:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              name:
-                type: string
-              data_type:
-                type: string
-              description:
-                type: string
-        sentiment:
-          type:
-          - object
-          - 'null'
-          properties:
-            enabled:
-              type: boolean
-            affects_grade:
-              type: boolean
-            description:
-              type: string
-        updated_ts:
-          type:
-          - string
-          - 'null'
   securitySchemes:
     bearerAuth:
       type: http
