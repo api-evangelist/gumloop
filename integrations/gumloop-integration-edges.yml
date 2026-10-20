@@ -1,3 +1,21 @@
+generated: '2026-10-20'
+method: searched
+source:
+- greenhouse/integrations/greenhouse-integration-edges.yml
+- https://zapier.com/apps/gumloop/integrations
+- https://n8n.io/integrations/gumloop/
+- https://composio.dev/toolkits/gumloop
+- https://monid.ai/tools/gumloop
+checked:
+- greenhouse/integrations/greenhouse-integration-edges.yml
+- microsoft-teams/integrations/microsoft-teams-integration-edges.yml
+- slack/integrations/slack-integration-edges.yml
+- https://composio.dev/toolkits/gumloop
+- https://monid.ai/tools/gumloop
+- https://n8n.io/integrations/gumloop/
+- https://zapier.com/apps/gumloop/integrations
+summary: null
+marketplace_apps: []
 edges:
 - partner_name: Greenhouse (own)
   partner: greenhouse
@@ -15,25 +33,6 @@ edges:
   listing_count: 1
   detected: '2026-10-14'
   detected_by: mirror-platform-listings.py
-- partner_name: OpenAI
-  partner: openai
-  partner_match: domain
-  type: contract
-  channel: provider-built
-  relationship: compatible
-  direction: provider-built
-  evidence: https://github.com/api-evangelist/gumloop/blob/main/openapi/gumloop-chat-completions-api-openapi.yml#L15
-  contract_reference:
-    repo: gumloop
-    spec_file: gumloop-chat-completions-api-openapi.yml
-    property: description
-    value: OpenAI-compatible
-    note: 'gumloop declares OpenAI compatibility: ''description: ''OpenAI-compatible chat completions endpoint,
-      multiplexed across every model Gumloop supports'''
-    detected_by: sweep-model-routing.py
-    detected: '2026-10-15'
-  detected_by: sweep-model-routing.py
-  first_seen: '2026-10-13'
 - partner_name: Microsoft Teams (own)
   partner: microsoft-teams
   partner_match: mirror
@@ -70,11 +69,23 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Slack app
-generated: '2026-10-13'
-method: searched
-checked:
-- greenhouse/integrations/greenhouse-integration-edges.yml
-- microsoft-teams/integrations/microsoft-teams-integration-edges.yml
-- slack/integrations/slack-integration-edges.yml
-source:
-- greenhouse/integrations/greenhouse-integration-edges.yml
+- partner_name: OpenAI
+  partner: openai
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  evidence: https://github.com/api-evangelist/gumloop/blob/main/openapi/gumloop-chat-completions-api-openapi.yml#L15
+  contract_reference:
+    repo: gumloop
+    spec_file: gumloop-chat-completions-api-openapi.yml
+    property: description
+    value: OpenAI-compatible
+    note: 'gumloop declares OpenAI compatibility: ''description: ''OpenAI-compatible chat completions endpoint,
+      multiplexed across every model Gumloop supports'''
+    detected_by: sweep-model-routing.py
+    detected: '2026-10-19'
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
+templates: []

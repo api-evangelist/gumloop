@@ -15,26 +15,6 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: gumloop-openai
-  label: OpenAI
-  partner: openai
-  partner_name: OpenAI
-  type: contract
-  channel: provider-built
-  evidence: https://github.com/api-evangelist/gumloop/blob/main/openapi/gumloop-chat-completions-api-openapi.yml#L15
-  source: edge
-  relationship: compatible
-  contract_reference:
-    repo: gumloop
-    spec_file: gumloop-chat-completions-api-openapi.yml
-    property: description
-    value: OpenAI-compatible
-    note: 'gumloop declares OpenAI compatibility: ''description: ''OpenAI-compatible chat completions endpoint,
-      multiplexed across every model Gumloop supports'''
-    detected_by: sweep-model-routing.py
-    detected: '2026-10-15'
-  status: not-a-workflow
-  arazzo: null
 - slug: gumloop-microsoft-teams-own
   label: Microsoft Teams (own)
   partner: microsoft-teams
@@ -59,5 +39,25 @@
   evidence: https://slack.com/marketplace/A066JDWQV0V-gumloop
   source: edge
   relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: gumloop-openai
+  label: OpenAI
+  partner: openai
+  partner_name: OpenAI
+  type: contract
+  channel: provider-built
+  evidence: https://github.com/api-evangelist/gumloop/blob/main/openapi/gumloop-chat-completions-api-openapi.yml#L15
+  source: edge
+  relationship: compatible
+  contract_reference:
+    repo: gumloop
+    spec_file: gumloop-chat-completions-api-openapi.yml
+    property: description
+    value: OpenAI-compatible
+    note: 'gumloop declares OpenAI compatibility: ''description: ''OpenAI-compatible chat completions endpoint,
+      multiplexed across every model Gumloop supports'''
+    detected_by: sweep-model-routing.py
+    detected: '2026-10-19'
   status: not-a-workflow
   arazzo: null
