@@ -14,9 +14,29 @@ checked:
 - https://monid.ai/tools/gumloop
 - https://n8n.io/integrations/gumloop/
 - https://zapier.com/apps/gumloop/integrations
+- intercom/integrations/intercom-integration-edges.yml
 summary: null
 marketplace_apps: []
 edges:
+- partner_name: OpenAI
+  partner: openai
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  evidence: https://github.com/api-evangelist/gumloop/blob/main/openapi/gumloop-chat-completions-api-openapi.yml#L15
+  contract_reference:
+    repo: gumloop
+    spec_file: gumloop-chat-completions-api-openapi.yml
+    property: description
+    value: OpenAI-compatible
+    note: 'gumloop declares OpenAI compatibility: ''description: ''OpenAI-compatible chat completions endpoint,
+      multiplexed across every model Gumloop supports'''
+    detected_by: sweep-model-routing.py
+    detected: '2026-10-19'
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
 - partner_name: Greenhouse (own)
   partner: greenhouse
   partner_match: mirror
@@ -69,23 +89,21 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Slack app
-- partner_name: OpenAI
-  partner: openai
-  partner_match: domain
-  type: contract
-  channel: provider-built
-  relationship: compatible
-  direction: provider-built
-  evidence: https://github.com/api-evangelist/gumloop/blob/main/openapi/gumloop-chat-completions-api-openapi.yml#L15
-  contract_reference:
-    repo: gumloop
-    spec_file: gumloop-chat-completions-api-openapi.yml
-    property: description
-    value: OpenAI-compatible
-    note: 'gumloop declares OpenAI compatibility: ''description: ''OpenAI-compatible chat completions endpoint,
-      multiplexed across every model Gumloop supports'''
-    detected_by: sweep-model-routing.py
-    detected: '2026-10-19'
-  detected_by: sweep-model-routing.py
-  first_seen: '2026-10-13'
+- partner_name: Intercom (own)
+  partner: intercom
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.intercom.com/app-store/?app_package_code=gumloop-4nw6
+  mirror_of: intercom/integrations/intercom-integration-edges.yml
+  apps:
+  - Gumloop
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Automation platforms
 templates: []
