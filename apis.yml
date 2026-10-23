@@ -226,6 +226,8 @@ apis:
   - type: OpenAPI
     url: openapi/gumloop-teams-api-openapi.yml
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/gumloop/overview
 - type: Plans
   url: plans/gumloop-plans-pricing.yml
 - type: CapabilityMap
