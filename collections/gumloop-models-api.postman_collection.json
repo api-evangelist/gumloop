@@ -1,262 +1,245 @@
 {
+  "info": {
+    "_postman_id": "90dd82fc-d04c-41b3-a4d2-6cd69f95c40f",
+    "name": "Public Models API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:09:34.000Z",
+    "updatedAt": "2026-10-22T01:09:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-90dd82fc-d04c-41b3-a4d2-6cd69f95c40f"
+  },
   "item": [
     {
-      "id": "43dac18d-3eb1-4cee-8424-5247eff5e63b",
-      "name": "Models",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "models",
       "item": [
         {
-          "id": "03e3d32a-0d7d-452d-bd5e-37aab3b09f92",
           "name": "List models",
+          "id": "1f0cd6f5-0abe-4200-8551-c9c5261156f5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "List models",
-            "description": {
-              "content": "List the LLMs and preset model chains available to the caller, grouped for display in a model picker.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "models"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+            "auth": {
+              "type": "bearer",
+              "bearer": [
                 {
-                  "disabled": false,
-                  "key": "team_id",
-                  "value": "<string>",
-                  "description": "Scope model availability to a specific team. When omitted, uses the authenticated user's default organization."
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
                 }
-              ],
-              "variable": []
+              ]
             },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+            "url": {
+              "raw": "{{baseUrl}}/models?team_id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "models"
+              ],
+              "query": [
                 {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
+                  "description": "Scope model availability to a specific team. When omitted, uses the authenticated user's default organization.",
+                  "key": "team_id",
+                  "value": "<string>"
                 }
               ]
-            }
+            },
+            "description": "List the LLMs and preset model chains available to the caller, grouped for display in a model picker."
           },
           "response": [
             {
-              "id": "f4262cdf-fe51-48d4-8356-d176f6efc23e",
+              "id": "2b34dfdc-c698-44c9-a72a-ea714bb72354",
               "name": "Model groups available to the caller.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/models?team_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "description": "Scope model availability to a specific team. When omitted, uses the authenticated user's default organization.",
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"model_groups\": [\n    {}\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{}",
+              "createdAt": "2026-10-22T01:09:35.000Z",
+              "updatedAt": "2026-10-22T01:09:35.000Z",
+              "uid": "35240-2b34dfdc-c698-44c9-a72a-ea714bb72354"
             },
             {
-              "id": "5296787f-0f9d-4d34-bb78-9b9206f5f068",
-              "name": "Unauthorized — missing or invalid API key.",
+              "id": "a60e28b6-4ea3-4fa5-bfc2-c5d65d526356",
+              "name": "Unauthorized \u2014 missing or invalid API key.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/models?team_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "description": "Scope model availability to a specific team. When omitted, uses the authenticated user's default organization.",
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:35.000Z",
+              "updatedAt": "2026-10-22T01:09:35.000Z",
+              "uid": "35240-a60e28b6-4ea3-4fa5-bfc2-c5d65d526356"
             },
             {
-              "id": "a30600aa-c947-472b-8a49-3bb3376d72df",
-              "name": "Forbidden — the caller does not have agent access on the requested team.",
+              "id": "5f1c6111-662c-4c6a-84d0-c697b47b9075",
+              "name": "Forbidden \u2014 the caller does not have agent access on the requested team.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/models?team_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "description": "Scope model availability to a specific team. When omitted, uses the authenticated user's default organization.",
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:35.000Z",
+              "updatedAt": "2026-10-22T01:09:35.000Z",
+              "uid": "35240-5f1c6111-662c-4c6a-84d0-c697b47b9075"
             },
             {
-              "id": "aee3b96d-3cdf-4469-9438-6d82b20eede2",
+              "id": "5b082060-6fb3-47c1-995a-48454a8bf092",
               "name": "Internal server error.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/models?team_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "description": "Scope model availability to a specific team. When omitted, uses the authenticated user's default organization.",
+                      "key": "team_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Internal Server Error",
               "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:35.000Z",
+              "updatedAt": "2026-10-22T01:09:35.000Z",
+              "uid": "35240-5b082060-6fb3-47c1-995a-48454a8bf092"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:09:35.000Z",
+          "updatedAt": "2026-10-22T01:09:35.000Z",
+          "uid": "35240-1f0cd6f5-0abe-4200-8551-c9c5261156f5"
         }
       ],
-      "event": []
+      "id": "bb407ee8-c8de-4e66-806f-4ef7877a0ad8",
+      "createdAt": "2026-10-22T01:09:35.000Z",
+      "updatedAt": "2026-10-22T01:09:35.000Z",
+      "uid": "35240-bb407ee8-c8de-4e66-806f-4ef7877a0ad8"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.gumloop.com/api/v1",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.gumloop.com/api/v1"
     }
-  ],
-  "info": {
-    "_postman_id": "830bc920-935a-40ff-b8fe-d822681a0a96",
-    "name": "Public Agents Models API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

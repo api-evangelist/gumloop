@@ -1,1579 +1,1571 @@
 {
+  "info": {
+    "_postman_id": "a379e2e0-0ad1-46d4-ac3c-bd5da0359485",
+    "name": "Public Data Access API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:08:56.000Z",
+    "updatedAt": "2026-10-22T01:08:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a379e2e0-0ad1-46d4-ac3c-bd5da0359485"
+  },
   "item": [
     {
-      "id": "2a5682f5-cffa-41a3-9d51-e1033e8fbdd7",
-      "name": "Data Access",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "get_pl_run",
       "item": [
         {
-          "id": "3c401bbb-11fe-408b-8bc9-3a88b7cf4391",
           "name": "Retrieve run details",
+          "id": "4ed7925a-92bf-4bb3-910c-c081bee0d1b1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Retrieve run details",
-            "description": {
-              "content": "This endpoint can be used to poll for completion and retrieve final flow outputs. Output nodes must be used to retrieve outputs.",
-              "type": "text/plain"
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
             },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/get_pl_run?run_id=<string>&user_id=<string>&project_id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "get_pl_run"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "(Required) ID of the flow run to retrieve",
                   "key": "run_id",
-                  "value": "<string>",
-                  "description": "(Required) ID of the flow run to retrieve"
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "The id for the user initiating the flow. Required if project_id is not provided.",
                   "key": "user_id",
-                  "value": "<string>",
-                  "description": "The id for the user initiating the flow. Required if project_id is not provided."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "The id of the project within which the flow is executed. Required if user_id is not provided.",
                   "key": "project_id",
-                  "value": "<string>",
-                  "description": "The id of the project within which the flow is executed. Required if user_id is not provided."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
+                  "value": "<string>"
                 }
               ]
-            }
+            },
+            "description": "This endpoint can be used to poll for completion and retrieve final flow outputs. Output nodes must be used to retrieve outputs."
           },
           "response": [
             {
-              "id": "12d2f947-d970-4278-958f-dda17d312489",
+              "id": "4d45898e-5682-4041-a98f-2dae644da8b2",
               "name": "Successful retrieval of flow run details",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "get_pl_run"
-                  ],
+                  "raw": "{{baseUrl}}/get_pl_run?run_id=<string>&user_id=<string>&project_id=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "get_pl_run"
+                  ],
                   "query": [
                     {
+                      "description": "(Required) ID of the flow run to retrieve",
                       "key": "run_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "The id for the user initiating the flow. Required if project_id is not provided.",
                       "key": "user_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "The id of the project within which the flow is executed. Required if user_id is not provided.",
                       "key": "project_id",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"user_id\": \"string\",\n  \"state\": \"RUNNING\",\n  \"outputs\": {},\n  \"created_ts\": \"2015-01-27T18:41:46.097Z\",\n  \"finished_ts\": \"1953-11-23T12:04:36.044Z\",\n  \"log\": [\n    \"string\",\n    \"string\"\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"user_id\": \"<string>\",\n  \"state\": \"QUEUED\",\n  \"outputs\": {},\n  \"created_ts\": \"<dateTime>\",\n  \"finished_ts\": \"<dateTime>\",\n  \"log\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-4d45898e-5682-4041-a98f-2dae644da8b2"
             },
             {
-              "id": "0317b250-b1d7-4293-99b6-c56e3df15783",
+              "id": "1d0de999-0f37-4ed1-9639-09b988bc361c",
               "name": "Bad request (missing run_id)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_pl_run"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "run_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_pl_run?run_id=<string>&user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_pl_run"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ID of the flow run to retrieve",
+                      "key": "run_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The id for the user initiating the flow. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The id of the project within which the flow is executed. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-1d0de999-0f37-4ed1-9639-09b988bc361c"
             },
             {
-              "id": "1155f034-97af-4942-a518-40d6ee4913fc",
+              "id": "ff748694-6c68-404f-b1af-e5051a8cd832",
               "name": "Flow run not found",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_pl_run"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "run_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_pl_run?run_id=<string>&user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_pl_run"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ID of the flow run to retrieve",
+                      "key": "run_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The id for the user initiating the flow. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The id of the project within which the flow is executed. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Not Found",
               "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-ff748694-6c68-404f-b1af-e5051a8cd832"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-22T01:08:56.000Z",
+          "updatedAt": "2026-10-22T01:08:56.000Z",
+          "uid": "35240-4ed7925a-92bf-4bb3-910c-c081bee0d1b1"
+        }
+      ],
+      "id": "9e7aa316-b7c9-4123-8230-4c13cf880df0",
+      "createdAt": "2026-10-22T01:08:56.000Z",
+      "updatedAt": "2026-10-22T01:08:56.000Z",
+      "uid": "35240-9e7aa316-b7c9-4123-8230-4c13cf880df0"
+    },
+    {
+      "name": "list_workbooks",
+      "item": [
+        {
+          "name": "List workbooks and their saved flows",
+          "id": "99960059-dca8-4100-8846-169fb5c28026",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "6f1627e1-92f0-4b23-8823-04b5c5e9538e",
-          "name": "List workbooks and their saved flows",
+          },
           "request": {
-            "name": "List workbooks and their saved flows",
-            "description": {},
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/list_workbooks?user_id=<string>&project_id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "list_workbooks"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "The user ID for which to list workbooks. Required if project_id is not provided.",
                   "key": "user_id",
-                  "value": "<string>",
-                  "description": "The user ID for which to list workbooks. Required if project_id is not provided."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "The project ID for which to list workbooks. Required if user_id is not provided.",
                   "key": "project_id",
-                  "value": "<string>",
-                  "description": "The project ID for which to list workbooks. Required if user_id is not provided."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
+                  "value": "<string>"
                 }
               ]
             }
           },
           "response": [
             {
-              "id": "8cc4d7f6-5669-4874-8f8e-c8ff533f924c",
+              "id": "f06fe516-821f-46cd-9b78-0e6895bc9422",
               "name": "Successful retrieval of workbooks and their saved items",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "list_workbooks"
-                  ],
+                  "raw": "{{baseUrl}}/list_workbooks?user_id=<string>&project_id=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "list_workbooks"
+                  ],
                   "query": [
                     {
+                      "description": "The user ID for which to list workbooks. Required if project_id is not provided.",
                       "key": "user_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "The project ID for which to list workbooks. Required if user_id is not provided.",
                       "key": "project_id",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"workbooks\": [\n    {\n      \"workbook_id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"created_ts\": \"1976-01-31T22:39:40.874Z\",\n      \"saved_items\": [\n        {\n          \"saved_item_id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"created_ts\": \"1959-10-14T11:50:10.626Z\"\n        },\n        {\n          \"saved_item_id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"created_ts\": \"1978-06-21T11:22:42.069Z\"\n        }\n      ]\n    },\n    {\n      \"workbook_id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"created_ts\": \"1991-05-25T10:19:16.656Z\",\n      \"saved_items\": [\n        {\n          \"saved_item_id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"created_ts\": \"1983-03-04T14:08:46.461Z\"\n        },\n        {\n          \"saved_item_id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"created_ts\": \"2000-07-08T12:57:39.127Z\"\n        }\n      ]\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"workbooks\": [\n    {\n      \"workbook_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"created_ts\": \"<dateTime>\",\n      \"saved_items\": [\n        {\n          \"saved_item_id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"created_ts\": \"<dateTime>\"\n        },\n        {\n          \"saved_item_id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"created_ts\": \"<dateTime>\"\n        }\n      ]\n    },\n    {\n      \"workbook_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"created_ts\": \"<dateTime>\",\n      \"saved_items\": [\n        {\n          \"saved_item_id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"created_ts\": \"<dateTime>\"\n        },\n        {\n          \"saved_item_id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"description\": \"<string>\",\n          \"created_ts\": \"<dateTime>\"\n        }\n      ]\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-f06fe516-821f-46cd-9b78-0e6895bc9422"
             },
             {
-              "id": "04103cdc-4437-4511-b3e6-4306ddc17f0d",
+              "id": "9fa60f68-ed3d-4d88-b901-a21e6d5fb475",
               "name": "Bad request (missing parameters)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "list_workbooks"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/list_workbooks?user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list_workbooks"
+                  ],
+                  "query": [
+                    {
+                      "description": "The user ID for which to list workbooks. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The project ID for which to list workbooks. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-9fa60f68-ed3d-4d88-b901-a21e6d5fb475"
             },
             {
-              "id": "b31fdbbf-eec9-450d-bbeb-0313b5f23b72",
+              "id": "7d0822f4-4d03-4bd6-8c8e-059dc70b4ebc",
               "name": "Unauthorized (missing or invalid API key)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "list_workbooks"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/list_workbooks?user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list_workbooks"
+                  ],
+                  "query": [
+                    {
+                      "description": "The user ID for which to list workbooks. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The project ID for which to list workbooks. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-7d0822f4-4d03-4bd6-8c8e-059dc70b4ebc"
             },
             {
-              "id": "a115cf22-c7cf-46df-a399-009b312d9bc5",
+              "id": "5dd046ac-9198-4a32-910e-a6538643b457",
               "name": "Forbidden (API key does not match)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "list_workbooks"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/list_workbooks?user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list_workbooks"
+                  ],
+                  "query": [
+                    {
+                      "description": "The user ID for which to list workbooks. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The project ID for which to list workbooks. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-5dd046ac-9198-4a32-910e-a6538643b457"
             },
             {
-              "id": "5ec39608-da30-4cbc-af55-8008cf0e486e",
+              "id": "9c23cc19-173c-4ac4-a156-eccb37e79911",
               "name": "Internal server error",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "list_workbooks"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/list_workbooks?user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list_workbooks"
+                  ],
+                  "query": [
+                    {
+                      "description": "The user ID for which to list workbooks. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The project ID for which to list workbooks. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Internal Server Error",
               "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-9c23cc19-173c-4ac4-a156-eccb37e79911"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-22T01:08:56.000Z",
+          "updatedAt": "2026-10-22T01:08:56.000Z",
+          "uid": "35240-99960059-dca8-4100-8846-169fb5c28026"
+        }
+      ],
+      "id": "71d51538-ed6f-42df-a021-2294820e67ea",
+      "createdAt": "2026-10-22T01:08:56.000Z",
+      "updatedAt": "2026-10-22T01:08:56.000Z",
+      "uid": "35240-71d51538-ed6f-42df-a021-2294820e67ea"
+    },
+    {
+      "name": "list_saved_items",
+      "item": [
+        {
+          "name": "List saved flows",
+          "id": "beaf7eb7-4cf8-4fea-a5dc-278cbac0d543",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c4e1aa03-2499-41c1-a0ce-8fc56311f1e3",
-          "name": "List saved flows",
+          },
           "request": {
-            "name": "List saved flows",
-            "description": {},
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/list_saved_items?user_id=<string>&project_id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "list_saved_items"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "The user ID to for which to list items. Required if project_id is not provided.",
                   "key": "user_id",
-                  "value": "<string>",
-                  "description": "The user ID to for which to list items. Required if project_id is not provided."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "The project ID for which to list items. Required if user_id is not provided.",
                   "key": "project_id",
-                  "value": "<string>",
-                  "description": "The project ID for which to list items. Required if user_id is not provided."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
+                  "value": "<string>"
                 }
               ]
             }
           },
           "response": [
             {
-              "id": "69eb0531-540a-4a3e-aa33-a31bf853c453",
+              "id": "47b3218a-f5ad-4e8a-8216-7e954d97769f",
               "name": "Successful retrieval of saved items",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "list_saved_items"
-                  ],
+                  "raw": "{{baseUrl}}/list_saved_items?user_id=<string>&project_id=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "list_saved_items"
+                  ],
                   "query": [
                     {
+                      "description": "The user ID to for which to list items. Required if project_id is not provided.",
                       "key": "user_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "The project ID for which to list items. Required if user_id is not provided.",
                       "key": "project_id",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"saved_items\": [\n    {\n      \"saved_item_id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"created_ts\": \"1977-03-04T16:36:57.746Z\"\n    },\n    {\n      \"saved_item_id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"created_ts\": \"1969-11-08T01:33:09.392Z\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"saved_items\": [\n    {\n      \"saved_item_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"created_ts\": \"<dateTime>\"\n    },\n    {\n      \"saved_item_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"created_ts\": \"<dateTime>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-47b3218a-f5ad-4e8a-8216-7e954d97769f"
             },
             {
-              "id": "b2b99041-706e-4080-9891-906e22f2d32d",
+              "id": "bafff16f-b529-4560-bdba-a45b8eb16c2e",
               "name": "Bad request (missing parameters)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "list_saved_items"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/list_saved_items?user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list_saved_items"
+                  ],
+                  "query": [
+                    {
+                      "description": "The user ID to for which to list items. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The project ID for which to list items. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-bafff16f-b529-4560-bdba-a45b8eb16c2e"
             },
             {
-              "id": "6f23da89-28fc-4db0-a61b-dc512b10a156",
+              "id": "47ba542e-5070-4802-a19f-2c97db4e3dfc",
               "name": "Unauthorized (missing or invalid API key)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "list_saved_items"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/list_saved_items?user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list_saved_items"
+                  ],
+                  "query": [
+                    {
+                      "description": "The user ID to for which to list items. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The project ID for which to list items. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-47ba542e-5070-4802-a19f-2c97db4e3dfc"
             },
             {
-              "id": "ff1f99bb-671e-4e7a-aaf0-e3795202148b",
+              "id": "2614d462-1007-4f15-a889-606b1587c725",
               "name": "Forbidden (API key does not match)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "list_saved_items"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/list_saved_items?user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list_saved_items"
+                  ],
+                  "query": [
+                    {
+                      "description": "The user ID to for which to list items. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The project ID for which to list items. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-2614d462-1007-4f15-a889-606b1587c725"
             },
             {
-              "id": "7d3c2629-1a0b-4c69-9e7e-3b6f80901fa7",
+              "id": "264d929a-3e73-45f7-af47-310c9aa28b19",
               "name": "Internal server error",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "list_saved_items"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/list_saved_items?user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "list_saved_items"
+                  ],
+                  "query": [
+                    {
+                      "description": "The user ID to for which to list items. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The project ID for which to list items. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Internal Server Error",
               "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-264d929a-3e73-45f7-af47-310c9aa28b19"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-22T01:08:56.000Z",
+          "updatedAt": "2026-10-22T01:08:56.000Z",
+          "uid": "35240-beaf7eb7-4cf8-4fea-a5dc-278cbac0d543"
+        }
+      ],
+      "id": "d0225f1a-b920-4313-9f85-1b37209252b1",
+      "createdAt": "2026-10-22T01:08:56.000Z",
+      "updatedAt": "2026-10-22T01:08:56.000Z",
+      "uid": "35240-d0225f1a-b920-4313-9f85-1b37209252b1"
+    },
+    {
+      "name": "get_inputs",
+      "item": [
+        {
+          "name": "Retrieve input schema",
+          "id": "b28b8ef4-e230-4809-94ea-0585847b5246",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "202b564b-3c6d-4cb0-8ba6-90ac923b5348",
-          "name": "Retrieve input schema",
+          },
           "request": {
-            "name": "Retrieve input schema",
-            "description": {},
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/get_inputs?saved_item_id=<string>&user_id=<string>&project_id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "get_inputs"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "(Required) The ID of the saved item for which to retrieve input schemas.",
                   "key": "saved_item_id",
-                  "value": "<string>",
-                  "description": "(Required) The ID of the saved item for which to retrieve input schemas."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "User ID that created the flow. Required if project_id is not provided.",
                   "key": "user_id",
-                  "value": "<string>",
-                  "description": "User ID that created the flow. Required if project_id is not provided."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "Project ID that the flow is under. Required if user_id is not provided.",
                   "key": "project_id",
-                  "value": "<string>",
-                  "description": "Project ID that the flow is under. Required if user_id is not provided."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
+                  "value": "<string>"
                 }
               ]
             }
           },
           "response": [
             {
-              "id": "40c25491-391d-45fe-b220-206f9400a2ae",
+              "id": "9bfe4003-41d9-4612-92c5-eb52e4698930",
               "name": "Successful retrieval of item input schemas",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "get_inputs"
-                  ],
+                  "raw": "{{baseUrl}}/get_inputs?saved_item_id=<string>&user_id=<string>&project_id=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "get_inputs"
+                  ],
                   "query": [
                     {
+                      "description": "(Required) The ID of the saved item for which to retrieve input schemas.",
                       "key": "saved_item_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "User ID that created the flow. Required if project_id is not provided.",
                       "key": "user_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "Project ID that the flow is under. Required if user_id is not provided.",
                       "key": "project_id",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"inputs\": [\n    {\n      \"data_type\": \"file\",\n      \"description\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"data_type\": \"string\",\n      \"description\": \"string\",\n      \"name\": \"string\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"inputs\": [\n    {\n      \"data_type\": \"file\",\n      \"description\": \"<string,null>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"data_type\": \"file\",\n      \"description\": \"<string,null>\",\n      \"name\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-9bfe4003-41d9-4612-92c5-eb52e4698930"
             },
             {
-              "id": "a25da996-073c-4c54-b82d-4bbada05d8ea",
+              "id": "c30e65f2-a049-49b8-861f-298dce27bb80",
               "name": "Bad request (missing parameters)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_inputs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "saved_item_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_inputs?saved_item_id=<string>&user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_inputs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the saved item for which to retrieve input schemas.",
+                      "key": "saved_item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "User ID that created the flow. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Project ID that the flow is under. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-c30e65f2-a049-49b8-861f-298dce27bb80"
             },
             {
-              "id": "212a461f-d09b-4518-b5df-10cdaec8a957",
+              "id": "0e45acb7-3b53-47da-8efb-e01908c2c7f2",
               "name": "Unauthorized (missing or invalid API key)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_inputs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "saved_item_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_inputs?saved_item_id=<string>&user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_inputs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the saved item for which to retrieve input schemas.",
+                      "key": "saved_item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "User ID that created the flow. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Project ID that the flow is under. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-0e45acb7-3b53-47da-8efb-e01908c2c7f2"
             },
             {
-              "id": "1295babf-0e65-454a-b828-4979f6ff688b",
+              "id": "9cd626e7-1f96-45d2-848d-a15291fd67d1",
               "name": "Forbidden (API key does not match)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_inputs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "saved_item_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_inputs?saved_item_id=<string>&user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_inputs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the saved item for which to retrieve input schemas.",
+                      "key": "saved_item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "User ID that created the flow. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Project ID that the flow is under. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-9cd626e7-1f96-45d2-848d-a15291fd67d1"
             },
             {
-              "id": "1c2a1ded-b91e-46cf-9340-88dc43ad24d9",
+              "id": "39cef3c8-f076-4b78-8caa-136cac0367ba",
               "name": "Saved item not found",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_inputs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "saved_item_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_inputs?saved_item_id=<string>&user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_inputs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the saved item for which to retrieve input schemas.",
+                      "key": "saved_item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "User ID that created the flow. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Project ID that the flow is under. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Not Found",
               "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-39cef3c8-f076-4b78-8caa-136cac0367ba"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-22T01:08:56.000Z",
+          "updatedAt": "2026-10-22T01:08:56.000Z",
+          "uid": "35240-b28b8ef4-e230-4809-94ea-0585847b5246"
+        }
+      ],
+      "id": "6ea0b969-92d4-4ba6-b263-39dad2544062",
+      "createdAt": "2026-10-22T01:08:56.000Z",
+      "updatedAt": "2026-10-22T01:08:56.000Z",
+      "uid": "35240-6ea0b969-92d4-4ba6-b263-39dad2544062"
+    },
+    {
+      "name": "get_plrun_saved_item_map",
+      "item": [
+        {
+          "name": "Retrieve automation run history",
+          "id": "b53d6187-f1a7-418a-9632-f497848a6fb6",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8ba01cd0-3103-4a53-b3e1-3e8ee4ca3f8b",
-          "name": "Retrieve automation run history",
+          },
           "request": {
-            "name": "Retrieve automation run history",
-            "description": {
-              "content": "This endpoint retrieves the run history for automations, either by workbook or saved item. Returns the 10 most recent runs.",
-              "type": "text/plain"
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
             },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/get_plrun_saved_item_map?workbook_id=<string>&saved_item_id=<string>&user_id=<string>&project_id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "get_plrun_saved_item_map"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "The ID of the workbook to retrieve run history for. Required if saved_item_id is not provided.",
                   "key": "workbook_id",
-                  "value": "<string>",
-                  "description": "The ID of the workbook to retrieve run history for. Required if saved_item_id is not provided."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "The ID of the saved item to retrieve run history for. Required if workbook_id is not provided.",
                   "key": "saved_item_id",
-                  "value": "<string>",
-                  "description": "The ID of the saved item to retrieve run history for. Required if workbook_id is not provided."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "The user ID. Required if project_id is not provided.",
                   "key": "user_id",
-                  "value": "<string>",
-                  "description": "The user ID. Required if project_id is not provided."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "The project ID. Required if user_id is not provided.",
                   "key": "project_id",
-                  "value": "<string>",
-                  "description": "The project ID. Required if user_id is not provided."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
+                  "value": "<string>"
                 }
               ]
-            }
+            },
+            "description": "This endpoint retrieves the run history for automations, either by workbook or saved item. Returns the 10 most recent runs."
           },
           "response": [
             {
-              "id": "a2dfb51c-2b6b-41b5-aab1-acf4b3872dfa",
+              "id": "c0dd026e-a654-4709-8020-177a3410a795",
               "name": "Successful retrieval of automation run history",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "get_plrun_saved_item_map"
-                  ],
+                  "raw": "{{baseUrl}}/get_plrun_saved_item_map?workbook_id=<string>&saved_item_id=<string>&user_id=<string>&project_id=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "get_plrun_saved_item_map"
+                  ],
                   "query": [
                     {
+                      "description": "The ID of the workbook to retrieve run history for. Required if saved_item_id is not provided.",
                       "key": "workbook_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "The ID of the saved item to retrieve run history for. Required if workbook_id is not provided.",
                       "key": "saved_item_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "The user ID. Required if project_id is not provided.",
                       "key": "user_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "The project ID. Required if user_id is not provided.",
                       "key": "project_id",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{}",
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-c0dd026e-a654-4709-8020-177a3410a795"
             },
             {
-              "id": "c778b24a-fc88-4ac3-8039-32c836a91e79",
+              "id": "2dd1b99d-dc74-44d0-ac22-15cc72c7c22b",
               "name": "Bad request (missing workbook_id or saved_item_id parameter)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_plrun_saved_item_map"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "workbook_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "saved_item_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_plrun_saved_item_map?workbook_id=<string>&saved_item_id=<string>&user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_plrun_saved_item_map"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workbook to retrieve run history for. Required if saved_item_id is not provided.",
+                      "key": "workbook_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the saved item to retrieve run history for. Required if workbook_id is not provided.",
+                      "key": "saved_item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The user ID. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The project ID. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-2dd1b99d-dc74-44d0-ac22-15cc72c7c22b"
             },
             {
-              "id": "aa77b209-3f8e-41a0-a9e9-5b53416a6801",
+              "id": "725ff579-344d-4544-ba8f-27528a0752fc",
               "name": "Unauthorized (missing or invalid API key)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_plrun_saved_item_map"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "workbook_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "saved_item_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_plrun_saved_item_map?workbook_id=<string>&saved_item_id=<string>&user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_plrun_saved_item_map"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workbook to retrieve run history for. Required if saved_item_id is not provided.",
+                      "key": "workbook_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the saved item to retrieve run history for. Required if workbook_id is not provided.",
+                      "key": "saved_item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The user ID. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The project ID. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-725ff579-344d-4544-ba8f-27528a0752fc"
             },
             {
-              "id": "eea1be46-45a8-4434-abe5-2edb66ab063c",
+              "id": "bafce92a-4850-47f1-bb12-b1657e4b3551",
               "name": "Forbidden (API key does not match)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_plrun_saved_item_map"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "workbook_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "saved_item_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_plrun_saved_item_map?workbook_id=<string>&saved_item_id=<string>&user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_plrun_saved_item_map"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workbook to retrieve run history for. Required if saved_item_id is not provided.",
+                      "key": "workbook_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the saved item to retrieve run history for. Required if workbook_id is not provided.",
+                      "key": "saved_item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The user ID. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The project ID. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-bafce92a-4850-47f1-bb12-b1657e4b3551"
             },
             {
-              "id": "26650a99-0536-4b09-b7b3-1a306e30891f",
+              "id": "d1a5d9c4-a837-4c9d-874e-880faeca4b15",
               "name": "Workbook not found",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_plrun_saved_item_map"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "workbook_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "saved_item_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_plrun_saved_item_map?workbook_id=<string>&saved_item_id=<string>&user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_plrun_saved_item_map"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workbook to retrieve run history for. Required if saved_item_id is not provided.",
+                      "key": "workbook_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the saved item to retrieve run history for. Required if workbook_id is not provided.",
+                      "key": "saved_item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The user ID. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The project ID. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Not Found",
               "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-d1a5d9c4-a837-4c9d-874e-880faeca4b15"
             },
             {
-              "id": "c6624e44-753f-41ed-a0bd-2058133de63c",
+              "id": "6a7223dc-d1d7-4fdd-9cf2-539528259d62",
               "name": "Internal server error",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_plrun_saved_item_map"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "workbook_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "saved_item_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "project_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_plrun_saved_item_map?workbook_id=<string>&saved_item_id=<string>&user_id=<string>&project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_plrun_saved_item_map"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the workbook to retrieve run history for. Required if saved_item_id is not provided.",
+                      "key": "workbook_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the saved item to retrieve run history for. Required if workbook_id is not provided.",
+                      "key": "saved_item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The user ID. Required if project_id is not provided.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The project ID. Required if user_id is not provided.",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Internal Server Error",
               "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:08:56.000Z",
+              "updatedAt": "2026-10-22T01:08:56.000Z",
+              "uid": "35240-6a7223dc-d1d7-4fdd-9cf2-539528259d62"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:08:56.000Z",
+          "updatedAt": "2026-10-22T01:08:56.000Z",
+          "uid": "35240-b53d6187-f1a7-418a-9632-f497848a6fb6"
         }
       ],
-      "event": []
+      "id": "a50e55d9-cf56-402b-848b-ec729e8e16d7",
+      "createdAt": "2026-10-22T01:08:56.000Z",
+      "updatedAt": "2026-10-22T01:08:56.000Z",
+      "uid": "35240-a50e55d9-cf56-402b-848b-ec729e8e16d7"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.gumloop.com/api/v1",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.gumloop.com/api/v1"
     }
-  ],
-  "info": {
-    "_postman_id": "346c50ae-f1ba-4d6b-9712-5ca49ff928a5",
-    "name": "Public Agents Data Access API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

@@ -1,842 +1,871 @@
 {
+  "info": {
+    "_postman_id": "e1865886-3502-4691-9278-e07a5942523c",
+    "name": "Public Organization API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:09:42.000Z",
+    "updatedAt": "2026-10-22T01:09:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e1865886-3502-4691-9278-e07a5942523c"
+  },
   "item": [
     {
-      "id": "f85cfee7-54c2-4318-86c0-32eec0cb68bd",
-      "name": "Organization",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "get_audit_logs",
       "item": [
         {
-          "id": "18032e5a-9048-43ce-8631-cb6c908208b5",
           "name": "Retrieve audit logs",
+          "id": "714cd2a1-cc56-4849-9b05-55c4b17a13f2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Retrieve audit logs",
-            "description": {
-              "content": "This endpoint retrieves audit logs for all users in an organization for a specified time period.",
-              "type": "text/plain"
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
             },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/get_audit_logs?organization_id=<string>&user_id=<string>&start_time=<dateTime>&end_time=<dateTime>&page=1&page_size=50",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "get_audit_logs"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "(Required) The ID of the organization to retrieve audit logs for.",
                   "key": "organization_id",
-                  "value": "<string>",
-                  "description": "(Required) The ID of the organization to retrieve audit logs for."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "(Required) Your user id -- you must be an organization admin to retrieve organization logs.",
                   "key": "user_id",
-                  "value": "<string>",
-                  "description": "(Required) Your user id -- you must be an organization admin to retrieve organization logs."
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "(Required) Start timestamp for log filtering (ISO format).",
                   "key": "start_time",
-                  "value": "<dateTime>",
-                  "description": "(Required) Start timestamp for log filtering (ISO format)."
+                  "value": "<dateTime>"
                 },
                 {
-                  "disabled": false,
+                  "description": "(Required) End timestamp for log filtering (ISO format).",
                   "key": "end_time",
-                  "value": "<dateTime>",
-                  "description": "(Required) End timestamp for log filtering (ISO format)."
+                  "value": "<dateTime>"
                 },
                 {
-                  "disabled": false,
+                  "description": "Page number for pagination.",
                   "key": "page",
-                  "value": "1",
-                  "description": "Page number for pagination."
+                  "value": "1"
                 },
                 {
-                  "disabled": false,
+                  "description": "Number of records per page.",
                   "key": "page_size",
-                  "value": "50",
-                  "description": "Number of records per page."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
+                  "value": "50"
                 }
               ]
-            }
+            },
+            "description": "This endpoint retrieves audit logs for all users in an organization for a specified time period."
           },
           "response": [
             {
-              "id": "74fe780a-0530-486c-93ee-4d0ca73f317c",
+              "id": "95ef9629-4ae6-483f-9e0c-198d8280f126",
               "name": "Successful retrieval of organization audit logs",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "get_audit_logs"
-                  ],
+                  "raw": "{{baseUrl}}/get_audit_logs?organization_id=<string>&user_id=<string>&start_time=<dateTime>&end_time=<dateTime>&page=1&page_size=50",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "get_audit_logs"
+                  ],
                   "query": [
                     {
+                      "description": "(Required) The ID of the organization to retrieve audit logs for.",
                       "key": "organization_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "(Required) Your user id -- you must be an organization admin to retrieve organization logs.",
                       "key": "user_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "(Required) Start timestamp for log filtering (ISO format).",
                       "key": "start_time",
                       "value": "<dateTime>"
                     },
                     {
+                      "description": "(Required) End timestamp for log filtering (ISO format).",
                       "key": "end_time",
                       "value": "<dateTime>"
                     },
                     {
+                      "description": "Page number for pagination.",
                       "key": "page",
                       "value": "1"
                     },
                     {
+                      "description": "Number of records per page.",
                       "key": "page_size",
                       "value": "50"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"audit_logs\": [\n    {\n      \"event_id\": \"string\",\n      \"timestamp\": \"1998-12-03T22:58:57.185Z\",\n      \"event_type\": \"string\",\n      \"user_id\": \"string\",\n      \"details\": \"string\",\n      \"source_ip\": \"string\",\n      \"user_agent\": \"string\"\n    },\n    {\n      \"event_id\": \"string\",\n      \"timestamp\": \"1958-05-16T06:29:30.186Z\",\n      \"event_type\": \"string\",\n      \"user_id\": \"string\",\n      \"details\": \"string\",\n      \"source_ip\": \"string\",\n      \"user_agent\": \"string\"\n    }\n  ],\n  \"total_count\": 4155,\n  \"page\": 2055,\n  \"page_size\": 5842,\n  \"total_pages\": 4918\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"audit_logs\": [\n    {\n      \"event_id\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"event_type\": \"<string>\",\n      \"user_id\": \"<string>\",\n      \"details\": \"<string>\",\n      \"source_ip\": \"<string>\",\n      \"user_agent\": \"<string>\"\n    },\n    {\n      \"event_id\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"event_type\": \"<string>\",\n      \"user_id\": \"<string>\",\n      \"details\": \"<string>\",\n      \"source_ip\": \"<string>\",\n      \"user_agent\": \"<string>\"\n    }\n  ],\n  \"total_count\": \"<integer>\",\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"total_pages\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-95ef9629-4ae6-483f-9e0c-198d8280f126"
             },
             {
-              "id": "b7af0acb-61da-4fc9-a662-f9c26e028723",
+              "id": "5c41450a-4fa1-44a1-98a8-aa6ad580d4cd",
               "name": "Bad request (missing required parameters)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_audit_logs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "organization_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "start_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "end_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "page_size",
-                      "value": "50"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_audit_logs?organization_id=<string>&user_id=<string>&start_time=<dateTime>&end_time=<dateTime>&page=1&page_size=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_audit_logs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the organization to retrieve audit logs for.",
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Your user id -- you must be an organization admin to retrieve organization logs.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Start timestamp for log filtering (ISO format).",
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) End timestamp for log filtering (ISO format).",
+                      "key": "end_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Page number for pagination.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of records per page.",
+                      "key": "page_size",
+                      "value": "50"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-5c41450a-4fa1-44a1-98a8-aa6ad580d4cd"
             },
             {
-              "id": "7e1894b2-2b60-4eb4-88cb-ffac737cfd6a",
+              "id": "90806412-c6bc-4293-abc1-31433b76035f",
               "name": "Unauthorized (missing or invalid API key)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_audit_logs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "organization_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "start_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "end_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "page_size",
-                      "value": "50"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_audit_logs?organization_id=<string>&user_id=<string>&start_time=<dateTime>&end_time=<dateTime>&page=1&page_size=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_audit_logs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the organization to retrieve audit logs for.",
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Your user id -- you must be an organization admin to retrieve organization logs.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Start timestamp for log filtering (ISO format).",
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) End timestamp for log filtering (ISO format).",
+                      "key": "end_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Page number for pagination.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of records per page.",
+                      "key": "page_size",
+                      "value": "50"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-90806412-c6bc-4293-abc1-31433b76035f"
             },
             {
-              "id": "f64f9cc0-830a-4fc6-ba60-04282a3f973e",
+              "id": "9a770cb2-119f-4766-8c87-b629cbfa5cc8",
               "name": "Forbidden (user is not an organization admin)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_audit_logs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "organization_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "start_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "end_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "page_size",
-                      "value": "50"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_audit_logs?organization_id=<string>&user_id=<string>&start_time=<dateTime>&end_time=<dateTime>&page=1&page_size=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_audit_logs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the organization to retrieve audit logs for.",
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Your user id -- you must be an organization admin to retrieve organization logs.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Start timestamp for log filtering (ISO format).",
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) End timestamp for log filtering (ISO format).",
+                      "key": "end_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Page number for pagination.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of records per page.",
+                      "key": "page_size",
+                      "value": "50"
+                    }
+                  ]
+                }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-9a770cb2-119f-4766-8c87-b629cbfa5cc8"
             },
             {
-              "id": "fd9bf512-c7ab-40ee-92f6-435d97e2f8c9",
+              "id": "c5729e77-a1d9-4fa1-bbe2-50e95bcb4526",
               "name": "Organization not found",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_audit_logs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "organization_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "start_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "end_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "page_size",
-                      "value": "50"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_audit_logs?organization_id=<string>&user_id=<string>&start_time=<dateTime>&end_time=<dateTime>&page=1&page_size=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_audit_logs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the organization to retrieve audit logs for.",
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Your user id -- you must be an organization admin to retrieve organization logs.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Start timestamp for log filtering (ISO format).",
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) End timestamp for log filtering (ISO format).",
+                      "key": "end_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Page number for pagination.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of records per page.",
+                      "key": "page_size",
+                      "value": "50"
+                    }
+                  ]
+                }
               },
               "status": "Not Found",
               "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-c5729e77-a1d9-4fa1-bbe2-50e95bcb4526"
             },
             {
-              "id": "94288e33-8ccc-49c1-8a63-05015c79f31a",
+              "id": "41f34297-0106-4507-a46b-63ae46c3ecf7",
               "name": "Internal server error",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "get_audit_logs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "organization_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "start_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "end_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "1"
-                    },
-                    {
-                      "key": "page_size",
-                      "value": "50"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/get_audit_logs?organization_id=<string>&user_id=<string>&start_time=<dateTime>&end_time=<dateTime>&page=1&page_size=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "get_audit_logs"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the organization to retrieve audit logs for.",
+                      "key": "organization_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Your user id -- you must be an organization admin to retrieve organization logs.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Start timestamp for log filtering (ISO format).",
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "(Required) End timestamp for log filtering (ISO format).",
+                      "key": "end_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "description": "Page number for pagination.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of records per page.",
+                      "key": "page_size",
+                      "value": "50"
+                    }
+                  ]
+                }
               },
               "status": "Internal Server Error",
               "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-41f34297-0106-4507-a46b-63ae46c3ecf7"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-22T01:09:43.000Z",
+          "updatedAt": "2026-10-22T01:09:43.000Z",
+          "uid": "35240-714cd2a1-cc56-4849-9b05-55c4b17a13f2"
+        }
+      ],
+      "id": "bc8d1328-8799-4e7e-887e-7ada930dfa6e",
+      "createdAt": "2026-10-22T01:09:43.000Z",
+      "updatedAt": "2026-10-22T01:09:43.000Z",
+      "uid": "35240-bc8d1328-8799-4e7e-887e-7ada930dfa6e"
+    },
+    {
+      "name": "manage_workspace_users",
+      "item": [
+        {
+          "name": "Manage workspace users",
+          "id": "ef99c7c5-f5ad-4543-a6ee-d662aec9a7c1",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "5cd8e570-8482-4b80-9845-6fb38633244e",
-          "name": "Manage workspace users",
+          },
           "request": {
-            "name": "Manage workspace users",
-            "description": {
-              "content": "This endpoint allows organization administrators to add or remove users from a workspace.",
-              "type": "text/plain"
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
             },
             "url": {
+              "raw": "{{baseUrl}}/manage_workspace_users",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "manage_workspace_users"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
               ]
             },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
+            "description": "This endpoint allows organization administrators to add or remove users from a workspace."
           },
           "response": [
             {
-              "id": "f5d88e5f-b3e0-497c-bc8d-3023febbeb2b",
+              "id": "1caa68bc-36b9-4af0-9eca-2abf7e7fe1b2",
               "name": "User successfully added to or removed from workspace",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manage_workspace_users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manage_workspace_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manage_workspace_users"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"message\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-1caa68bc-36b9-4af0-9eca-2abf7e7fe1b2"
             },
             {
-              "id": "8b902d62-805c-42cc-993e-831bb7c4feb8",
+              "id": "7ee1db71-9a55-4daa-873c-d9784023f079",
               "name": "Bad request (missing required parameters or invalid action)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manage_workspace_users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manage_workspace_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manage_workspace_users"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-7ee1db71-9a55-4daa-873c-d9784023f079"
             },
             {
-              "id": "4c9e7eeb-efa2-4b8a-a992-8a2a3f38a7c7",
+              "id": "f05bcb14-1ed6-4bf0-843b-d14a1b5bf61f",
               "name": "Unauthorized (missing or invalid API key)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manage_workspace_users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manage_workspace_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manage_workspace_users"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-f05bcb14-1ed6-4bf0-843b-d14a1b5bf61f"
             },
             {
-              "id": "060b20f4-b677-4744-b835-cc8ba557a80c",
+              "id": "226e32c9-4b29-4bf9-9fa1-a3b8cc079226",
               "name": "Forbidden (user is not an organization admin or workspace doesn't belong to organization)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manage_workspace_users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manage_workspace_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manage_workspace_users"
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-226e32c9-4b29-4bf9-9fa1-a3b8cc079226"
             },
             {
-              "id": "fd1f8b49-4638-4689-b0ae-175e6547d239",
+              "id": "b16a3641-7341-4cd5-ace3-3105f1fd8f0f",
               "name": "Organization, workspace, or user not found",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manage_workspace_users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manage_workspace_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manage_workspace_users"
+                  ]
                 }
               },
               "status": "Not Found",
               "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-b16a3641-7341-4cd5-ace3-3105f1fd8f0f"
             },
             {
-              "id": "9d6608f5-0ab4-4802-88a5-6efdc815d72a",
+              "id": "d5c1d180-2379-4222-8213-a9ef2bb68fd0",
               "name": "Internal server error",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manage_workspace_users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
+                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\",\n  \"is_admin\": \"<boolean>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manage_workspace_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manage_workspace_users"
+                  ]
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-d5c1d180-2379-4222-8213-a9ef2bb68fd0"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-22T01:09:43.000Z",
+          "updatedAt": "2026-10-22T01:09:43.000Z",
+          "uid": "35240-ef99c7c5-f5ad-4543-a6ee-d662aec9a7c1"
+        }
+      ],
+      "id": "060cb840-cc54-4b2d-a6ee-45eb45d9cc7a",
+      "createdAt": "2026-10-22T01:09:43.000Z",
+      "updatedAt": "2026-10-22T01:09:43.000Z",
+      "uid": "35240-060cb840-cc54-4b2d-a6ee-45eb45d9cc7a"
+    },
+    {
+      "name": "manage_permission_group_users",
+      "item": [
+        {
+          "name": "Manage custom role users",
+          "id": "0d3e29c1-4b36-46ec-bec5-a52ce39ab4d6",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "08e8387b-3e1d-477b-88f1-cdc46499f5ae",
-          "name": "Manage custom role users",
+          },
           "request": {
-            "name": "Manage custom role users",
-            "description": {
-              "content": "This endpoint allows organization administrators to add or remove users from a custom role (formerly \"permission group\"). Adding a user to a role does not remove them from any other role they belong to.",
-              "type": "text/plain"
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
             },
-            "url": {
-              "path": [
-                "manage_permission_group_users"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -847,338 +876,351 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\"\n}",
+              "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/manage_permission_group_users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "manage_permission_group_users"
+              ]
+            },
+            "description": "This endpoint allows organization administrators to add or remove users from a custom role (formerly \"permission group\"). Adding a user to a role does not remove them from any other role they belong to."
           },
           "response": [
             {
-              "id": "eb2c1c5d-b7a8-4c84-93f2-2700080d4ca1",
+              "id": "76e749d0-e56f-4fec-86c3-92bf58539c99",
               "name": "User successfully added to or removed from the custom role",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manage_permission_group_users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\"\n}",
+                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manage_permission_group_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manage_permission_group_users"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"message\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-76e749d0-e56f-4fec-86c3-92bf58539c99"
             },
             {
-              "id": "1a795205-e360-4205-ad36-9fbd5da02e52",
+              "id": "88c46048-f28b-45e6-8b88-1d0f570f608d",
               "name": "Bad request (missing required parameters or invalid action)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manage_permission_group_users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\"\n}",
+                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manage_permission_group_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manage_permission_group_users"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-88c46048-f28b-45e6-8b88-1d0f570f608d"
             },
             {
-              "id": "845a5ccc-8299-4ffd-8740-0b7bef1d6199",
+              "id": "ba6aa46d-239a-419e-8783-e5cbaecdc122",
               "name": "Unauthorized (missing or invalid API key)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manage_permission_group_users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\"\n}",
+                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manage_permission_group_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manage_permission_group_users"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-ba6aa46d-239a-419e-8783-e5cbaecdc122"
             },
             {
-              "id": "bc4e6aef-9fcb-49fb-95f3-213962ad3dc2",
+              "id": "de71c286-62fa-4f4b-9c8d-bf3cd6b01357",
               "name": "Forbidden (user is not an organization admin or custom role doesn't belong to organization)",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manage_permission_group_users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\"\n}",
+                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manage_permission_group_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manage_permission_group_users"
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-de71c286-62fa-4f4b-9c8d-bf3cd6b01357"
             },
             {
-              "id": "5a6b76e1-262b-4526-8c71-2f8183814d98",
+              "id": "f09d9490-53b0-4e9a-8a30-4cbaaa5d06db",
               "name": "Organization, custom role, or user not found",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manage_permission_group_users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\"\n}",
+                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manage_permission_group_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manage_permission_group_users"
+                  ]
                 }
               },
               "status": "Not Found",
               "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-f09d9490-53b0-4e9a-8a30-4cbaaa5d06db"
             },
             {
-              "id": "aeb457ad-3bcf-4786-a126-611ae1173eac",
+              "id": "d222d363-5d39-47d2-b856-c389cc3aa5ed",
               "name": "Internal server error",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "manage_permission_group_users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"<string>\",\n  \"user_email\": \"<string>\"\n}",
+                  "raw": "{\n  \"organization_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"action\": \"remove\",\n  \"user_email\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/manage_permission_group_users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "manage_permission_group_users"
+                  ]
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-d222d363-5d39-47d2-b856-c389cc3aa5ed"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-22T01:09:43.000Z",
+          "updatedAt": "2026-10-22T01:09:43.000Z",
+          "uid": "35240-0d3e29c1-4b36-46ec-bec5-a52ce39ab4d6"
+        }
+      ],
+      "id": "af6cc114-6070-4acc-8732-a44eaf9db8d7",
+      "createdAt": "2026-10-22T01:09:43.000Z",
+      "updatedAt": "2026-10-22T01:09:43.000Z",
+      "uid": "35240-af6cc114-6070-4acc-8732-a44eaf9db8d7"
+    },
+    {
+      "name": "export_data",
+      "item": [
+        {
+          "name": "Export data",
+          "id": "881e61a4-d5f2-45cc-9bf4-caabaf9dd902",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "abb112a5-ac13-477c-84f0-fd7295480106",
-          "name": "Export data",
+          },
           "request": {
-            "name": "Export data",
-            "description": {
-              "content": "This endpoint allows enterprise organization administrators to create and initiate a comprehensive data export for their organization or specific workspaces.\n\nThe export supports four data types:\n- **Workflow data** (`data_type: \"workflows\"`): Includes workflow runs, workbook details, user information, and other organizational data.\n- **Agent data** (`data_type: \"agents\"`): Includes agent configurations, metadata, tools, and creator information.\n- **Agent interaction data** (`data_type: \"agent_interactions\"`): Includes agent interaction data with timestamps, credit costs, trigger types, and message counts.\n- **Credit log data** (`data_type: \"credit_logs\"`): Includes credit transaction history with charges, balances, categories, and user attribution.\n\nThe available `export_fields` depend on the selected `data_type`. See the field descriptions below for details.\n\n**Scoping requirement:** For non-credit-log exports, at least one scoping parameter must be provided: `workspace_ids`, `include_all_workspaces`, `include_personal_workspaces`, or `entity_ids`. Requests that omit all scoping parameters will receive a `400` error.\n\n**Note:** Credit log exports work differently from workflow and agent exports. When `data_type` is `\"credit_logs\"`, the following parameters are **not applicable** and will be ignored: `export_level`, `workspace_ids`, `include_all_workspaces`, `include_personal_workspaces`, and `entity_ids`. Credit log exports are always scoped to the entire organization. Use `category_filter` to filter by credit log category.\n",
-              "type": "text/plain"
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
             },
-            "url": {
-              "path": [
-                "export_data"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -1189,716 +1231,711 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"user_id\": \"<string>\",\n  \"export_fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"data_type\": \"workflows\",\n  \"category_filter\": \"<string>\",\n  \"export_level\": \"organization\",\n  \"include_all_workspaces\": false,\n  \"include_personal_workspaces\": false,\n  \"workspace_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/export_data",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "export_data"
+              ]
+            },
+            "description": "This endpoint allows enterprise organization administrators to create and initiate a comprehensive data export for their organization or specific workspaces.\n\nThe export supports four data types:\n- **Workflow data** (`data_type: \"workflows\"`): Includes workflow runs, workbook details, user information, and other organizational data.\n- **Agent data** (`data_type: \"agents\"`): Includes agent configurations, metadata, tools, and creator information.\n- **Agent interaction data** (`data_type: \"agent_interactions\"`): Includes agent interaction data with timestamps, credit costs, trigger types, and message counts.\n- **Credit log data** (`data_type: \"credit_logs\"`): Includes credit transaction history with charges, balances, categories, and user attribution.\n\nThe available `export_fields` depend on the selected `data_type`. See the field descriptions below for details.\n\n**Scoping requirement:** For non-credit-log exports, at least one scoping parameter must be provided: `workspace_ids`, `include_all_workspaces`, `include_personal_workspaces`, or `entity_ids`. Requests that omit all scoping parameters will receive a `400` error.\n\n**Note:** Credit log exports work differently from workflow and agent exports. When `data_type` is `\"credit_logs\"`, the following parameters are **not applicable** and will be ignored: `export_level`, `workspace_ids`, `include_all_workspaces`, `include_personal_workspaces`, and `entity_ids`. Credit log exports are always scoped to the entire organization. Use `category_filter` to filter by credit log category."
           },
           "response": [
             {
-              "id": "9aff9b11-dcc5-411d-a7fe-a2b9b4ab5891",
+              "id": "4ed9f499-69d9-45fb-9a1d-88937f1f785c",
               "name": "Data export successfully initiated",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "export_data"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"user_id\": \"<string>\",\n  \"export_fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"data_type\": \"workflows\",\n  \"category_filter\": \"<string>\",\n  \"export_level\": \"organization\",\n  \"include_all_workspaces\": false,\n  \"include_personal_workspaces\": false,\n  \"workspace_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/export_data",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export_data"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"success\": false,\n  \"data_export_id\": \"string\",\n  \"state\": \"REQUESTED\",\n  \"created_ts\": \"2008-10-18T09:17:41.298Z\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"success\": \"<boolean>\",\n  \"data_export_id\": \"<string>\",\n  \"state\": \"REQUESTED\",\n  \"created_ts\": \"<dateTime>\"\n}",
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-4ed9f499-69d9-45fb-9a1d-88937f1f785c"
             },
             {
-              "id": "0251c292-65be-48d4-bf92-ed6814817dfb",
-              "name": "Bad request — missing required parameters, invalid date format, invalid `export_level` value, or missing scoping parameters (for non-credit-log exports, at least one of `workspace_ids`, `include_all_workspaces`, `include_personal_workspaces`, or `entity_ids` is required).",
+              "id": "4e2e1f52-1a7e-4e9a-8e39-227470f35a89",
+              "name": "Bad request \u2014 missing required parameters, invalid date format, invalid `export_level` value, or missing scoping parameters (for non-credit-log exports, at least one of `workspace_ids`, `include_all_workspaces`, `include_personal_workspaces`, or `entity_i",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "export_data"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"user_id\": \"<string>\",\n  \"export_fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"data_type\": \"workflows\",\n  \"category_filter\": \"<string>\",\n  \"export_level\": \"organization\",\n  \"include_all_workspaces\": false,\n  \"include_personal_workspaces\": false,\n  \"workspace_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/export_data",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export_data"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-4e2e1f52-1a7e-4e9a-8e39-227470f35a89"
             },
             {
-              "id": "6b754fdc-ca63-48f1-bf27-44c99371b216",
-              "name": "Unauthorized — missing or invalid API key.",
+              "id": "3bb9c372-702f-4ed3-b61a-e3395402868f",
+              "name": "Unauthorized \u2014 missing or invalid API key.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "export_data"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"user_id\": \"<string>\",\n  \"export_fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"data_type\": \"workflows\",\n  \"category_filter\": \"<string>\",\n  \"export_level\": \"organization\",\n  \"include_all_workspaces\": false,\n  \"include_personal_workspaces\": false,\n  \"workspace_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/export_data",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export_data"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-3bb9c372-702f-4ed3-b61a-e3395402868f"
             },
             {
-              "id": "ab723741-d163-4793-9117-c71e14b3524c",
-              "name": "Forbidden — insufficient permissions or the organization is not on the enterprise tier.",
+              "id": "98701124-48d6-4737-8501-39f47dbb3a31",
+              "name": "Forbidden \u2014 insufficient permissions or the organization is not on the enterprise tier.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "export_data"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"user_id\": \"<string>\",\n  \"export_fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"data_type\": \"workflows\",\n  \"category_filter\": \"<string>\",\n  \"export_level\": \"organization\",\n  \"include_all_workspaces\": false,\n  \"include_personal_workspaces\": false,\n  \"workspace_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/export_data",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export_data"
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-98701124-48d6-4737-8501-39f47dbb3a31"
             },
             {
-              "id": "8732e250-06c9-4b45-82d1-8268edbaa55a",
+              "id": "acf20605-b964-4bd4-a216-600864bf7ddf",
               "name": "Organization or workspace not found.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "export_data"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"user_id\": \"<string>\",\n  \"export_fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"data_type\": \"workflows\",\n  \"category_filter\": \"<string>\",\n  \"export_level\": \"organization\",\n  \"include_all_workspaces\": false,\n  \"include_personal_workspaces\": false,\n  \"workspace_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/export_data",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export_data"
+                  ]
                 }
               },
               "status": "Not Found",
               "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-acf20605-b964-4bd4-a216-600864bf7ddf"
             },
             {
-              "id": "c7b4a2dd-622b-4744-b79f-e45233a8cba6",
+              "id": "1cf53441-2530-4daf-9899-450d6c266303",
               "name": "Internal server error.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "export_data"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"user_id\": \"<string>\",\n  \"export_fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"data_type\": \"workflows\",\n  \"category_filter\": \"<string>\",\n  \"export_level\": \"organization\",\n  \"include_all_workspaces\": false,\n  \"include_personal_workspaces\": false,\n  \"workspace_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/export_data",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export_data"
+                  ]
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-1cf53441-2530-4daf-9899-450d6c266303"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-22T01:09:43.000Z",
+          "updatedAt": "2026-10-22T01:09:43.000Z",
+          "uid": "35240-881e61a4-d5f2-45cc-9bf4-caabaf9dd902"
+        }
+      ],
+      "id": "0c78a7f4-2418-4686-a3d3-23ea94d4f4d9",
+      "createdAt": "2026-10-22T01:09:43.000Z",
+      "updatedAt": "2026-10-22T01:09:43.000Z",
+      "uid": "35240-0c78a7f4-2418-4686-a3d3-23ea94d4f4d9"
+    },
+    {
+      "name": "export_status",
+      "item": [
+        {
+          "name": "Get data export status",
+          "id": "857581f3-28c1-43a0-a4d0-b578c1cf2f33",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "3a13444e-88eb-40ed-bcc3-e562e12499f3",
-          "name": "Get data export status",
+          },
           "request": {
-            "name": "Get data export status",
-            "description": {
-              "content": "This endpoint retrieves the status of a data export job and optionally downloads the export file (as CSV) if the export has completed successfully.\n\nUse the `data_export_id` returned by the [Export data](/api-reference/organization/export-data) endpoint to check progress.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "export_status"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+            "auth": {
+              "type": "bearer",
+              "bearer": [
                 {
-                  "disabled": false,
-                  "key": "user_id",
-                  "value": "<string>",
-                  "description": "(Required) The ID of the user requesting the export status."
-                },
-                {
-                  "disabled": false,
-                  "key": "data_export_id",
-                  "value": "<string>",
-                  "description": "(Required) The unique identifier of the data export job to check (returned by the Export data endpoint)."
-                },
-                {
-                  "disabled": false,
-                  "key": "download",
-                  "value": "false",
-                  "description": "Set to `true` to download the export file directly when the export is completed. When `true` and the export state is `COMPLETED`, the response will be a CSV file download instead of JSON.\n"
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
                 }
-              ],
-              "variable": []
+              ]
             },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+            "url": {
+              "raw": "{{baseUrl}}/export_status?user_id=<string>&data_export_id=<string>&download=false",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "export_status"
+              ],
+              "query": [
                 {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
+                  "description": "(Required) The ID of the user requesting the export status.",
+                  "key": "user_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The unique identifier of the data export job to check (returned by the Export data endpoint).",
+                  "key": "data_export_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Set to `true` to download the export file directly when the export is completed. When `true` and the export state is `COMPLETED`, the response will be a CSV file download instead of JSON.\n",
+                  "key": "download",
+                  "value": "false"
                 }
               ]
-            }
+            },
+            "description": "This endpoint retrieves the status of a data export job and optionally downloads the export file (as CSV) if the export has completed successfully.\n\nUse the `data_export_id` returned by the Export data endpoint to check progress."
           },
           "response": [
             {
-              "id": "474ee007-4d82-40e2-9299-91dfb830d272",
+              "id": "ca6cb52d-9bed-4926-a79c-7d2a152b4b59",
               "name": "Export status retrieved successfully. If `download=true` and the export state is `COMPLETED`, the response body will be the CSV file.\n",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "export_status"
-                  ],
+                  "raw": "{{baseUrl}}/export_status?user_id=<string>&data_export_id=<string>&download=false",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "export_status"
+                  ],
                   "query": [
                     {
+                      "description": "(Required) The ID of the user requesting the export status.",
                       "key": "user_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "(Required) The unique identifier of the data export job to check (returned by the Export data endpoint).",
                       "key": "data_export_id",
                       "value": "<string>"
                     },
                     {
+                      "description": "Set to `true` to download the export file directly when the export is completed. When `true` and the export state is `COMPLETED`, the response will be a CSV file download instead of JSON.\n",
                       "key": "download",
                       "value": "false"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data_export_id\": \"string\",\n  \"state\": \"FAILED\",\n  \"created_ts\": \"1951-06-14T21:07:27.511Z\",\n  \"finished_ts\": \"1957-12-10T06:27:11.090Z\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"data_export_id\": \"<string>\",\n  \"state\": \"FAILED\",\n  \"created_ts\": \"<dateTime>\",\n  \"finished_ts\": \"<dateTime>\"\n}",
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-ca6cb52d-9bed-4926-a79c-7d2a152b4b59"
             },
             {
-              "id": "5ab4f820-9106-4b66-bb96-f02ef0334629",
-              "name": "Bad request — missing `data_export_id` parameter.",
+              "id": "ae5b1757-9dd7-49a9-90d0-eda0b8981808",
+              "name": "Bad request \u2014 missing `data_export_id` parameter.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "export_status"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_export_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "download",
-                      "value": "false"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/export_status?user_id=<string>&data_export_id=<string>&download=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export_status"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the user requesting the export status.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The unique identifier of the data export job to check (returned by the Export data endpoint).",
+                      "key": "data_export_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to `true` to download the export file directly when the export is completed. When `true` and the export state is `COMPLETED`, the response will be a CSV file download instead of JSON.\n",
+                      "key": "download",
+                      "value": "false"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-ae5b1757-9dd7-49a9-90d0-eda0b8981808"
             },
             {
-              "id": "785e5376-b7ab-466c-98e6-5d5e595b8594",
-              "name": "Unauthorized — missing or invalid API key.",
+              "id": "f91bd407-d0f7-4d49-9449-2ec5b2f370d0",
+              "name": "Unauthorized \u2014 missing or invalid API key.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "export_status"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_export_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "download",
-                      "value": "false"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/export_status?user_id=<string>&data_export_id=<string>&download=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export_status"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the user requesting the export status.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The unique identifier of the data export job to check (returned by the Export data endpoint).",
+                      "key": "data_export_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to `true` to download the export file directly when the export is completed. When `true` and the export state is `COMPLETED`, the response will be a CSV file download instead of JSON.\n",
+                      "key": "download",
+                      "value": "false"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-f91bd407-d0f7-4d49-9449-2ec5b2f370d0"
             },
             {
-              "id": "6cc35bad-2897-47fe-8c8e-f439a7665357",
-              "name": "Forbidden — insufficient permissions, the export does not belong to the requesting user, or the organization is not on the enterprise tier.",
+              "id": "8f7d6202-fd34-4508-a8f4-b04b3704b986",
+              "name": "Forbidden \u2014 insufficient permissions, the export does not belong to the requesting user, or the organization is not on the enterprise tier.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "export_status"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_export_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "download",
-                      "value": "false"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/export_status?user_id=<string>&data_export_id=<string>&download=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export_status"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the user requesting the export status.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The unique identifier of the data export job to check (returned by the Export data endpoint).",
+                      "key": "data_export_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to `true` to download the export file directly when the export is completed. When `true` and the export state is `COMPLETED`, the response will be a CSV file download instead of JSON.\n",
+                      "key": "download",
+                      "value": "false"
+                    }
+                  ]
+                }
               },
               "status": "Forbidden",
               "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-8f7d6202-fd34-4508-a8f4-b04b3704b986"
             },
             {
-              "id": "df87ec83-3f79-472e-a17a-74161bb70318",
+              "id": "890eca58-4118-4435-b7f3-0a17dd02ce20",
               "name": "Data export not found, or the export file is no longer available.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "export_status"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_export_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "download",
-                      "value": "false"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/export_status?user_id=<string>&data_export_id=<string>&download=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export_status"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the user requesting the export status.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The unique identifier of the data export job to check (returned by the Export data endpoint).",
+                      "key": "data_export_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to `true` to download the export file directly when the export is completed. When `true` and the export state is `COMPLETED`, the response will be a CSV file download instead of JSON.\n",
+                      "key": "download",
+                      "value": "false"
+                    }
+                  ]
+                }
               },
               "status": "Not Found",
               "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-890eca58-4118-4435-b7f3-0a17dd02ce20"
             },
             {
-              "id": "ee90d0a9-af7c-44ea-904d-dac70ef76cd3",
+              "id": "884d2213-d9c1-44a2-8e04-d21a96134662",
               "name": "Internal server error.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "export_status"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "data_export_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "download",
-                      "value": "false"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/export_status?user_id=<string>&data_export_id=<string>&download=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "export_status"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the user requesting the export status.",
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The unique identifier of the data export job to check (returned by the Export data endpoint).",
+                      "key": "data_export_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to `true` to download the export file directly when the export is completed. When `true` and the export state is `COMPLETED`, the response will be a CSV file download instead of JSON.\n",
+                      "key": "download",
+                      "value": "false"
+                    }
+                  ]
+                }
               },
               "status": "Internal Server Error",
               "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:09:43.000Z",
+              "updatedAt": "2026-10-22T01:09:43.000Z",
+              "uid": "35240-884d2213-d9c1-44a2-8e04-d21a96134662"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:09:43.000Z",
+          "updatedAt": "2026-10-22T01:09:43.000Z",
+          "uid": "35240-857581f3-28c1-43a0-a4d0-b578c1cf2f33"
         }
       ],
-      "event": []
+      "id": "7bf40edb-8a8d-42e6-94fa-c7144e8abb50",
+      "createdAt": "2026-10-22T01:09:43.000Z",
+      "updatedAt": "2026-10-22T01:09:43.000Z",
+      "uid": "35240-7bf40edb-8a8d-42e6-94fa-c7144e8abb50"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.gumloop.com/api/v1",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.gumloop.com/api/v1"
     }
-  ],
-  "info": {
-    "_postman_id": "abf46d51-28c5-4fee-83c0-9b5b8bb5bdb4",
-    "name": "Public Agents Organization API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

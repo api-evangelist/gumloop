@@ -1,1301 +1,1274 @@
 {
+  "info": {
+    "_postman_id": "89c9309c-177f-4cb3-961f-b2224ee55d22",
+    "name": "Public MCP API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:09:27.000Z",
+    "updatedAt": "2026-10-22T01:09:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-89c9309c-177f-4cb3-961f-b2224ee55d22"
+  },
   "item": [
     {
-      "id": "054672cd-30e1-4b4e-953a-3a4fe0e61681",
-      "name": "MCP",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "mcp",
       "item": [
         {
-          "id": "928bad7e-b006-4c6a-8a6f-b7da5bd31424",
-          "name": "List MCP servers",
-          "request": {
-            "name": "List MCP servers",
-            "description": {
-              "content": "Return the catalog of MCP servers visible to the caller — Gumloop-hosted (`gumcp_server`), user-deployed Gumstack (`gumstack_server`), and custom (`mcp_server`) — along with each server's connection state.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "mcp",
-                "servers"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "team_id",
-                  "value": "<string>",
-                  "description": "Scope the catalog to a single team. When omitted, returns servers visible to the authenticated user."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "servers",
+          "item": [
             {
-              "id": "6e22a346-ca2c-4e08-b70a-0a8851fa2d23",
-              "name": "MCP servers visible to the caller.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "servers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "{server_id}",
+              "item": [
+                {
+                  "name": "tools",
+                  "item": [
                     {
-                      "key": "team_id",
-                      "value": "<string>"
+                      "name": "List MCP server tools",
+                      "id": "4d88e3a6-3a41-416d-a46b-5f9ae5efdb05",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mcp/servers/:server_id/tools?team_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mcp",
+                            "servers",
+                            ":server_id",
+                            "tools"
+                          ],
+                          "query": [
+                            {
+                              "description": "Scope the lookup to a single team.",
+                              "key": "team_id",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "d0a2ccc4-6f17-41cf-95ca-8263dff1c52a",
+                              "key": "server_id",
+                              "value": "<string>",
+                              "description": "(Required) Identifier of the MCP server."
+                            }
+                          ]
+                        },
+                        "description": "Return the tools exposed by an MCP server. When the server is not in `connected` state, `tools` is empty and `gumloop_auth_url` is returned so the caller can prompt the user to authenticate."
+                      },
+                      "response": [
+                        {
+                          "id": "afa95797-2e75-4e01-b183-1d46776fa0cf",
+                          "name": "Tools available on the server, plus the server's connection state.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mcp/servers/:server_id/tools?team_id=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mcp",
+                                "servers",
+                                ":server_id",
+                                "tools"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Scope the lookup to a single team.",
+                                  "key": "team_id",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"tools\": [\n    {\n      \"tool_call_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string,null>\",\n      \"input_schema\": {},\n      \"server_id\": \"<string,null>\",\n      \"server_type\": \"<string,null>\",\n      \"server\": {}\n    },\n    {\n      \"tool_call_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string,null>\",\n      \"input_schema\": {},\n      \"server_id\": \"<string,null>\",\n      \"server_type\": \"<string,null>\",\n      \"server\": {}\n    }\n  ],\n  \"server_id\": \"<string,null>\",\n  \"status\": \"<string,null>\",\n  \"gumloop_auth_url\": \"<string,null>\"\n}",
+                          "createdAt": "2026-10-22T01:09:28.000Z",
+                          "updatedAt": "2026-10-22T01:09:28.000Z",
+                          "uid": "35240-afa95797-2e75-4e01-b183-1d46776fa0cf"
+                        },
+                        {
+                          "id": "3dbbeafb-1746-456b-b557-e258b1663077",
+                          "name": "Unauthorized \u2014 missing or invalid API key.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mcp/servers/:server_id/tools?team_id=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mcp",
+                                "servers",
+                                ":server_id",
+                                "tools"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Scope the lookup to a single team.",
+                                  "key": "team_id",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:09:28.000Z",
+                          "updatedAt": "2026-10-22T01:09:28.000Z",
+                          "uid": "35240-3dbbeafb-1746-456b-b557-e258b1663077"
+                        },
+                        {
+                          "id": "c5dc10e9-2a86-45bf-92a9-b7dae1ce6790",
+                          "name": "Forbidden \u2014 the caller does not have agent access on the requested team.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mcp/servers/:server_id/tools?team_id=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mcp",
+                                "servers",
+                                ":server_id",
+                                "tools"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Scope the lookup to a single team.",
+                                  "key": "team_id",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:09:28.000Z",
+                          "updatedAt": "2026-10-22T01:09:28.000Z",
+                          "uid": "35240-c5dc10e9-2a86-45bf-92a9-b7dae1ce6790"
+                        },
+                        {
+                          "id": "0da572dd-d64e-4498-856c-ec43f353d84e",
+                          "name": "MCP server not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mcp/servers/:server_id/tools?team_id=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mcp",
+                                "servers",
+                                ":server_id",
+                                "tools"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Scope the lookup to a single team.",
+                                  "key": "team_id",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:09:28.000Z",
+                          "updatedAt": "2026-10-22T01:09:28.000Z",
+                          "uid": "35240-0da572dd-d64e-4498-856c-ec43f353d84e"
+                        },
+                        {
+                          "id": "66981a7b-8a23-4375-95c5-51ceca713937",
+                          "name": "Internal server error.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/mcp/servers/:server_id/tools?team_id=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "mcp",
+                                "servers",
+                                ":server_id",
+                                "tools"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Scope the lookup to a single team.",
+                                  "key": "team_id",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:09:28.000Z",
+                          "updatedAt": "2026-10-22T01:09:28.000Z",
+                          "uid": "35240-66981a7b-8a23-4375-95c5-51ceca713937"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:09:28.000Z",
+                      "updatedAt": "2026-10-22T01:09:28.000Z",
+                      "uid": "35240-4d88e3a6-3a41-416d-a46b-5f9ae5efdb05"
                     }
                   ],
-                  "variable": []
+                  "id": "a88c62bb-224e-412e-b609-43a972ebfacc",
+                  "createdAt": "2026-10-22T01:09:28.000Z",
+                  "updatedAt": "2026-10-22T01:09:28.000Z",
+                  "uid": "35240-a88c62bb-224e-412e-b609-43a972ebfacc"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                {
+                  "name": "Retrieve an MCP server",
+                  "id": "748f7e26-f742-4d38-a860-a1368c05f76a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/mcp/servers/:server_id?team_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mcp",
+                        "servers",
+                        ":server_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Scope the lookup to a single team.",
+                          "key": "team_id",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "eb8bf245-2fc8-4484-92e5-78ae4d66b421",
+                          "key": "server_id",
+                          "value": "<string>",
+                          "description": "(Required) Identifier of the MCP server to retrieve."
+                        }
+                      ]
+                    },
+                    "description": "Return a single MCP server. The response populates `allowed_tool_call_ids` with the tool call IDs the caller is permitted to invoke on this server."
+                  },
+                  "response": [
+                    {
+                      "id": "5c718bd1-698d-442b-bc9c-c0fee3ebfbc7",
+                      "name": "The requested MCP server.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mcp/servers/:server_id?team_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mcp",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Scope the lookup to a single team.",
+                              "key": "team_id",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"server\": {\n    \"server_id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"status\": \"<string>\",\n    \"gumloop_auth_url\": \"<string>\",\n    \"name\": \"<string,null>\",\n    \"icon_url\": \"<string,null>\",\n    \"description\": \"<string,null>\",\n    \"mcp_url\": \"<string,null>\",\n    \"tool_count\": \"<integer,null>\",\n    \"allowed_tool_call_ids\": \"<array,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T01:09:28.000Z",
+                      "updatedAt": "2026-10-22T01:09:28.000Z",
+                      "uid": "35240-5c718bd1-698d-442b-bc9c-c0fee3ebfbc7"
+                    },
+                    {
+                      "id": "6c904386-4125-4ff3-8196-760d3c47047f",
+                      "name": "Unauthorized \u2014 missing or invalid API key.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mcp/servers/:server_id?team_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mcp",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Scope the lookup to a single team.",
+                              "key": "team_id",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:28.000Z",
+                      "updatedAt": "2026-10-22T01:09:28.000Z",
+                      "uid": "35240-6c904386-4125-4ff3-8196-760d3c47047f"
+                    },
+                    {
+                      "id": "0a3d05d9-c818-41b9-a7ca-c6050176951a",
+                      "name": "Forbidden \u2014 the caller does not have agent access on the requested team.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mcp/servers/:server_id?team_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mcp",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Scope the lookup to a single team.",
+                              "key": "team_id",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:28.000Z",
+                      "updatedAt": "2026-10-22T01:09:28.000Z",
+                      "uid": "35240-0a3d05d9-c818-41b9-a7ca-c6050176951a"
+                    },
+                    {
+                      "id": "b07aa9e4-bccb-40c6-bf23-65936b065940",
+                      "name": "MCP server not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mcp/servers/:server_id?team_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mcp",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Scope the lookup to a single team.",
+                              "key": "team_id",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:28.000Z",
+                      "updatedAt": "2026-10-22T01:09:28.000Z",
+                      "uid": "35240-b07aa9e4-bccb-40c6-bf23-65936b065940"
+                    },
+                    {
+                      "id": "e2ee8770-8fce-43d0-aeac-d6fa7dc1a8b7",
+                      "name": "Internal server error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/mcp/servers/:server_id?team_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mcp",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Scope the lookup to a single team.",
+                              "key": "team_id",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:28.000Z",
+                      "updatedAt": "2026-10-22T01:09:28.000Z",
+                      "uid": "35240-e2ee8770-8fce-43d0-aeac-d6fa7dc1a8b7"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:09:28.000Z",
+                  "updatedAt": "2026-10-22T01:09:28.000Z",
+                  "uid": "35240-748f7e26-f742-4d38-a860-a1368c05f76a"
+                }
+              ],
+              "id": "14673cec-84a5-43d5-8254-974405488fc0",
+              "createdAt": "2026-10-22T01:09:28.000Z",
+              "updatedAt": "2026-10-22T01:09:28.000Z",
+              "uid": "35240-14673cec-84a5-43d5-8254-974405488fc0"
+            },
+            {
+              "name": "List MCP servers",
+              "id": "ecfe6e28-286b-4211-b79d-a228cf275a10",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"servers\": [\n    {\n      \"server_id\": \"gumloop_slack\",\n      \"name\": \"Slack\",\n      \"type\": \"gumcp_server\",\n      \"status\": \"connected\",\n      \"icon_url\": \"https://www.gumloop.com/icons/slack.png\",\n      \"description\": \"Send and read Slack messages.\",\n      \"gumloop_auth_url\": \"https://www.gumloop.com/oauth/connect/slack\",\n      \"mcp_url\": null,\n      \"tool_count\": 12,\n      \"allowed_tool_call_ids\": null\n    },\n    {\n      \"server_id\": \"gumloop_linear\",\n      \"name\": \"Linear\",\n      \"type\": \"gumcp_server\",\n      \"status\": \"unauthenticated\",\n      \"icon_url\": \"https://www.gumloop.com/icons/linear.png\",\n      \"description\": \"Read and create Linear issues.\",\n      \"gumloop_auth_url\": \"https://www.gumloop.com/oauth/connect/linear\",\n      \"mcp_url\": null,\n      \"tool_count\": 8,\n      \"allowed_tool_call_ids\": null\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "771e7f6e-9702-4246-a780-99540a712098",
-              "name": "Unauthorized — missing or invalid API key.",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/mcp/servers?team_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "mcp",
                     "servers"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Scope the catalog to a single team. When omitted, returns servers visible to the authenticated user.",
                       "key": "team_id",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Return the catalog of MCP servers visible to the caller \u2014 Gumloop-hosted (`gumcp_server`), user-deployed Gumstack (`gumstack_server`), and custom (`mcp_server`) \u2014 along with each server's connection state."
               },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "8714c95d-b851-45f9-8e75-8a6561a4adaa",
-              "name": "Forbidden — the caller does not have agent access on the requested team.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "servers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "dd521349-03a5-4027-855a-c26911df5d38",
+                  "name": "MCP servers visible to the caller.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/mcp/servers?team_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mcp",
+                        "servers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Scope the catalog to a single team. When omitted, returns servers visible to the authenticated user.",
+                          "key": "team_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "team_id",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"servers\": [\n    {\n      \"server_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"status\": \"<string>\",\n      \"gumloop_auth_url\": \"<string>\",\n      \"name\": \"<string,null>\",\n      \"icon_url\": \"<string,null>\",\n      \"description\": \"<string,null>\",\n      \"mcp_url\": \"<string,null>\",\n      \"tool_count\": \"<integer,null>\",\n      \"allowed_tool_call_ids\": \"<array,null>\"\n    },\n    {\n      \"server_id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"status\": \"<string>\",\n      \"gumloop_auth_url\": \"<string>\",\n      \"name\": \"<string,null>\",\n      \"icon_url\": \"<string,null>\",\n      \"description\": \"<string,null>\",\n      \"mcp_url\": \"<string,null>\",\n      \"tool_count\": \"<integer,null>\",\n      \"allowed_tool_call_ids\": \"<array,null>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T01:09:28.000Z",
+                  "updatedAt": "2026-10-22T01:09:28.000Z",
+                  "uid": "35240-dd521349-03a5-4027-855a-c26911df5d38"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "4ae7153e-0105-4d2f-89da-4b32aea32c1b",
-              "name": "Internal server error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "servers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
+                  "id": "58fed08b-e44b-460b-9be1-a78e629f7af7",
+                  "name": "Unauthorized \u2014 missing or invalid API key.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/mcp/servers?team_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mcp",
+                        "servers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Scope the catalog to a single team. When omitted, returns servers visible to the authenticated user.",
+                          "key": "team_id",
+                          "value": "<string>"
+                        }
+                      ]
                     }
-                  ],
-                  "variable": []
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:09:28.000Z",
+                  "updatedAt": "2026-10-22T01:09:28.000Z",
+                  "uid": "35240-58fed08b-e44b-460b-9be1-a78e629f7af7"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "3570f04c-1763-47db-a13a-d819a032e65e",
+                  "name": "Forbidden \u2014 the caller does not have agent access on the requested team.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/mcp/servers?team_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mcp",
+                        "servers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Scope the catalog to a single team. When omitted, returns servers visible to the authenticated user.",
+                          "key": "team_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:09:28.000Z",
+                  "updatedAt": "2026-10-22T01:09:28.000Z",
+                  "uid": "35240-3570f04c-1763-47db-a13a-d819a032e65e"
+                },
+                {
+                  "id": "95ecbd52-8393-46e9-8a1a-abda9918b004",
+                  "name": "Internal server error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/mcp/servers?team_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mcp",
+                        "servers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Scope the catalog to a single team. When omitted, returns servers visible to the authenticated user.",
+                          "key": "team_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:09:28.000Z",
+                  "updatedAt": "2026-10-22T01:09:28.000Z",
+                  "uid": "35240-95ecbd52-8393-46e9-8a1a-abda9918b004"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T01:09:28.000Z",
+              "updatedAt": "2026-10-22T01:09:28.000Z",
+              "uid": "35240-ecfe6e28-286b-4211-b79d-a228cf275a10"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "ebfe9943-b49e-470a-a075-8597db869960",
+          "createdAt": "2026-10-22T01:09:28.000Z",
+          "updatedAt": "2026-10-22T01:09:28.000Z",
+          "uid": "35240-ebfe9943-b49e-470a-a075-8597db869960"
         },
         {
-          "id": "75c1b43a-7e8b-49c8-b145-0593abf97831",
-          "name": "Retrieve an MCP server",
-          "request": {
-            "name": "Retrieve an MCP server",
-            "description": {
-              "content": "Return a single MCP server. The response populates `allowed_tool_call_ids` with the tool call IDs the caller is permitted to invoke on this server.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "mcp",
-                "servers",
-                ":server_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "team_id",
-                  "value": "<string>",
-                  "description": "Scope the lookup to a single team."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "server_id",
-                  "description": "(Required) Identifier of the MCP server to retrieve."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "tools",
+          "item": [
             {
-              "id": "dd117a39-7379-4e1e-adc0-a3d32fc8fe03",
-              "name": "The requested MCP server.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "servers",
-                    ":server_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "server_id",
-                      "description": "(Required) Identifier of the MCP server to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+              "name": "call",
+              "item": [
+                {
+                  "name": "Call MCP tools",
+                  "id": "87f95e81-9897-4842-bcbe-bf405c6acf8d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"server\": {\n    \"server_id\": \"gumloop_slack\",\n    \"name\": \"Slack\",\n    \"type\": \"gumcp_server\",\n    \"status\": \"connected\",\n    \"icon_url\": \"https://www.gumloop.com/icons/slack.png\",\n    \"description\": \"Send and read Slack messages.\",\n    \"gumloop_auth_url\": \"https://www.gumloop.com/oauth/connect/slack\",\n    \"mcp_url\": null,\n    \"tool_count\": 12,\n    \"allowed_tool_call_ids\": [\n      \"gumloop_slack__slack_send_message\",\n      \"gumloop_slack__slack_list_channels\"\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0faa369c-075b-4efc-bef8-af51aecaa77a",
-              "name": "Unauthorized — missing or invalid API key.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "servers",
-                    ":server_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "server_id",
-                      "description": "(Required) Identifier of the MCP server to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "ce56e704-90f7-415c-b823-fcb721fbf449",
-              "name": "Forbidden — the caller does not have agent access on the requested team.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "servers",
-                    ":server_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "server_id",
-                      "description": "(Required) Identifier of the MCP server to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"<string>\",\n      \"tool_name\": \"<string>\",\n      \"ref\": \"<string,null>\",\n      \"arguments\": {}\n    }\n  ],\n  \"team_id\": \"<string,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "c7e5a51d-5a45-4ccc-a5d4-e0d3935e402c",
-              "name": "MCP server not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "servers",
-                    ":server_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "server_id",
-                      "description": "(Required) Identifier of the MCP server to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                    "url": {
+                      "raw": "{{baseUrl}}/mcp/tools/call",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mcp",
+                        "tools",
+                        "call"
+                      ]
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "923a8465-0ee7-407d-80ea-947a383fc97e",
-              "name": "Internal server error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "servers",
-                    ":server_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                    "description": "Execute a batch of 1\u20135 MCP tool calls. Calls run concurrently and each result reports its own `status`. When Gumloop accepts the request, MCP execution failures such as target server authentication, policy blocks, invalid tools, upstream HTTP errors, and connection failures are returned in `results[*].status` and `results[*].error`. Top-level `4xx` responses are reserved for Gumloop request, authentication, and permission failures. `200` covers homogeneous execution outcomes (all calls succeeded or all calls failed); mixed success/failure batches return `207`. If you previously treated non-2xx HTTP statuses as MCP execution failures, update your integration to inspect each result's `status` and `error`."
+                  },
+                  "response": [
                     {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "server_id",
-                      "description": "(Required) Identifier of the MCP server to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                      "id": "884442c1-3d70-4215-9398-160d8e45ebd9",
+                      "name": "Batch processed. Inspect each result's `status` and `error`; this can include all-success and all-failed execution outcomes.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"<string>\",\n      \"tool_name\": \"<string>\",\n      \"ref\": \"<string,null>\",\n      \"arguments\": {}\n    }\n  ],\n  \"team_id\": \"<string,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mcp/tools/call",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mcp",
+                            "tools",
+                            "call"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"results\": [\n    {\n      \"ref\": \"<string>\",\n      \"status\": \"<string>\",\n      \"server_id\": \"<string,null>\",\n      \"tool_name\": \"<string,null>\",\n      \"content\": \"<array,null>\",\n      \"error\": \"<object,null>\"\n    },\n    {\n      \"ref\": \"<string>\",\n      \"status\": \"<string>\",\n      \"server_id\": \"<string,null>\",\n      \"tool_name\": \"<string,null>\",\n      \"content\": \"<array,null>\",\n      \"error\": \"<object,null>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:09:28.000Z",
+                      "updatedAt": "2026-10-22T01:09:28.000Z",
+                      "uid": "35240-884442c1-3d70-4215-9398-160d8e45ebd9"
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                    {
+                      "id": "07efe416-0055-4b62-8bb4-132854446308",
+                      "name": "Partial success \u2014 at least one call succeeded and at least one failed. Inspect each result's `status` and `error`.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"<string>\",\n      \"tool_name\": \"<string>\",\n      \"ref\": \"<string,null>\",\n      \"arguments\": {}\n    }\n  ],\n  \"team_id\": \"<string,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mcp/tools/call",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mcp",
+                            "tools",
+                            "call"
+                          ]
+                        }
+                      },
+                      "status": "Multi-Status (WebDAV) (RFC 4918)",
+                      "code": 207,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-10-22T01:09:28.000Z",
+                      "updatedAt": "2026-10-22T01:09:28.000Z",
+                      "uid": "35240-07efe416-0055-4b62-8bb4-132854446308"
+                    },
+                    {
+                      "id": "58fe7ba9-4fa3-44ae-8c50-cb5986081e7c",
+                      "name": "Invalid Gumloop request body, for example fewer than 1 or more than 5 calls.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"<string>\",\n      \"tool_name\": \"<string>\",\n      \"ref\": \"<string,null>\",\n      \"arguments\": {}\n    }\n  ],\n  \"team_id\": \"<string,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mcp/tools/call",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mcp",
+                            "tools",
+                            "call"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:28.000Z",
+                      "updatedAt": "2026-10-22T01:09:28.000Z",
+                      "uid": "35240-58fe7ba9-4fa3-44ae-8c50-cb5986081e7c"
+                    },
+                    {
+                      "id": "b22251a8-f77b-4e0c-b1d9-bc1e3f2254ac",
+                      "name": "Unauthorized \u2014 missing or invalid Gumloop API credentials.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"<string>\",\n      \"tool_name\": \"<string>\",\n      \"ref\": \"<string,null>\",\n      \"arguments\": {}\n    }\n  ],\n  \"team_id\": \"<string,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mcp/tools/call",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mcp",
+                            "tools",
+                            "call"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:28.000Z",
+                      "updatedAt": "2026-10-22T01:09:28.000Z",
+                      "uid": "35240-b22251a8-f77b-4e0c-b1d9-bc1e3f2254ac"
+                    },
+                    {
+                      "id": "03658ce6-4be5-4abd-b1d8-48649fcf9fe9",
+                      "name": "Forbidden \u2014 the caller lacks permission to use this Gumloop API endpoint or requested team scope.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"<string>\",\n      \"tool_name\": \"<string>\",\n      \"ref\": \"<string,null>\",\n      \"arguments\": {}\n    }\n  ],\n  \"team_id\": \"<string,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mcp/tools/call",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mcp",
+                            "tools",
+                            "call"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:28.000Z",
+                      "updatedAt": "2026-10-22T01:09:28.000Z",
+                      "uid": "35240-03658ce6-4be5-4abd-b1d8-48649fcf9fe9"
+                    },
+                    {
+                      "id": "59346a98-7fb1-4c84-a06f-981bb8a26da6",
+                      "name": "Internal server error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"<string>\",\n      \"tool_name\": \"<string>\",\n      \"ref\": \"<string,null>\",\n      \"arguments\": {}\n    }\n  ],\n  \"team_id\": \"<string,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/mcp/tools/call",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "mcp",
+                            "tools",
+                            "call"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:28.000Z",
+                      "updatedAt": "2026-10-22T01:09:28.000Z",
+                      "uid": "35240-59346a98-7fb1-4c84-a06f-981bb8a26da6"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:09:28.000Z",
+                  "updatedAt": "2026-10-22T01:09:28.000Z",
+                  "uid": "35240-87f95e81-9897-4842-bcbe-bf405c6acf8d"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "3b4a831f-a25d-4b28-a6ee-1dab0b23e675",
+              "createdAt": "2026-10-22T01:09:28.000Z",
+              "updatedAt": "2026-10-22T01:09:28.000Z",
+              "uid": "35240-3b4a831f-a25d-4b28-a6ee-1dab0b23e675"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "e06e69ad-ccaf-4fa9-90d9-6c176c9464b4",
-          "name": "List MCP server tools",
-          "request": {
-            "name": "List MCP server tools",
-            "description": {
-              "content": "Return the tools exposed by an MCP server. When the server is not in `connected` state, `tools` is empty and `gumloop_auth_url` is returned so the caller can prompt the user to authenticate.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "mcp",
-                "servers",
-                ":server_id",
-                "tools"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "team_id",
-                  "value": "<string>",
-                  "description": "Scope the lookup to a single team."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "server_id",
-                  "description": "(Required) Identifier of the MCP server."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "895935a1-b1d6-4408-9d9b-ad8deb7ef272",
-              "name": "Tools available on the server, plus the server's connection state.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "servers",
-                    ":server_id",
-                    "tools"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "server_id",
-                      "description": "(Required) Identifier of the MCP server."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"tools\": [\n    {\n      \"tool_call_id\": \"gumloop_slack__slack_send_message\",\n      \"name\": \"slack_send_message\",\n      \"description\": \"Send a message to a Slack channel.\",\n      \"input_schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"channel\": {\n            \"type\": \"string\"\n          },\n          \"text\": {\n            \"type\": \"string\"\n          }\n        },\n        \"required\": [\n          \"channel\",\n          \"text\"\n        ]\n      },\n      \"server_id\": \"gumloop_slack\",\n      \"server_type\": \"gumcp_server\",\n      \"server\": {}\n    }\n  ],\n  \"server_id\": \"gumloop_slack\",\n  \"status\": \"connected\",\n  \"gumloop_auth_url\": \"https://www.gumloop.com/oauth/connect/slack\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "775c9b22-dc86-4465-a1d6-759cd68f0f5d",
-              "name": "Unauthorized — missing or invalid API key.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "servers",
-                    ":server_id",
-                    "tools"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "server_id",
-                      "description": "(Required) Identifier of the MCP server."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "558936a5-cba1-42ca-a2f9-c80fafd305d9",
-              "name": "Forbidden — the caller does not have agent access on the requested team.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "servers",
-                    ":server_id",
-                    "tools"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "server_id",
-                      "description": "(Required) Identifier of the MCP server."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "6b846f96-454b-4a7c-8810-c0eb61f7023b",
-              "name": "MCP server not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "servers",
-                    ":server_id",
-                    "tools"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "server_id",
-                      "description": "(Required) Identifier of the MCP server."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "0db1ce06-cecd-442c-af0a-3af70781a2c7",
-              "name": "Internal server error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "servers",
-                    ":server_id",
-                    "tools"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "team_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "server_id",
-                      "description": "(Required) Identifier of the MCP server."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "949509db-a8e6-40bb-939e-6af072b444f2",
-          "name": "Call MCP tools",
-          "request": {
-            "name": "Call MCP tools",
-            "description": {
-              "content": "Execute a batch of 1–5 MCP tool calls. Calls run concurrently and each result reports its own `status`. When Gumloop accepts the request, MCP execution failures such as target server authentication, policy blocks, invalid tools, upstream HTTP errors, and connection failures are returned in `results[*].status` and `results[*].error`. Top-level `4xx` responses are reserved for Gumloop request, authentication, and permission failures. `200` covers homogeneous execution outcomes (all calls succeeded or all calls failed); mixed success/failure batches return `207`. If you previously treated non-2xx HTTP statuses as MCP execution failures, update your integration to inspect each result's `status` and `error`.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "mcp",
-                "tools",
-                "call"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"<string>\",\n      \"tool_name\": \"<string>\",\n      \"ref\": \"<string>\",\n      \"arguments\": \"<object>\"\n    }\n  ],\n  \"team_id\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "e4c46ec1-8947-4290-9bdd-61226b58d65f",
-              "name": "Batch processed. Inspect each result's `status` and `error`; this can include all-success and all-failed execution outcomes.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "tools",
-                    "call"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"gumloop_slack\",\n      \"tool_name\": \"slack_send_message\",\n      \"ref\": \"send-1\",\n      \"arguments\": {\n        \"channel\": \"#general\",\n        \"text\": \"Hello from Gumloop\"\n      }\n    }\n  ],\n  \"team_id\": \"team_4f8c92ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"results\": [\n    {\n      \"ref\": \"send-1\",\n      \"server_id\": \"gumloop_slack\",\n      \"tool_name\": \"slack_send_message\",\n      \"status\": \"success\",\n      \"content\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"Message sent to #general\"\n        }\n      ],\n      \"error\": null\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "454547ff-ba06-45a9-93d7-60c2ae9d7543",
-              "name": "Partial success — at least one call succeeded and at least one failed. Inspect each result's `status` and `error`.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "tools",
-                    "call"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"gumloop_slack\",\n      \"tool_name\": \"slack_send_message\",\n      \"ref\": \"send-1\",\n      \"arguments\": {\n        \"channel\": \"#general\",\n        \"text\": \"Hello from Gumloop\"\n      }\n    }\n  ],\n  \"team_id\": \"team_4f8c92ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Multi-Status (WebDAV) (RFC 4918)",
-              "code": 207,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"results\": [\n    {\n      \"ref\": \"send-1\",\n      \"server_id\": \"gumloop_slack\",\n      \"tool_name\": \"slack_send_message\",\n      \"status\": \"success\",\n      \"content\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"Message sent to #general\"\n        }\n      ],\n      \"error\": null\n    },\n    {\n      \"ref\": \"issue-1\",\n      \"server_id\": \"gumloop_linear\",\n      \"tool_name\": \"linear_create_issue\",\n      \"status\": \"unauthenticated\",\n      \"content\": null,\n      \"error\": {\n        \"code\": \"auth_required\",\n        \"message\": \"Connect Linear before using this tool.\",\n        \"type\": \"permission_error\",\n        \"param\": \"tool_name\",\n        \"details\": {\n          \"server_id\": \"gumloop_linear\",\n          \"tool_name\": \"linear_create_issue\",\n          \"gumloop_auth_url\": \"https://www.gumloop.com/oauth/connect/linear\"\n        }\n      }\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f2ad549c-36b8-433b-82a4-07bd7c647cbe",
-              "name": "Invalid Gumloop request body, for example fewer than 1 or more than 5 calls.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "tools",
-                    "call"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"gumloop_slack\",\n      \"tool_name\": \"slack_send_message\",\n      \"ref\": \"send-1\",\n      \"arguments\": {\n        \"channel\": \"#general\",\n        \"text\": \"Hello from Gumloop\"\n      }\n    }\n  ],\n  \"team_id\": \"team_4f8c92ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "31ef9bce-2b0e-4350-aab7-fb07315290e1",
-              "name": "Unauthorized — missing or invalid Gumloop API credentials.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "tools",
-                    "call"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"gumloop_slack\",\n      \"tool_name\": \"slack_send_message\",\n      \"ref\": \"send-1\",\n      \"arguments\": {\n        \"channel\": \"#general\",\n        \"text\": \"Hello from Gumloop\"\n      }\n    }\n  ],\n  \"team_id\": \"team_4f8c92ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "094d1334-96b6-4273-9888-6c5f81145507",
-              "name": "Forbidden — the caller lacks permission to use this Gumloop API endpoint or requested team scope.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "tools",
-                    "call"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"gumloop_slack\",\n      \"tool_name\": \"slack_send_message\",\n      \"ref\": \"send-1\",\n      \"arguments\": {\n        \"channel\": \"#general\",\n        \"text\": \"Hello from Gumloop\"\n      }\n    }\n  ],\n  \"team_id\": \"team_4f8c92ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "6dcedfca-e02c-4bed-b45a-61dcb97f97e4",
-              "name": "Internal server error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "mcp",
-                    "tools",
-                    "call"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"calls\": [\n    {\n      \"server_id\": \"gumloop_slack\",\n      \"tool_name\": \"slack_send_message\",\n      \"ref\": \"send-1\",\n      \"arguments\": {\n        \"channel\": \"#general\",\n        \"text\": \"Hello from Gumloop\"\n      }\n    }\n  ],\n  \"team_id\": \"team_4f8c92ab\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "e6b83f17-d963-49bc-ab75-174dddd02501",
+          "createdAt": "2026-10-22T01:09:28.000Z",
+          "updatedAt": "2026-10-22T01:09:28.000Z",
+          "uid": "35240-e6b83f17-d963-49bc-ab75-174dddd02501"
         }
       ],
-      "event": []
+      "id": "ae6c18a1-94b5-43b4-b4ae-b984cf20db32",
+      "createdAt": "2026-10-22T01:09:28.000Z",
+      "updatedAt": "2026-10-22T01:09:28.000Z",
+      "uid": "35240-ae6c18a1-94b5-43b4-b4ae-b984cf20db32"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.gumloop.com/api/v1",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.gumloop.com/api/v1"
     }
-  ],
-  "info": {
-    "_postman_id": "6c686dd2-f558-45ea-bbf5-ffd5fdc3bb77",
-    "name": "Public Agents MCP API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

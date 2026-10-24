@@ -1,2259 +1,2183 @@
 {
+  "info": {
+    "_postman_id": "606e6e26-2f95-4e2d-b296-df568651e3f6",
+    "name": "Public Sessions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:09:48.000Z",
+    "updatedAt": "2026-10-22T01:09:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-606e6e26-2f95-4e2d-b296-df568651e3f6"
+  },
   "item": [
     {
-      "id": "7aca585d-ffa6-42c3-98d0-c06bcae82a54",
-      "name": "Sessions",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "agents",
       "item": [
         {
-          "id": "f62ca702-ab14-4748-aa80-cdfacab7ab4e",
-          "name": "List sessions",
-          "request": {
-            "name": "List sessions",
-            "description": {
-              "content": "List sessions for an agent with cursor-based pagination, optional filtering, and search.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "agents",
-                ":agent_id",
-                "sessions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "page_size",
-                  "value": "20",
-                  "description": "Number of sessions to return per page. Defaults to `20`, maximum `100`."
-                },
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>",
-                  "description": "Cursor for the next page of results. Use the `next_cursor` value from a previous response."
-                },
-                {
-                  "disabled": false,
-                  "key": "search",
-                  "value": "<string>",
-                  "description": "Free-text search query to filter sessions by name or content. Also accepted as `search_query`."
-                },
-                {
-                  "disabled": false,
-                  "key": "sort_order",
-                  "value": "<string>",
-                  "description": "Sort order for the results (e.g. `newest` or `oldest`)."
-                },
-                {
-                  "disabled": false,
-                  "key": "type",
-                  "value": "<string>",
-                  "description": "Filter sessions by type (e.g. `api`, `web`, `slack`)."
-                },
-                {
-                  "disabled": false,
-                  "key": "state",
-                  "value": "<string>",
-                  "description": "Filter sessions by state."
-                },
-                {
-                  "disabled": false,
-                  "key": "creator_user_id",
-                  "value": "<string>",
-                  "description": "Filter sessions by the user who created them."
-                },
-                {
-                  "disabled": false,
-                  "key": "trigger_id",
-                  "value": "<string>",
-                  "description": "Filter sessions by the trigger that initiated them."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "agent_id",
-                  "description": "(Required) ID of the agent whose sessions to list."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "{agent_id}",
+          "item": [
             {
-              "id": "5d0312cf-8daf-47e3-9acb-5d4994e08859",
-              "name": "A paginated list of sessions.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page_size",
-                      "value": "20"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_order",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "state",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "creator_user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "trigger_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent whose sessions to list."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+              "name": "sessions",
+              "item": [
+                {
+                  "name": "List sessions",
+                  "id": "d6ff7263-39f5-4cb8-8000-07b4a0f96201",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"sessions\": [\n    {\n      \"id\": \"sess_xYz789AbCd\",\n      \"agent_id\": \"abc123DEFghiJKL\",\n      \"name\": \"Research task\",\n      \"type\": \"api\",\n      \"messages\": [],\n      \"created_at\": \"2026-05-15T14:32:00Z\",\n      \"state\": \"completed\",\n      \"agent_name\": \"Sales research agent\",\n      \"creator\": {\n        \"id\": \"user_2b9d71f0\",\n        \"first_name\": \"Ada\",\n        \"last_name\": \"Lovelace\",\n        \"email\": \"ada@example.com\",\n        \"profile_picture\": null\n      }\n    },\n    {\n      \"id\": \"sess_AbC123dEfG\",\n      \"agent_id\": \"abc123DEFghiJKL\",\n      \"name\": \"Follow-up call\",\n      \"type\": \"web\",\n      \"messages\": [],\n      \"created_at\": \"2026-05-14T09:15:00Z\",\n      \"state\": \"completed\",\n      \"agent_name\": \"Sales research agent\",\n      \"creator\": {\n        \"id\": \"user_2b9d71f0\",\n        \"first_name\": \"Ada\",\n        \"last_name\": \"Lovelace\",\n        \"email\": \"ada@example.com\",\n        \"profile_picture\": null\n      }\n    }\n  ],\n  \"next_cursor\": \"eyJzb3J0X3ZhbHVlIjoiMjAyNi0wNS0xNFQwOToxNTowMFoifQ==\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b098c5fe-822d-4ba6-b11e-730a85f68f9e",
-              "name": "Unauthorized — missing or invalid API key.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id/sessions?page_size=20&cursor=<string>&search=<string>&sort_order=<string>&type=<string>&state=queued&creator_user_id=<string>&trigger_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id",
+                        "sessions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of sessions to return per page. Defaults to `20`, maximum `100`.",
+                          "key": "page_size",
+                          "value": "20"
+                        },
+                        {
+                          "description": "Cursor for the next page of results. Use the `next_cursor` value from a previous response.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Free-text search query to filter sessions by name or content. Also accepted as `search_query`.",
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Sort order for the results (e.g. `newest` or `oldest`).",
+                          "key": "sort_order",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter sessions by type (e.g. `api`, `web`, `slack`).",
+                          "key": "type",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter sessions by state.",
+                          "key": "state",
+                          "value": "queued"
+                        },
+                        {
+                          "description": "Filter sessions by the user who created them.",
+                          "key": "creator_user_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter sessions by the trigger that initiated them.",
+                          "key": "trigger_id",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "2a37a6b0-9e95-4856-839b-99acc9131efc",
+                          "key": "agent_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the agent whose sessions to list."
+                        }
+                      ]
+                    },
+                    "description": "List sessions for an agent with cursor-based pagination, optional filtering, and search."
+                  },
+                  "response": [
                     {
-                      "key": "page_size",
-                      "value": "20"
+                      "id": "17601acb-f859-4bba-8ab2-a41b508120a7",
+                      "name": "A paginated list of sessions.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions?page_size=20&cursor=<string>&search=<string>&sort_order=<string>&type=<string>&state=queued&creator_user_id=<string>&trigger_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of sessions to return per page. Defaults to `20`, maximum `100`.",
+                              "key": "page_size",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Cursor for the next page of results. Use the `next_cursor` value from a previous response.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Free-text search query to filter sessions by name or content. Also accepted as `search_query`.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Sort order for the results (e.g. `newest` or `oldest`).",
+                              "key": "sort_order",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by type (e.g. `api`, `web`, `slack`).",
+                              "key": "type",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by state.",
+                              "key": "state",
+                              "value": "queued"
+                            },
+                            {
+                              "description": "Filter sessions by the user who created them.",
+                              "key": "creator_user_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by the trigger that initiated them.",
+                              "key": "trigger_id",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"sessions\": [\n    {\n      \"id\": \"<string>\",\n      \"agent_id\": \"<string>\",\n      \"name\": \"<string,null>\",\n      \"type\": \"<string,null>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"state\": \"completed\",\n      \"agent_name\": \"<string,null>\",\n      \"creator\": null\n    },\n    {\n      \"id\": \"<string>\",\n      \"agent_id\": \"<string>\",\n      \"name\": \"<string,null>\",\n      \"type\": \"<string,null>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"state\": \"idle\",\n      \"agent_name\": \"<string,null>\",\n      \"creator\": {\n        \"id\": \"<string,null>\",\n        \"first_name\": \"<string,null>\",\n        \"last_name\": \"<string,null>\",\n        \"email\": \"<string,null>\",\n        \"profile_picture\": \"<string,null>\"\n      }\n    }\n  ],\n  \"next_cursor\": \"<string,null>\"\n}",
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-17601acb-f859-4bba-8ab2-a41b508120a7"
                     },
                     {
-                      "key": "cursor",
-                      "value": "<string>"
+                      "id": "7db0377d-1409-45b6-9f41-7ecf5b51709d",
+                      "name": "Unauthorized \u2014 missing or invalid API key.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions?page_size=20&cursor=<string>&search=<string>&sort_order=<string>&type=<string>&state=queued&creator_user_id=<string>&trigger_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of sessions to return per page. Defaults to `20`, maximum `100`.",
+                              "key": "page_size",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Cursor for the next page of results. Use the `next_cursor` value from a previous response.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Free-text search query to filter sessions by name or content. Also accepted as `search_query`.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Sort order for the results (e.g. `newest` or `oldest`).",
+                              "key": "sort_order",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by type (e.g. `api`, `web`, `slack`).",
+                              "key": "type",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by state.",
+                              "key": "state",
+                              "value": "queued"
+                            },
+                            {
+                              "description": "Filter sessions by the user who created them.",
+                              "key": "creator_user_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by the trigger that initiated them.",
+                              "key": "trigger_id",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-7db0377d-1409-45b6-9f41-7ecf5b51709d"
                     },
                     {
-                      "key": "search",
-                      "value": "<string>"
+                      "id": "38e0fe6d-df9b-452f-a295-5045f6be437a",
+                      "name": "Forbidden \u2014 the caller does not have read access on the agent.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions?page_size=20&cursor=<string>&search=<string>&sort_order=<string>&type=<string>&state=queued&creator_user_id=<string>&trigger_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of sessions to return per page. Defaults to `20`, maximum `100`.",
+                              "key": "page_size",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Cursor for the next page of results. Use the `next_cursor` value from a previous response.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Free-text search query to filter sessions by name or content. Also accepted as `search_query`.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Sort order for the results (e.g. `newest` or `oldest`).",
+                              "key": "sort_order",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by type (e.g. `api`, `web`, `slack`).",
+                              "key": "type",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by state.",
+                              "key": "state",
+                              "value": "queued"
+                            },
+                            {
+                              "description": "Filter sessions by the user who created them.",
+                              "key": "creator_user_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by the trigger that initiated them.",
+                              "key": "trigger_id",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-38e0fe6d-df9b-452f-a295-5045f6be437a"
                     },
                     {
-                      "key": "sort_order",
-                      "value": "<string>"
+                      "id": "70babd5c-4496-40db-bb1a-1a157e34990b",
+                      "name": "Agent not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions?page_size=20&cursor=<string>&search=<string>&sort_order=<string>&type=<string>&state=queued&creator_user_id=<string>&trigger_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of sessions to return per page. Defaults to `20`, maximum `100`.",
+                              "key": "page_size",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Cursor for the next page of results. Use the `next_cursor` value from a previous response.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Free-text search query to filter sessions by name or content. Also accepted as `search_query`.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Sort order for the results (e.g. `newest` or `oldest`).",
+                              "key": "sort_order",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by type (e.g. `api`, `web`, `slack`).",
+                              "key": "type",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by state.",
+                              "key": "state",
+                              "value": "queued"
+                            },
+                            {
+                              "description": "Filter sessions by the user who created them.",
+                              "key": "creator_user_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by the trigger that initiated them.",
+                              "key": "trigger_id",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-70babd5c-4496-40db-bb1a-1a157e34990b"
                     },
                     {
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "state",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "creator_user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "trigger_id",
-                      "value": "<string>"
+                      "id": "5b0fca09-22a2-4bad-8414-e5208d037833",
+                      "name": "Internal server error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions?page_size=20&cursor=<string>&search=<string>&sort_order=<string>&type=<string>&state=queued&creator_user_id=<string>&trigger_id=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of sessions to return per page. Defaults to `20`, maximum `100`.",
+                              "key": "page_size",
+                              "value": "20"
+                            },
+                            {
+                              "description": "Cursor for the next page of results. Use the `next_cursor` value from a previous response.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Free-text search query to filter sessions by name or content. Also accepted as `search_query`.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Sort order for the results (e.g. `newest` or `oldest`).",
+                              "key": "sort_order",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by type (e.g. `api`, `web`, `slack`).",
+                              "key": "type",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by state.",
+                              "key": "state",
+                              "value": "queued"
+                            },
+                            {
+                              "description": "Filter sessions by the user who created them.",
+                              "key": "creator_user_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter sessions by the trigger that initiated them.",
+                              "key": "trigger_id",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-5b0fca09-22a2-4bad-8414-e5208d037833"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent whose sessions to list."
-                    }
-                  ]
+                  "createdAt": "2026-10-22T01:09:49.000Z",
+                  "updatedAt": "2026-10-22T01:09:49.000Z",
+                  "uid": "35240-d6ff7263-39f5-4cb8-8000-07b4a0f96201"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "name": "Create session",
+                  "id": "c4c63190-31c9-4106-96d8-d4f4c90b470a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"input\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"metadata\": {},\n  \"stream\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id/sessions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id",
+                        "sessions"
+                      ],
+                      "variable": [
+                        {
+                          "id": "76f91a02-903f-4925-b2f8-7035793e06cf",
+                          "key": "agent_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the agent to start a session on."
+                        }
+                      ]
+                    },
+                    "description": "Create a new session for an agent. When `input` is provided, the message is enqueued and the agent begins processing \u2014 the response returns `202` with the session in `processing` or `queued` state. When `input` is omitted, an idle session stub is created and the response returns `201`.\n\n### Streaming the response\n\n`api.gumloop.com` only serves the non-streaming response above. To stream agent output as it's produced, send the same request body (with `stream: true`) to the streaming host instead:\n\n```\nPOST https://ws.gumloop.com/api/v1/agents/{agent_id}/sessions\n```\n\nThe response is `text/event-stream` (Server-Sent Events). With the Python SDK, `client.sessions.stream(agent_id, input=\"...\")` routes to `ws.gumloop.com` automatically and yields parsed `StreamEvent` objects.\n\nIf you send `stream: true` to `api.gumloop.com` by mistake, the response is a `400` whose body contains the correct streaming host so you can retry against it."
+                  },
+                  "response": [
+                    {
+                      "id": "af9caaae-59d3-4b1d-b2b2-3b23e7dc58b5",
+                      "name": "Idle session created. Returned when the request body has no `input` \u2014 a session stub is created and no agent run is started.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"metadata\": {},\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"session\": {\n    \"id\": \"<string>\",\n    \"agent_id\": \"<string>\",\n    \"created_at\": \"<string,null-date-time>\",\n    \"state\": \"idle\",\n    \"agent_name\": \"<string,null>\",\n    \"agent_team_id\": \"<string,null>\",\n    \"agent_creator_user_id\": \"<string,null>\",\n    \"agent_icon_url\": \"<string,null>\",\n    \"participants\": {},\n    \"creator\": null\n  },\n  \"queue_position\": \"<integer,null>\"\n}",
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-af9caaae-59d3-4b1d-b2b2-3b23e7dc58b5"
+                    },
+                    {
+                      "id": "f649a491-33ee-47ee-8b4f-7bf1971ad3e9",
+                      "name": "Session created and the first message was enqueued. Returned when `input` is provided. `queue_position` is set only when the session was queued behind concurrent runs.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"metadata\": {},\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"session\": {\n    \"id\": \"<string>\",\n    \"agent_id\": \"<string>\",\n    \"messages\": [\n      {\n        \"id\": \"<string,null>\",\n        \"role\": \"<string,null>\",\n        \"content\": \"<string,null>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"creator_id\": \"<string,null>\",\n        \"parts\": \"<array,null>\"\n      },\n      {\n        \"id\": \"<string,null>\",\n        \"role\": \"<string,null>\",\n        \"content\": \"<string,null>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"creator_id\": \"<string,null>\",\n        \"parts\": \"<array,null>\"\n      }\n    ],\n    \"created_at\": \"<string,null-date-time>\",\n    \"state\": \"idle\",\n    \"agent_name\": \"<string,null>\",\n    \"agent_team_id\": \"<string,null>\",\n    \"agent_creator_user_id\": \"<string,null>\",\n    \"agent_icon_url\": \"<string,null>\",\n    \"participants\": {},\n    \"creator\": {\n      \"id\": \"<string,null>\",\n      \"first_name\": \"<string,null>\",\n      \"last_name\": \"<string,null>\",\n      \"email\": \"<string,null>\",\n      \"profile_picture\": \"<string,null>\"\n    }\n  },\n  \"queue_position\": \"<integer,null>\"\n}",
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-f649a491-33ee-47ee-8b4f-7bf1971ad3e9"
+                    },
+                    {
+                      "id": "4cfa9465-9f1a-42a9-9657-bb574431bb6a",
+                      "name": "Bad request \u2014 invalid body, or `stream: true` was set on this host (use the streaming host).",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"metadata\": {},\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-4cfa9465-9f1a-42a9-9657-bb574431bb6a"
+                    },
+                    {
+                      "id": "7d3a800e-a5d7-4a1c-ac30-2abbc6b8dc6e",
+                      "name": "Unauthorized \u2014 missing or invalid API key.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"metadata\": {},\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-7d3a800e-a5d7-4a1c-ac30-2abbc6b8dc6e"
+                    },
+                    {
+                      "id": "6801fc6e-35e5-4006-afcf-371b2e09c563",
+                      "name": "Forbidden \u2014 the caller does not have read access on the agent.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"metadata\": {},\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-6801fc6e-35e5-4006-afcf-371b2e09c563"
+                    },
+                    {
+                      "id": "5a19ba69-a2a5-48c2-b9a0-4880985ecd5c",
+                      "name": "Agent not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"metadata\": {},\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-5a19ba69-a2a5-48c2-b9a0-4880985ecd5c"
+                    },
+                    {
+                      "id": "9ef4ab0a-02d4-43b6-8b81-67684426484f",
+                      "name": "Conflict \u2014 a session with the supplied `session_id` already exists.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"metadata\": {},\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-9ef4ab0a-02d4-43b6-8b81-67684426484f"
+                    },
+                    {
+                      "id": "2014074d-a369-405f-bf45-f178e084640e",
+                      "name": "Rate limited \u2014 the agent's concurrency limit was exceeded.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"metadata\": {},\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-2014074d-a369-405f-bf45-f178e084640e"
+                    },
+                    {
+                      "id": "1f7fbcf2-2b56-4efa-b72e-702ba7c308f7",
+                      "name": "Internal server error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"metadata\": {},\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/sessions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "sessions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-1f7fbcf2-2b56-4efa-b72e-702ba7c308f7"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:09:49.000Z",
+                  "updatedAt": "2026-10-22T01:09:49.000Z",
+                  "uid": "35240-c4c63190-31c9-4106-96d8-d4f4c90b470a"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "87c204ab-5c78-4cde-ac4a-c2f7466dbb8c",
-              "name": "Forbidden — the caller does not have read access on the agent.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page_size",
-                      "value": "20"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_order",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "state",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "creator_user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "trigger_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent whose sessions to list."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "3f76a1f4-bfde-40a2-a9e6-3010e7f22772",
-              "name": "Agent not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page_size",
-                      "value": "20"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_order",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "state",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "creator_user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "trigger_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent whose sessions to list."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "d28d850b-156d-4aff-8479-9451e807b934",
-              "name": "Internal server error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "page_size",
-                      "value": "20"
-                    },
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sort_order",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "state",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "creator_user_id",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "trigger_id",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent whose sessions to list."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "8ae68ab4-6e3d-49dd-ad5a-2f25aa0840d2",
+              "createdAt": "2026-10-22T01:09:48.000Z",
+              "updatedAt": "2026-10-22T01:09:48.000Z",
+              "uid": "35240-8ae68ab4-6e3d-49dd-ad5a-2f25aa0840d2"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "cd141f05-9027-43db-929e-1e72eb08ab0d",
-          "name": "Create session",
-          "request": {
-            "name": "Create session",
-            "description": {
-              "content": "Create a new session for an agent. When `input` is provided, the message is enqueued and the agent begins processing — the response returns `202` with the session in `processing` or `queued` state. When `input` is omitted, an idle session stub is created and the response returns `201`.\n\n### Streaming the response\n\n`api.gumloop.com` only serves the non-streaming response above. To stream agent output as it's produced, send the same request body (with `stream: true`) to the streaming host instead:\n\n```\nPOST https://ws.gumloop.com/api/v1/agents/{agent_id}/sessions\n```\n\nThe response is `text/event-stream` (Server-Sent Events). With the Python SDK, `client.sessions.stream(agent_id, input=\"...\")` routes to `ws.gumloop.com` automatically and yields parsed `StreamEvent` objects.\n\nIf you send `stream: true` to `api.gumloop.com` by mistake, the response is a `400` whose body contains the correct streaming host so you can retry against it.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "agents",
-                ":agent_id",
-                "sessions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "agent_id",
-                  "description": "(Required) ID of the agent to start a session on."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"input\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"metadata\": \"<object>\",\n  \"stream\": false\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "21a85110-32bf-42e0-a10a-65a668d19ce1",
-              "name": "Idle session created. Returned when the request body has no `input` — a session stub is created and no agent run is started.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent to start a session on."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Research Acme Corp and draft a brief.\",\n  \"session_id\": \"sess_xYz789AbCd\",\n  \"metadata\": \"<object>\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"session\": {\n    \"id\": \"sess_xYz789AbCd\",\n    \"agent_id\": \"abc123DEFghiJKL\",\n    \"messages\": [],\n    \"created_at\": \"2026-05-15T14:32:00Z\",\n    \"state\": \"idle\",\n    \"agent_name\": \"Sales research agent\",\n    \"agent_team_id\": \"team_4f8c92ab\",\n    \"agent_creator_user_id\": \"user_2b9d71f0\",\n    \"agent_icon_url\": null,\n    \"agent_tools\": [],\n    \"participants\": {},\n    \"creator\": {\n      \"id\": \"user_2b9d71f0\",\n      \"first_name\": \"Ada\",\n      \"last_name\": \"Lovelace\",\n      \"email\": \"ada@example.com\",\n      \"profile_picture\": null\n    }\n  },\n  \"queue_position\": null\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3fbff5ec-e41c-44d0-b8b5-d9dbd5ca15a3",
-              "name": "Session created and the first message was enqueued. Returned when `input` is provided. `queue_position` is set only when the session was queued behind concurrent runs.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent to start a session on."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Research Acme Corp and draft a brief.\",\n  \"session_id\": \"sess_xYz789AbCd\",\n  \"metadata\": \"<object>\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Accepted",
-              "code": 202,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"session\": {\n    \"id\": \"sess_xYz789AbCd\",\n    \"agent_id\": \"abc123DEFghiJKL\",\n    \"messages\": [\n      {\n        \"id\": \"msg_a1b2c3\",\n        \"role\": \"user\",\n        \"content\": \"Research Acme Corp and draft a brief.\",\n        \"created_at\": \"2026-05-15T14:32:00Z\",\n        \"creator_id\": \"user_2b9d71f0\",\n        \"parts\": null\n      }\n    ],\n    \"created_at\": \"2026-05-15T14:32:00Z\",\n    \"state\": \"processing\",\n    \"agent_name\": \"Sales research agent\",\n    \"agent_team_id\": \"team_4f8c92ab\",\n    \"agent_creator_user_id\": \"user_2b9d71f0\",\n    \"agent_icon_url\": null,\n    \"agent_tools\": [],\n    \"participants\": {\n      \"user_2b9d71f0\": {\n        \"first_name\": \"Ada\",\n        \"last_name\": \"Lovelace\"\n      }\n    },\n    \"creator\": {\n      \"id\": \"user_2b9d71f0\",\n      \"first_name\": \"Ada\",\n      \"last_name\": \"Lovelace\",\n      \"email\": \"ada@example.com\",\n      \"profile_picture\": null\n    }\n  },\n  \"queue_position\": null\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b238cbaa-7227-4ddc-916d-d1a71b91d3c6",
-              "name": "Bad request — invalid body, or `stream: true` was set on this host (use the streaming host).",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent to start a session on."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Research Acme Corp and draft a brief.\",\n  \"session_id\": \"sess_xYz789AbCd\",\n  \"metadata\": \"<object>\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "6c171167-3841-4f39-9864-de8309b4d7c1",
-              "name": "Unauthorized — missing or invalid API key.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent to start a session on."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Research Acme Corp and draft a brief.\",\n  \"session_id\": \"sess_xYz789AbCd\",\n  \"metadata\": \"<object>\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "c36bd576-c945-4c5f-b330-32fa3f77a451",
-              "name": "Forbidden — the caller does not have read access on the agent.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent to start a session on."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Research Acme Corp and draft a brief.\",\n  \"session_id\": \"sess_xYz789AbCd\",\n  \"metadata\": \"<object>\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "374271d2-c440-46f4-86d4-dcd03fab6273",
-              "name": "Agent not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent to start a session on."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Research Acme Corp and draft a brief.\",\n  \"session_id\": \"sess_xYz789AbCd\",\n  \"metadata\": \"<object>\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "6366552c-69a1-44ee-a516-d2db14284335",
-              "name": "Conflict — a session with the supplied `session_id` already exists.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent to start a session on."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Research Acme Corp and draft a brief.\",\n  \"session_id\": \"sess_xYz789AbCd\",\n  \"metadata\": \"<object>\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "fef9fa1a-90c5-429c-bffe-93d0851abd6e",
-              "name": "Rate limited — the agent's concurrency limit was exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent to start a session on."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Research Acme Corp and draft a brief.\",\n  \"session_id\": \"sess_xYz789AbCd\",\n  \"metadata\": \"<object>\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "f73d610b-2670-477f-8a70-49f76ff495e5",
-              "name": "Internal server error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "agents",
-                    ":agent_id",
-                    "sessions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "agent_id",
-                      "description": "(Required) ID of the agent to start a session on."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Research Acme Corp and draft a brief.\",\n  \"session_id\": \"sess_xYz789AbCd\",\n  \"metadata\": \"<object>\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "86b2b6cb-6d99-4ee6-8d89-e9e9786a6a48",
-          "name": "Retrieve session",
-          "request": {
-            "name": "Retrieve session",
-            "description": {
-              "content": "Retrieve a session by ID, including its messages, current state, agent metadata, and participants.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "sessions",
-                ":session_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "session_id",
-                  "description": "(Required) ID of the session to retrieve."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "3f1e6523-1147-4131-bc3a-b34ca8863246",
-              "name": "The session.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"session\": {\n    \"id\": \"sess_xYz789AbCd\",\n    \"agent_id\": \"abc123DEFghiJKL\",\n    \"messages\": [\n      {\n        \"id\": \"msg_a1b2c3\",\n        \"role\": \"user\",\n        \"content\": \"Research Acme Corp and draft a brief.\",\n        \"created_at\": \"2026-05-15T14:32:00Z\",\n        \"creator_id\": \"user_2b9d71f0\",\n        \"parts\": null\n      },\n      {\n        \"id\": \"msg_d4e5f6\",\n        \"role\": \"assistant\",\n        \"content\": \"Here is what I found about Acme Corp...\",\n        \"created_at\": \"2026-05-15T14:32:09Z\",\n        \"creator_id\": null,\n        \"parts\": null\n      }\n    ],\n    \"created_at\": \"2026-05-15T14:32:00Z\",\n    \"state\": \"completed\",\n    \"agent_name\": \"Sales research agent\",\n    \"agent_team_id\": \"team_4f8c92ab\",\n    \"agent_creator_user_id\": \"user_2b9d71f0\",\n    \"agent_icon_url\": null,\n    \"agent_tools\": [],\n    \"participants\": {\n      \"user_2b9d71f0\": {\n        \"first_name\": \"Ada\",\n        \"last_name\": \"Lovelace\"\n      }\n    },\n    \"creator\": {\n      \"id\": \"user_2b9d71f0\",\n      \"first_name\": \"Ada\",\n      \"last_name\": \"Lovelace\",\n      \"email\": \"ada@example.com\",\n      \"profile_picture\": null\n    }\n  },\n  \"queue_position\": null\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b2bdaacb-ad60-4a8a-a5f5-34dbdf7db2a3",
-              "name": "Unauthorized — missing or invalid API key.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "5d69951a-cda9-4777-befb-d10fbdc36d8f",
-              "name": "Forbidden — the caller does not have read access on the session.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "6200e69b-877c-46a4-999c-203efb904ce8",
-              "name": "Session not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "d86919d9-0592-48da-a582-e2e4f8ec1094",
-              "name": "Internal server error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to retrieve."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "5cc7f992-083f-450b-822c-9262335517f3",
-          "name": "Send message",
-          "request": {
-            "name": "Send message",
-            "description": {
-              "content": "Append a user message to an existing session and resume the agent. The session must be in a terminal state (`idle`, `completed`, or `failed`); sending to a session that is `processing` or `queued` returns `409 interaction_not_in_terminal_state`.\n\n### Streaming the response\n\n`api.gumloop.com` only serves the non-streaming response above. To stream agent output as it's produced, send the same request body (with `stream: true`) to the streaming host instead:\n\n```\nPOST https://ws.gumloop.com/api/v1/sessions/{session_id}/messages\n```\n\nThe response is `text/event-stream` (Server-Sent Events). With the Python SDK, `client.sessions.stream_message(session_id, input=\"...\")` routes to `ws.gumloop.com` automatically and yields parsed `StreamEvent` objects.\n\nIf you send `stream: true` to `api.gumloop.com` by mistake, the response is a `400` whose body contains the correct streaming host so you can retry against it.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "sessions",
-                ":session_id",
-                "messages"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "session_id",
-                  "description": "(Required) ID of the session to continue."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"input\": \"<string>\",\n  \"stream\": false\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "34b68b29-53c9-4fd5-ad39-ece0b471c27e",
-              "name": "Message was enqueued. `queue_position` is set only when the session was queued behind concurrent runs.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to continue."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Now write a follow-up email.\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Accepted",
-              "code": 202,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"session\": {\n    \"id\": \"sess_xYz789AbCd\",\n    \"agent_id\": \"abc123DEFghiJKL\",\n    \"messages\": [\n      {\n        \"id\": \"msg_a1b2c3\",\n        \"role\": \"user\",\n        \"content\": \"Research Acme Corp and draft a brief.\",\n        \"created_at\": \"2026-05-15T14:32:00Z\",\n        \"creator_id\": \"user_2b9d71f0\",\n        \"parts\": null\n      },\n      {\n        \"id\": \"msg_d4e5f6\",\n        \"role\": \"assistant\",\n        \"content\": \"Here is what I found about Acme Corp...\",\n        \"created_at\": \"2026-05-15T14:32:09Z\",\n        \"creator_id\": null,\n        \"parts\": null\n      },\n      {\n        \"id\": \"msg_g7h8i9\",\n        \"role\": \"user\",\n        \"content\": \"Now write a follow-up email.\",\n        \"created_at\": \"2026-05-15T14:35:00Z\",\n        \"creator_id\": \"user_2b9d71f0\",\n        \"parts\": null\n      }\n    ],\n    \"created_at\": \"2026-05-15T14:32:00Z\",\n    \"state\": \"processing\",\n    \"agent_name\": \"Sales research agent\",\n    \"agent_team_id\": \"team_4f8c92ab\",\n    \"agent_creator_user_id\": \"user_2b9d71f0\",\n    \"agent_icon_url\": null,\n    \"agent_tools\": [],\n    \"participants\": {\n      \"user_2b9d71f0\": {\n        \"first_name\": \"Ada\",\n        \"last_name\": \"Lovelace\"\n      }\n    },\n    \"creator\": {\n      \"id\": \"user_2b9d71f0\",\n      \"first_name\": \"Ada\",\n      \"last_name\": \"Lovelace\",\n      \"email\": \"ada@example.com\",\n      \"profile_picture\": null\n    }\n  },\n  \"queue_position\": null\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "28a58898-ec37-4de0-9273-9514696abc08",
-              "name": "Bad request — missing `input`, or `stream: true` was set on this host (use the streaming host).",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to continue."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Now write a follow-up email.\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "580ea797-b41a-4c6a-af6d-3dbaa956b5b6",
-              "name": "Unauthorized — missing or invalid API key.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to continue."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Now write a follow-up email.\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "4a3b94fd-7d51-4d91-b013-5072a692b60b",
-              "name": "Forbidden — the caller does not have update access on the session.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to continue."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Now write a follow-up email.\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "bab45551-20f4-4509-a7dd-4a63f52438ef",
-              "name": "Session not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to continue."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Now write a follow-up email.\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "aa4f672c-d845-43e2-b852-0ea600cf6d20",
-              "name": "Conflict — the session is not in a terminal state (`interaction_not_in_terminal_state`).",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to continue."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Now write a follow-up email.\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "27603d22-dc3a-4051-9042-369fa9767f75",
-              "name": "Rate limited — the agent's concurrency limit was exceeded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to continue."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Now write a follow-up email.\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a88b7d6a-03d4-4cef-9768-4e66edd83ce9",
-              "name": "Internal server error.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to continue."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Now write a follow-up email.\",\n  \"stream\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "2fe7ba19-234f-4ce7-a425-273e53e4d6e4",
-          "name": "Cancel session",
-          "request": {
-            "name": "Cancel session",
-            "description": {
-              "content": "Cancel an in-progress session. If the session is currently `processing` or `queued`, any running stream is aborted and the session is transitioned to `failed`. If the session is already `completed` or `failed`, its current state is returned unchanged.\n\nThe response carries a `session` envelope but only `id`, `agent_id`, and `state` are populated.\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "sessions",
-                ":session_id",
-                "cancel"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "session_id",
-                  "description": "(Required) ID of the session to cancel."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "a721141e-460b-4df5-845f-34a35bb85cec",
-              "name": "Session state after the cancel attempt. Only `id`, `agent_id`, and `state` are populated on the session envelope.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id",
-                    "cancel"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to cancel."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"session\": {\n    \"id\": \"sess_xYz789AbCd\",\n    \"agent_id\": \"abc123DEFghiJKL\",\n    \"messages\": [],\n    \"created_at\": null,\n    \"state\": \"failed\",\n    \"agent_name\": null,\n    \"agent_team_id\": null,\n    \"agent_creator_user_id\": null,\n    \"agent_icon_url\": null,\n    \"agent_tools\": [],\n    \"participants\": {},\n    \"creator\": null\n  },\n  \"queue_position\": null\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "636b09de-602a-4003-ad33-ea6d1ce81829",
-              "name": "Unauthorized — missing or invalid API key.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id",
-                    "cancel"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to cancel."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "44823601-5460-4292-a29f-7ba3df04410d",
-              "name": "Forbidden — the caller does not have update access on the session.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id",
-                    "cancel"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to cancel."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "017b2841-bf9e-48a9-8c65-bc3ad7fe5367",
-              "name": "Session not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id",
-                    "cancel"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to cancel."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "52bbd590-d96c-47c5-8576-d5f9a5a552c3",
-              "name": "Internal server error — the abort could not be persisted (`failed_to_abort`).",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sessions",
-                    ":session_id",
-                    "cancel"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "session_id",
-                      "description": "(Required) ID of the session to cancel."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "0973e834-e79c-403a-ae8e-d9de895ae495",
+          "createdAt": "2026-10-22T01:09:48.000Z",
+          "updatedAt": "2026-10-22T01:09:48.000Z",
+          "uid": "35240-0973e834-e79c-403a-ae8e-d9de895ae495"
         }
       ],
-      "event": []
+      "id": "b26f56f1-7c6b-4d7e-8690-41345fb23c94",
+      "createdAt": "2026-10-22T01:09:48.000Z",
+      "updatedAt": "2026-10-22T01:09:48.000Z",
+      "uid": "35240-b26f56f1-7c6b-4d7e-8690-41345fb23c94"
+    },
+    {
+      "name": "sessions",
+      "item": [
+        {
+          "name": "{session_id}",
+          "item": [
+            {
+              "name": "messages",
+              "item": [
+                {
+                  "name": "Send message",
+                  "id": "fed244f4-35c8-48eb-8b54-14ea292586ca",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"input\": \"<string>\",\n  \"stream\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sessions/:session_id/messages",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sessions",
+                        ":session_id",
+                        "messages"
+                      ],
+                      "variable": [
+                        {
+                          "id": "9cfbaee9-5661-44d1-9bd8-65f795668b3f",
+                          "key": "session_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the session to continue."
+                        }
+                      ]
+                    },
+                    "description": "Append a user message to an existing session and resume the agent. The session must be in a terminal state (`idle`, `completed`, or `failed`); sending to a session that is `processing` or `queued` returns `409 interaction_not_in_terminal_state`.\n\n### Streaming the response\n\n`api.gumloop.com` only serves the non-streaming response above. To stream agent output as it's produced, send the same request body (with `stream: true`) to the streaming host instead:\n\n```\nPOST https://ws.gumloop.com/api/v1/sessions/{session_id}/messages\n```\n\nThe response is `text/event-stream` (Server-Sent Events). With the Python SDK, `client.sessions.stream_message(session_id, input=\"...\")` routes to `ws.gumloop.com` automatically and yields parsed `StreamEvent` objects.\n\nIf you send `stream: true` to `api.gumloop.com` by mistake, the response is a `400` whose body contains the correct streaming host so you can retry against it."
+                  },
+                  "response": [
+                    {
+                      "id": "7cd4b423-318a-4e6d-be56-169c79c9d21b",
+                      "name": "Message was enqueued. `queue_position` is set only when the session was queued behind concurrent runs.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sessions/:session_id/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sessions",
+                            ":session_id",
+                            "messages"
+                          ],
+                          "variable": [
+                            {
+                              "key": "session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"session\": {\n    \"id\": \"<string>\",\n    \"agent_id\": \"<string>\",\n    \"messages\": [\n      {\n        \"id\": \"<string,null>\",\n        \"role\": \"<string,null>\",\n        \"content\": \"<string,null>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"creator_id\": \"<string,null>\",\n        \"parts\": \"<array,null>\"\n      },\n      {\n        \"id\": \"<string,null>\",\n        \"role\": \"<string,null>\",\n        \"content\": \"<string,null>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"creator_id\": \"<string,null>\",\n        \"parts\": \"<array,null>\"\n      }\n    ],\n    \"created_at\": \"<string,null-date-time>\",\n    \"state\": \"queued\",\n    \"agent_name\": \"<string,null>\",\n    \"agent_team_id\": \"<string,null>\",\n    \"agent_creator_user_id\": \"<string,null>\",\n    \"agent_icon_url\": \"<string,null>\",\n    \"participants\": {},\n    \"creator\": null\n  },\n  \"queue_position\": \"<integer,null>\"\n}",
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-7cd4b423-318a-4e6d-be56-169c79c9d21b"
+                    },
+                    {
+                      "id": "d39c480e-8d98-4142-b7a6-107ba8483a7a",
+                      "name": "Bad request \u2014 missing `input`, or `stream: true` was set on this host (use the streaming host).",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sessions/:session_id/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sessions",
+                            ":session_id",
+                            "messages"
+                          ],
+                          "variable": [
+                            {
+                              "key": "session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-d39c480e-8d98-4142-b7a6-107ba8483a7a"
+                    },
+                    {
+                      "id": "22bc9435-323b-42e4-932c-dee8452883a1",
+                      "name": "Unauthorized \u2014 missing or invalid API key.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sessions/:session_id/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sessions",
+                            ":session_id",
+                            "messages"
+                          ],
+                          "variable": [
+                            {
+                              "key": "session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-22bc9435-323b-42e4-932c-dee8452883a1"
+                    },
+                    {
+                      "id": "b59e702f-fee1-4e29-8dd3-3eb3bf7ec35e",
+                      "name": "Forbidden \u2014 the caller does not have update access on the session.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sessions/:session_id/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sessions",
+                            ":session_id",
+                            "messages"
+                          ],
+                          "variable": [
+                            {
+                              "key": "session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-b59e702f-fee1-4e29-8dd3-3eb3bf7ec35e"
+                    },
+                    {
+                      "id": "05f8c794-8e41-4a46-a7ed-6ddc2ea579f6",
+                      "name": "Session not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sessions/:session_id/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sessions",
+                            ":session_id",
+                            "messages"
+                          ],
+                          "variable": [
+                            {
+                              "key": "session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-05f8c794-8e41-4a46-a7ed-6ddc2ea579f6"
+                    },
+                    {
+                      "id": "d8da173e-d859-4eb8-b466-e366c83b4743",
+                      "name": "Conflict \u2014 the session is not in a terminal state (`interaction_not_in_terminal_state`).",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sessions/:session_id/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sessions",
+                            ":session_id",
+                            "messages"
+                          ],
+                          "variable": [
+                            {
+                              "key": "session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-d8da173e-d859-4eb8-b466-e366c83b4743"
+                    },
+                    {
+                      "id": "ee13b4f9-afe9-4857-ba69-51c3c271f49a",
+                      "name": "Rate limited \u2014 the agent's concurrency limit was exceeded.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sessions/:session_id/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sessions",
+                            ":session_id",
+                            "messages"
+                          ],
+                          "variable": [
+                            {
+                              "key": "session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-ee13b4f9-afe9-4857-ba69-51c3c271f49a"
+                    },
+                    {
+                      "id": "214ff5d0-2983-4194-8bba-4a3a642f1e21",
+                      "name": "Internal server error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"stream\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sessions/:session_id/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sessions",
+                            ":session_id",
+                            "messages"
+                          ],
+                          "variable": [
+                            {
+                              "key": "session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-214ff5d0-2983-4194-8bba-4a3a642f1e21"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:09:49.000Z",
+                  "updatedAt": "2026-10-22T01:09:49.000Z",
+                  "uid": "35240-fed244f4-35c8-48eb-8b54-14ea292586ca"
+                }
+              ],
+              "id": "a0206359-531c-4105-ac1b-ffce5d79324e",
+              "createdAt": "2026-10-22T01:09:48.000Z",
+              "updatedAt": "2026-10-22T01:09:48.000Z",
+              "uid": "35240-a0206359-531c-4105-ac1b-ffce5d79324e"
+            },
+            {
+              "name": "cancel",
+              "item": [
+                {
+                  "name": "Cancel session",
+                  "id": "93c8c83a-e721-4d77-8283-9ca1e539b7fa",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sessions/:session_id/cancel",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sessions",
+                        ":session_id",
+                        "cancel"
+                      ],
+                      "variable": [
+                        {
+                          "id": "55cbf2b0-af75-4afe-9bde-17c52dc30e23",
+                          "key": "session_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the session to cancel."
+                        }
+                      ]
+                    },
+                    "description": "Cancel an in-progress session. If the session is currently `processing` or `queued`, any running stream is aborted and the session is transitioned to `failed`. If the session is already `completed` or `failed`, its current state is returned unchanged.\n\nThe response carries a `session` envelope but only `id`, `agent_id`, and `state` are populated."
+                  },
+                  "response": [
+                    {
+                      "id": "27293470-fe34-4ea5-8b78-fd83e845cb37",
+                      "name": "Session state after the cancel attempt. Only `id`, `agent_id`, and `state` are populated on the session envelope.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sessions/:session_id/cancel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sessions",
+                            ":session_id",
+                            "cancel"
+                          ],
+                          "variable": [
+                            {
+                              "key": "session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"session\": {\n    \"id\": \"<string>\",\n    \"agent_id\": \"<string>\",\n    \"created_at\": \"<string,null-date-time>\",\n    \"state\": \"failed\",\n    \"agent_name\": \"<string,null>\",\n    \"agent_team_id\": \"<string,null>\",\n    \"agent_creator_user_id\": \"<string,null>\",\n    \"agent_icon_url\": \"<string,null>\",\n    \"participants\": {},\n    \"creator\": null\n  },\n  \"queue_position\": \"<integer,null>\"\n}",
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-27293470-fe34-4ea5-8b78-fd83e845cb37"
+                    },
+                    {
+                      "id": "b1d7bdc8-3a84-4381-bc30-48e93664101a",
+                      "name": "Unauthorized \u2014 missing or invalid API key.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sessions/:session_id/cancel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sessions",
+                            ":session_id",
+                            "cancel"
+                          ],
+                          "variable": [
+                            {
+                              "key": "session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-b1d7bdc8-3a84-4381-bc30-48e93664101a"
+                    },
+                    {
+                      "id": "d5f4fbce-684a-4874-a6fd-7d320afe2f12",
+                      "name": "Forbidden \u2014 the caller does not have update access on the session.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sessions/:session_id/cancel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sessions",
+                            ":session_id",
+                            "cancel"
+                          ],
+                          "variable": [
+                            {
+                              "key": "session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-d5f4fbce-684a-4874-a6fd-7d320afe2f12"
+                    },
+                    {
+                      "id": "1cb6a0fa-7ece-4d99-9956-486daf9cd475",
+                      "name": "Session not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sessions/:session_id/cancel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sessions",
+                            ":session_id",
+                            "cancel"
+                          ],
+                          "variable": [
+                            {
+                              "key": "session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-1cb6a0fa-7ece-4d99-9956-486daf9cd475"
+                    },
+                    {
+                      "id": "faab0dd0-77e7-41a9-b507-620dd41391a3",
+                      "name": "Internal server error \u2014 the abort could not be persisted (`failed_to_abort`).",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sessions/:session_id/cancel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sessions",
+                            ":session_id",
+                            "cancel"
+                          ],
+                          "variable": [
+                            {
+                              "key": "session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:09:49.000Z",
+                      "updatedAt": "2026-10-22T01:09:49.000Z",
+                      "uid": "35240-faab0dd0-77e7-41a9-b507-620dd41391a3"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:09:49.000Z",
+                  "updatedAt": "2026-10-22T01:09:49.000Z",
+                  "uid": "35240-93c8c83a-e721-4d77-8283-9ca1e539b7fa"
+                }
+              ],
+              "id": "65864d12-32ce-4776-9651-1fe005dc7fc0",
+              "createdAt": "2026-10-22T01:09:48.000Z",
+              "updatedAt": "2026-10-22T01:09:48.000Z",
+              "uid": "35240-65864d12-32ce-4776-9651-1fe005dc7fc0"
+            },
+            {
+              "name": "Retrieve session",
+              "id": "74ae086b-6c62-437b-be16-70e094b66561",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sessions/:session_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sessions",
+                    ":session_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "d72117d0-a759-47ee-89ad-8b971f734a5d",
+                      "key": "session_id",
+                      "value": "<string>",
+                      "description": "(Required) ID of the session to retrieve."
+                    }
+                  ]
+                },
+                "description": "Retrieve a session by ID, including its messages, current state, agent metadata, and participants."
+              },
+              "response": [
+                {
+                  "id": "1e7d9e0d-6a5b-4c37-869a-62b573f905a3",
+                  "name": "The session.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sessions/:session_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sessions",
+                        ":session_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "session_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"session\": {\n    \"id\": \"<string>\",\n    \"agent_id\": \"<string>\",\n    \"messages\": [\n      {\n        \"id\": \"<string,null>\",\n        \"role\": \"<string,null>\",\n        \"content\": \"<string,null>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"creator_id\": \"<string,null>\",\n        \"parts\": \"<array,null>\"\n      },\n      {\n        \"id\": \"<string,null>\",\n        \"role\": \"<string,null>\",\n        \"content\": \"<string,null>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"creator_id\": \"<string,null>\",\n        \"parts\": \"<array,null>\"\n      }\n    ],\n    \"created_at\": \"<string,null-date-time>\",\n    \"state\": \"queued\",\n    \"agent_name\": \"<string,null>\",\n    \"agent_team_id\": \"<string,null>\",\n    \"agent_creator_user_id\": \"<string,null>\",\n    \"agent_icon_url\": \"<string,null>\",\n    \"participants\": {},\n    \"creator\": null\n  },\n  \"queue_position\": \"<integer,null>\"\n}",
+                  "createdAt": "2026-10-22T01:09:49.000Z",
+                  "updatedAt": "2026-10-22T01:09:49.000Z",
+                  "uid": "35240-1e7d9e0d-6a5b-4c37-869a-62b573f905a3"
+                },
+                {
+                  "id": "54f83a99-6a54-4737-8d01-ee4adc5055c8",
+                  "name": "Unauthorized \u2014 missing or invalid API key.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sessions/:session_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sessions",
+                        ":session_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "session_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:09:49.000Z",
+                  "updatedAt": "2026-10-22T01:09:49.000Z",
+                  "uid": "35240-54f83a99-6a54-4737-8d01-ee4adc5055c8"
+                },
+                {
+                  "id": "9f8003e0-8768-4861-95cd-8898375e6643",
+                  "name": "Forbidden \u2014 the caller does not have read access on the session.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sessions/:session_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sessions",
+                        ":session_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "session_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:09:49.000Z",
+                  "updatedAt": "2026-10-22T01:09:49.000Z",
+                  "uid": "35240-9f8003e0-8768-4861-95cd-8898375e6643"
+                },
+                {
+                  "id": "b919f35c-6b57-489e-9d40-5c30dfc90656",
+                  "name": "Session not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sessions/:session_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sessions",
+                        ":session_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "session_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:09:49.000Z",
+                  "updatedAt": "2026-10-22T01:09:49.000Z",
+                  "uid": "35240-b919f35c-6b57-489e-9d40-5c30dfc90656"
+                },
+                {
+                  "id": "4e9f384d-6db4-45d6-8a11-ef1f8eb58d9d",
+                  "name": "Internal server error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sessions/:session_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sessions",
+                        ":session_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "session_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:09:49.000Z",
+                  "updatedAt": "2026-10-22T01:09:49.000Z",
+                  "uid": "35240-4e9f384d-6db4-45d6-8a11-ef1f8eb58d9d"
+                }
+              ],
+              "createdAt": "2026-10-22T01:09:49.000Z",
+              "updatedAt": "2026-10-22T01:09:49.000Z",
+              "uid": "35240-74ae086b-6c62-437b-be16-70e094b66561"
+            }
+          ],
+          "id": "d61fbff1-c133-45de-b86c-196f4095e966",
+          "createdAt": "2026-10-22T01:09:48.000Z",
+          "updatedAt": "2026-10-22T01:09:48.000Z",
+          "uid": "35240-d61fbff1-c133-45de-b86c-196f4095e966"
+        }
+      ],
+      "id": "3fa3d49e-9a59-44cd-a548-dda9cacd1acb",
+      "createdAt": "2026-10-22T01:09:48.000Z",
+      "updatedAt": "2026-10-22T01:09:48.000Z",
+      "uid": "35240-3fa3d49e-9a59-44cd-a548-dda9cacd1acb"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.gumloop.com/api/v1",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.gumloop.com/api/v1"
     }
-  ],
-  "info": {
-    "_postman_id": "f996d99e-7a17-490d-8a24-aa613355c727",
-    "name": "Public Agents Sessions API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "",
-      "type": "text/plain"
-    }
-  }
+  ]
 }
