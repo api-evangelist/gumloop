@@ -64,6 +64,165 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Gumloop is a company surfaced as a portfolio company of benchmark and added to the API Evangelist network as a stub for enrichment. Sector: artificial-intelligence. This profile is a lead awaiting the enrichment pipeline.
+Gumloop is an AI-agent automation platform for building, deploying, and governing agents that automate real work — data analysis, customer support, CRM management, and back-office tasks — across tools like Slack, Microsoft Teams, and Gmail. Its public REST API (https://api.gumloop.com/api/v1) exposes 49 operations spanning flow execution, agents and sessions, an OpenAI-compatible chat/completions endpoint, Company Brain search, agent skills, artifacts, MCP server management, evaluations, file handling, teams, and organization administration. Gumloop ships first-party Python and JavaScript SDKs, a `gumloop` CLI, a hosted MCP server for Claude/Cursor/ VS Code, OAuth 2.0 with PKCE, webhook/schedule/event triggers, and enterprise controls (SSO/SAML/SCIM, audit logging, app policies).
 
-Source: portfolio company of [benchmark](https://github.com/api-evangelist/benchmark) — https://www.gumloop.com
+**Areas:** Company · Artificial Intelligence · AI Agents · Automation · Workflow Automation · Agent Platform · MCP · LLM · No-Code · Developer Tools
+
+## Gumloop on APIs.io
+
+Everything profiled for Gumloop is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/gumloop/](https://apis.io/providers/gumloop/)** — or go straight to one of the APIs or properties below.
+
+### APIs (14)
+
+- [Gumloop Agents API](https://apis.io/apis/gumloop/gumloop-agents-api/) — The Agents API from Gumloop — 5 operation(s) for agents.
+- [Gumloop Artifacts API](https://apis.io/apis/gumloop/gumloop-artifacts-api/) — The Artifacts API from Gumloop — 2 operation(s) for artifacts.
+- [Gumloop Brain API](https://apis.io/apis/gumloop/gumloop-brain-api/) — The Brain API from Gumloop — 1 operation(s) for brain.
+- [Gumloop Chat completions API](https://apis.io/apis/gumloop/gumloop-chat-completions-api/) — The Chat completions API from Gumloop — 1 operation(s) for chat completions.
+- [Gumloop Data Access API](https://apis.io/apis/gumloop/gumloop-data-access-api/) — The Data Access API from Gumloop — 5 operation(s) for data access.
+- [Gumloop Evaluations API](https://apis.io/apis/gumloop/gumloop-evaluations-api/) — The Evaluations API from Gumloop — 4 operation(s) for evaluations.
+- [Gumloop Execution API](https://apis.io/apis/gumloop/gumloop-execution-api/) — The Execution API from Gumloop — 2 operation(s) for execution.
+- [Gumloop File Handling API](https://apis.io/apis/gumloop/gumloop-file-handling-api/) — The File Handling API from Gumloop — 4 operation(s) for file handling.
+- [Gumloop MCP API](https://apis.io/apis/gumloop/gumloop-mcp-api/) — The MCP API from Gumloop — 4 operation(s) for mcp.
+- [Gumloop Models API](https://apis.io/apis/gumloop/gumloop-models-api/) — The Models API from Gumloop — 1 operation(s) for models.
+- [Gumloop Organization API](https://apis.io/apis/gumloop/gumloop-organization-api/) — The Organization API from Gumloop — 5 operation(s) for organization.
+- [Gumloop Sessions API](https://apis.io/apis/gumloop/gumloop-sessions-api/) — The Sessions API from Gumloop — 4 operation(s) for sessions.
+- [Gumloop Skills API](https://apis.io/apis/gumloop/gumloop-skills-api/) — The Skills API from Gumloop — 3 operation(s) for skills.
+- [Gumloop Teams API](https://apis.io/apis/gumloop/gumloop-teams-api/) — The Teams API from Gumloop — 1 operation(s) for teams.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Gumloop Webhooks](https://apis.io/asyncapis/gumloop/gumloop-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [gumloop](https://apis.io/servers/gumloop/gumloop/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Gumloop Agentic Access](https://apis.io/agentic-access/gumloop/gumloop-agentic-access/)
+
+#### Collections (14)
+
+Postman and Open Collection request collections.
+
+- [Public Agents API](https://apis.io/collections/gumloop/open-gumloop-agents-api/)
+- [Public Agents Artifacts API](https://apis.io/collections/gumloop/open-gumloop-artifacts-api/)
+- [Public Agents Brain API](https://apis.io/collections/gumloop/open-gumloop-brain-api/)
+- [Public Agents Chat completions API](https://apis.io/collections/gumloop/open-gumloop-chat-completions-api/)
+- [Public Agents Data Access API](https://apis.io/collections/gumloop/open-gumloop-data-access-api/)
+- [Public Agents Evaluations API](https://apis.io/collections/gumloop/open-gumloop-evaluations-api/)
+- [Public Agents Execution API](https://apis.io/collections/gumloop/open-gumloop-execution-api/)
+- [Public Agents File Handling API](https://apis.io/collections/gumloop/open-gumloop-file-handling-api/)
+- [Public Agents MCP API](https://apis.io/collections/gumloop/open-gumloop-mcp-api/)
+- [Public Agents Models API](https://apis.io/collections/gumloop/open-gumloop-models-api/)
+- [Public Agents Organization API](https://apis.io/collections/gumloop/open-gumloop-organization-api/)
+- [Public Agents Sessions API](https://apis.io/collections/gumloop/open-gumloop-sessions-api/)
+- [Public Agents Skills API](https://apis.io/collections/gumloop/open-gumloop-skills-api/)
+- [Public Agents Teams API](https://apis.io/collections/gumloop/open-gumloop-teams-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Gumloop Openapi Overlay](https://apis.io/overlays/gumloop/gumloop-openapi-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Gumloop Authentication](https://apis.io/security/gumloop/gumloop-authentication/)
+- [Gumloop Domain Security](https://apis.io/security/gumloop/gumloop-domain-security/)
+- [Gumloop Trust Center](https://apis.io/security/gumloop/gumloop-trust-center/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Gumloop Scopes](https://apis.io/scopes/gumloop/gumloop-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Gumloop Plans Pricing](https://apis.io/plans/gumloop/gumloop-plans-pricing/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.gumloop.com)
+- [Documentation](https://docs.gumloop.com/getting-started/introduction)
+- [Getting started](https://docs.gumloop.com/api-reference/getting-started)
+- [API reference](https://docs.gumloop.com/api-reference/getting-started)
+- [Pricing](https://gumloop.com/pricing)
+- [Sign up](https://www.gumloop.com)
+- [Blog](https://gumloop.com/blog)
+- [Trust centre](https://trust.gumloop.com)
+- [Terms of service](https://gumloop.com/tos)
+- [Privacy policy](https://gumloop.com/privacy-policy)
+- [Status](https://status.gumloop.com)
+
+## API Evangelist rating
+
+**Kin Score 62.1** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 57.2 |
+| Contract governance | 4.5 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 73.2 |
+| Access clarity | 65.8 |
+
+**Agent readiness 49.8** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | verified |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 31.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/gumloop/](https://apis.io/providers/gumloop/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Gumloop: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/gumloop/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
